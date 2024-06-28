@@ -1,0 +1,14 @@
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:28:59.326Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:30:12.985Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:30:21.350Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:30:45.812Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:30:48.574Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:30:49.638Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:30:54.732Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:30:58.565Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:31:06.034Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:32:02.219Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:32:12.874Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:32:18.027Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:32:24.768Z"}
+{"code":"ER_ACCESS_DENIED_ERROR","errno":1045,"level":"error","sqlMessage":"Access denied for user 'root'@'localhost' (using password: NO)","sqlState":"28000","timestamp":"2024-06-28T18:32:30.732Z"}
