@@ -9,28 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StateStorageGateway = void 0;
-const db_connection_1 = require("./../../../utils/data_base/db_connection");
-const response_messages_1 = require("../../../utils/messages/response_messages");
-class StateStorageGateway {
-    getStates(payload) {
+exports.SpecialityStorageGateway = void 0;
+const db_connection_1 = require("../../../utils/data_base/db_connection");
+class SpecialityStorageGateway {
+    getTotalSpecialities(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield (0, db_connection_1.queryDB)('SELECT * FROM states');
-                return response;
+                const response = yield (0, db_connection_1.queryDB)('SELECT COUNT(id_speciality) as total FROM specialities');
+                const { total } = response[0];
+                return total;
             }
             catch (error) {
                 throw (error);
             }
         });
     }
-    getStateById(payload) {
+    getSpecialitiesPaginated(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield (0, db_connection_1.queryDB)('SELECT * FROM states WHERE id_state = ?', [payload]);
-                if (response.length === 0) {
-                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
-                }
+                payload.filter.value = '%' + payload.filter.value + '%';
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE name like ? OR acronym like ? LIMIT ? OFFSET ? ", [payload.filter.value, payload.filter.value, payload.limit, payload.offset]);
                 return response;
             }
             catch (error) {
@@ -39,4 +37,4 @@ class StateStorageGateway {
         });
     }
 }
-exports.StateStorageGateway = StateStorageGateway;
+exports.SpecialityStorageGateway = SpecialityStorageGateway;

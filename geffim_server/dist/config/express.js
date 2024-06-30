@@ -12,6 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const state_controller_1 = __importDefault(require("../modules/states/adapters/state.controller"));
+const municipality_controller_1 = __importDefault(require("../modules/municipalities/adapters/municipality.controller"));
+const speciality_controller_1 = __importDefault(require("../modules/specialities/controller/speciality.controller"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
@@ -21,4 +24,7 @@ app.use(express_1.default.json());
 app.get('/', (__, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send('Hello World');
 }));
+app.use('/api-gefiim/state', state_controller_1.default);
+app.use('/api-gefiim/municipality', municipality_controller_1.default);
+app.use('/api-gefiim/speciality', speciality_controller_1.default);
 exports.default = app;

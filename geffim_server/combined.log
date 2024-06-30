@@ -145,3 +145,68 @@
 {"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-28T20:01:19.587Z"}
 {"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-28T20:01:47.454Z"}
 {"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-28T20:01:48.836Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T04:49:35.163Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:47:53.885Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:48:03.637Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:50:45.375Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:51:12.211Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:51:16.130Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:52:01.683Z"}
+{"code":"ER_BAD_FIELD_ERROR","errno":1054,"level":"error","sql":"SELECT * FROM states WHERE id = 1","sqlMessage":"Unknown column 'id' in 'where clause'","sqlState":"42S22","timestamp":"2024-06-29T23:53:02.129Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:54:24.486Z"}
+{"code":"ER_BAD_FIELD_ERROR","errno":1054,"level":"error","sql":"SELECT * FROM states WHERE id = 1","sqlMessage":"Unknown column 'id' in 'where clause'","sqlState":"42S22","timestamp":"2024-06-29T23:54:27.367Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-29T23:55:09.727Z"}
+{"level":"error","timestamp":"2024-06-29T23:56:18.483Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T00:08:18.866Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T00:08:40.893Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T00:30:34.781Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T00:34:58.132Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T00:40:05.796Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T00:40:27.896Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:27:38.425Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:30:27.171Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:33:54.925Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:36:05.500Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:36:35.313Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:37:16.304Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:37:56.312Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T01:51:35.245Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:01:15.659Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:01:56.694Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:04:14.676Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:04:30.169Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:06:20.060Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:06:37.355Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:50:19.642Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:50:44.048Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:50:50.881Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:53:39.156Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:54:39.282Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:54:44.162Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT COUNT(*.id_speciality) FROM specialities","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.id_speciality) FROM specialities' at line 1","sqlState":"42000","timestamp":"2024-06-30T02:54:49.840Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-06-30T02:54:49.841Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:55:21.736Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T02:55:37.303Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:02:13.882Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:06:05.572Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:10:01.415Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT * FROM specialities LIMIT NULL OFFSET NaN","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NULL OFFSET NaN' at line 1","sqlState":"42000","timestamp":"2024-06-30T03:12:31.879Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-06-30T03:12:31.881Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:13:09.861Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT * FROM specialities LIMIT NULL OFFSET NaN","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NULL OFFSET NaN' at line 1","sqlState":"42000","timestamp":"2024-06-30T03:13:12.246Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-06-30T03:13:12.247Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:16:26.104Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:16:52.979Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:20:44.050Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:21:57.154Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:22:39.996Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:22:48.112Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:25:32.136Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:27:16.646Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:29:04.011Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT * FROM specialities LIMIT 10 OFFSET 0 WHERE name like '%'yo estoy tranqui'%' OR acronym like '%'yo estoy tranqui'%'","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE name like '%'yo estoy tranqui'%' OR acronym like '%'yo estoy tranqui'%'' at line 1","sqlState":"42000","timestamp":"2024-06-30T03:29:07.018Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-06-30T03:29:07.019Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:30:07.669Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT * FROM specialities LIMIT 10 OFFSET 0 WHERE name like '%yo estoy tranqui%' OR acronym like '%yo estoy tranqui%'","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE name like '%yo estoy tranqui%' OR acronym like '%yo estoy tranqui%'' at line 1","sqlState":"42000","timestamp":"2024-06-30T03:30:12.600Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-06-30T03:30:12.601Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-06-30T03:31:27.039Z"}

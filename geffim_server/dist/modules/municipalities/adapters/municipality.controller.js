@@ -11,26 +11,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StateController = void 0;
-const error_handler_1 = require("./../../../config/errors/error_handler");
+exports.MunicipalityController = void 0;
 const express_1 = require("express");
-const state_storage_gateway_1 = require("./state.storage.gateway");
-const get_states_interactor_1 = require("../use_cases/get-states.interactor");
+const state_bounday_1 = require("../../../modules/states/adapters/state.bounday");
+const municipality_storage_gateway_1 = require("./municipality.storage.gateway");
+const get_municipalities_by_state_id_interactor_1 = require("../use_cases/get_municipalities_by_state_id.interactor");
 const logger_1 = __importDefault(require("../../../config/logs/logger"));
-const ger_state_by_id_interactor_1 = require("../use_cases/ger_state_by_id.interactor");
-const StateRouter = (0, express_1.Router)();
-class StateController {
+const error_handler_1 = require("../../../config/errors/error_handler");
+const MunicipalityRouter = (0, express_1.Router)();
+class MunicipalityController {
     constructor() {
-        this.getStates = (__, res) => __awaiter(this, void 0, void 0, function* () {
+        this.getMunicipalitiesByStateId = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const repository = new state_storage_gateway_1.StateStorageGateway();
-                const interactor = new get_states_interactor_1.GetStatesInteractor(repository);
-                const states = yield interactor.execute();
+                const payload = req.body;
+                yield state_bounday_1.StateBoundary.getStateById(payload.id_state);
+                const repository = new municipality_storage_gateway_1.MunicipalityStorageGateway();
+                const interactor = new get_municipalities_by_state_id_interactor_1.GetMunicipalitiesByStateId(repository);
+                const municipalities = yield interactor.execute(payload.id_state);
                 const body = {
-                    data: states,
-                    message: 'States fetched successfully',
+                    data: municipalities,
+                    message: 'Municipalities fetched successfully',
                     status: 200,
                     error: false
                 };
@@ -44,19 +45,6 @@ class StateController {
         });
     }
 }
-exports.StateController = StateController;
-_a = StateController;
-// local methods
-StateController.getStateById = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const respository = new state_storage_gateway_1.StateStorageGateway();
-        const interactor = new ger_state_by_id_interactor_1.GetStateById(respository);
-        const state = yield interactor.execute(payload);
-        return state;
-    }
-    catch (error) {
-        throw error;
-    }
-});
-StateRouter.get('/get-states', new StateController().getStates);
-exports.default = StateRouter;
+exports.MunicipalityController = MunicipalityController;
+MunicipalityRouter.post('/get-municipalities-by-state-id', new MunicipalityController().getMunicipalitiesByStateId);
+exports.default = MunicipalityRouter;

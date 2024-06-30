@@ -1,4 +1,4 @@
 export type State = {
-    id: number;
+    id_state: number;
     name: string;
 };
