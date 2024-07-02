@@ -36,5 +36,83 @@ class SpecialityStorageGateway {
             }
         });
     }
+    // para registrar y actualizar especialidades
+    getSpecialityById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE id_speciality = ?", [payload]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSpecialityByName(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE name = ?", [payload]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSpecialityByAcronym(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE acronym = ?", [payload]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    registerSpeciality(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)('INSERT INTO specialities (name, acronym) VALUES (?, ?)', [payload.name, payload.acronym]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateSpeciality(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)('UPDATE specialities SET name = ?, acronym = ? WHERE id_speciality = ?', [payload.name, payload.acronym, payload.id_speciality]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateSpecialityStatus(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)('UPDATE specialities SET status = ? WHERE id_speciality = ?', [payload.status, payload.id_speciality]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSpecialitiesActive(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE status = 1");
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
 }
 exports.SpecialityStorageGateway = SpecialityStorageGateway;

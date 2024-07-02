@@ -1,6 +1,9 @@
 import StateRouter from '../modules/states/adapters/state.controller';
 import MunicipalityRouter from '../modules/municipalities/adapters/municipality.controller';
 import SpecialityRouter from '../modules/specialities/controller/speciality.controller';
+import SalePeriodRouter from '../modules/sale_periods/controller/sale_period.controller';
+
+
 import express from 'express';
 import cors from 'cors';
 
@@ -17,6 +20,7 @@ app.get('/', async (__, res) => {
 app.use('/api-gefiim/state', StateRouter);
 app.use('/api-gefiim/municipality', MunicipalityRouter);
 app.use('/api-gefiim/speciality', SpecialityRouter);
+app.use('/api-gefiim/sale-period', SalePeriodRouter);
 
 
 

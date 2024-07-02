@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const state_controller_1 = __importDefault(require("../modules/states/adapters/state.controller"));
 const municipality_controller_1 = __importDefault(require("../modules/municipalities/adapters/municipality.controller"));
 const speciality_controller_1 = __importDefault(require("../modules/specialities/controller/speciality.controller"));
+const sale_period_controller_1 = __importDefault(require("../modules/sale_periods/controller/sale_period.controller"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
@@ -27,4 +28,5 @@ app.get('/', (__, res) => __awaiter(void 0, void 0, void 0, function* () {
 app.use('/api-gefiim/state', state_controller_1.default);
 app.use('/api-gefiim/municipality', municipality_controller_1.default);
 app.use('/api-gefiim/speciality', speciality_controller_1.default);
+app.use('/api-gefiim/sale-period', sale_period_controller_1.default);
 exports.default = app;

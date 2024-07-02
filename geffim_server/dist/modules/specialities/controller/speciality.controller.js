@@ -17,6 +17,8 @@ const express_1 = require("express");
 const logger_1 = __importDefault(require("../../../config/logs/logger"));
 const error_handler_1 = require("../../../config/errors/error_handler");
 const speciality_storage_gateway_1 = require("./speciality.storage.gateway");
+const regex_1 = require("../../../utils/regex/regex");
+const response_messages_1 = require("../../../utils/messages/response_messages");
 const SpecialityRouter = (0, express_1.Router)();
 class SpecialityController {
     constructor() {
@@ -56,8 +58,148 @@ class SpecialityController {
                 res.status(errorBody.status).json(errorBody);
             }
         });
+        this.registerSpeciality = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la peticion
+                const payload = req.body;
+                // validar el cuerpo de la peticion
+                if (!payload.name)
+                    throw new Error('El nombre de la especialidad es obligatorio');
+                if (!regex_1.text_with_spaces.test(payload.name))
+                    throw new Error('El nombre de la especialidad no es valido');
+                if (!payload.acronym)
+                    throw new Error('El acronimo de la especialidad es obligatorio');
+                if (!regex_1.text_with_spaces.test(payload.acronym))
+                    throw new Error('El acronimo de la especialidad no es valido');
+                // instanciar el gateway
+                const StorageGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
+                // verificar si la especialidad ya existe
+                const speciality = yield StorageGateway.getSpecialityByName(payload.name);
+                if (speciality.length > 0)
+                    throw new Error('El nombre de la especialidad ya existe');
+                // verificar si el acronimo ya existe
+                const specialityAcronym = yield StorageGateway.getSpecialityByAcronym(payload.acronym);
+                if (specialityAcronym.length > 0)
+                    throw new Error('El acronimo ya existe');
+                // registrar la especialidad
+                yield StorageGateway.registerSpeciality(payload);
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: true,
+                    message: 'Speciality registered successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+        this.updateSpeciality = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la peticion
+                const payload = req.body;
+                // validar el cuerpo de la peticion
+                if (!payload.name)
+                    throw new Error('El nombre de la especialidad es obligatorio');
+                if (!regex_1.text_with_spaces.test(payload.name))
+                    throw new Error('El nombre de la especialidad no es valido');
+                if (!payload.acronym)
+                    throw new Error('El acronimo de la especialidad es obligatorio');
+                if (!regex_1.text_with_spaces.test(payload.acronym))
+                    throw new Error('El acronimo de la especialidad no es valido');
+                if (!payload.id_speciality)
+                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                // instanciar el gateway
+                const StorageGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
+                // verificar si la especialidad ya existe
+                const speciality = yield StorageGateway.getSpecialityByName(payload.name);
+                if (speciality.length > 0)
+                    throw new Error('El nombre de la especialidad ya existe');
+                // verificar si el acronimo ya existe
+                const specialityAcronym = yield StorageGateway.getSpecialityByAcronym(payload.acronym);
+                if (specialityAcronym.length > 0)
+                    throw new Error('El acronimo ya existe');
+                // actualizar la especialidad
+                yield StorageGateway.updateSpeciality(payload);
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: true,
+                    message: 'Speciality updated successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+        this.changeStatusSpeciality = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la peticion
+                const payload = req.body;
+                // validar el cuerpo de la peticion
+                if (!payload.id_speciality)
+                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                // instanciar el gateway
+                const StorageGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
+                // traer la especialidad
+                const speciality = yield StorageGateway.getSpecialityById(payload.id_speciality);
+                speciality.status = !speciality.status;
+                // actualizar la especialidad
+                yield StorageGateway.updateSpecialityStatus(speciality);
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: true,
+                    message: 'Speciality status updated successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+        this.getSpecialitiesActive = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                // instanciar el gateway
+                const StorageGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
+                // obtener las especialidades activas
+                const specialities = yield StorageGateway.getSpecialitiesActive();
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: specialities,
+                    message: 'Specialities fetched successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
     }
 }
 exports.SpecialityController = SpecialityController;
 SpecialityRouter.post('/get-specialities-page', new SpecialityController().getSpecialitiesPage);
+SpecialityRouter.post('/register-speciality', new SpecialityController().registerSpeciality);
+SpecialityRouter.post('/update-speciality', new SpecialityController().updateSpeciality);
+SpecialityRouter.post('/change-status-speciality', new SpecialityController().changeStatusSpeciality);
+SpecialityRouter.get('/get-specialities-active', new SpecialityController().getSpecialitiesActive);
 exports.default = SpecialityRouter;
