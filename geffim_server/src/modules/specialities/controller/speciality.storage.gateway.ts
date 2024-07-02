@@ -25,4 +25,68 @@ export class SpecialityStorageGateway {
         }
     }
 
+    // para registrar y actualizar especialidades
+    async getSpecialityById(payload: number) {
+        try {
+            const response = await queryDB<Speciality[]>("SELECT * FROM specialities WHERE id_speciality = ?", [payload]);
+            return response[0];
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getSpecialityByName(payload: string) {
+        try {
+            const response = await queryDB<Speciality[]>("SELECT * FROM specialities WHERE name = ?", [payload]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getSpecialityByAcronym(payload: string) {
+        try {
+            const response = await queryDB<Speciality[]>("SELECT * FROM specialities WHERE acronym = ?", [payload]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async registerSpeciality(payload: Speciality) {
+        try {
+            const response = await queryDB('INSERT INTO specialities (name, acronym) VALUES (?, ?)', [payload.name, payload.acronym]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async updateSpeciality(payload: Speciality) {
+        try {
+            const response = await queryDB('UPDATE specialities SET name = ?, acronym = ? WHERE id_speciality = ?', [payload.name, payload.acronym, payload.id_speciality]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async updateSpecialityStatus(payload: { id_speciality: number, status: boolean }) {
+        try {
+            const response = await queryDB('UPDATE specialities SET status = ? WHERE id_speciality = ?', [payload.status, payload.id_speciality]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getSpecialitiesActive(payload: void) {
+        try {
+            const response = await queryDB<Speciality[]>("SELECT * FROM specialities WHERE status = 1");
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
 }
