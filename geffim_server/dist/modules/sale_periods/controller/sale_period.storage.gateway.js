@@ -38,8 +38,9 @@ class SalePeriodStorageGateway {
     // para registrar y actualizar periodos de venta
     getTotalSalePeriodsCrossing(payload) {
         return __awaiter(this, void 0, void 0, function* () {
+            const query = payload.id_period ? 'SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND id_period != ?' : 'SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ?';
             try {
-                const response = yield (0, db_connection_1.queryDB)('SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ?', [payload.end_date, payload.start_date]);
+                const response = yield (0, db_connection_1.queryDB)(query, [payload.end_date, payload.start_date, payload.id_period]);
                 const { total } = response[0];
                 return total;
             }
@@ -63,6 +64,17 @@ class SalePeriodStorageGateway {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield (0, db_connection_1.queryDB)('INSERT INTO speciality_by_period (id_period, id_speciality, tokens_allowed) VALUES (?, ?, ?)', [payload.id_period, payload.id_speciality, payload.tokens_allowed]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateSalePeriod(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)('UPDATE sale_periods SET start_date = ?, end_date = ?, status = ? WHERE id_period = ?', [payload.start_date, payload.end_date, payload.status, payload.id_period]);
                 return response;
             }
             catch (error) {

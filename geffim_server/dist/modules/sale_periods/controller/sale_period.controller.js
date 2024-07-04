@@ -66,24 +66,26 @@ class SalePeriodController {
                 // validar el cuerpo de la peticion
                 if (!payload.start_date || !payload.end_date)
                     throw new Error('La fecha de inicio y la fecha de fin son obligatorias');
+                // validar las fechas
+                const startDate = new Date(payload.start_date);
+                const endDate = new Date(payload.end_date);
+                const today = new Date();
                 // validar que la fecha de inicio sea menor a la fecha de fin
-                if (payload.start_date >= payload.end_date)
+                if (startDate >= endDate)
                     throw new Error('La fecha de inicio debe ser menor a la fecha de fin');
+                let status = 'pending';
+                if (today >= startDate && today <= endDate) {
+                    status = 'active';
+                }
+                payload.status = status;
+                // verificar si el rango de fechas ya paso
+                if (today > endDate)
+                    throw new Error('No se puede registrar un periodo de venta con una fecha de fin menor a la fecha actual');
                 const StorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
                 // validar que el rango de fechas no se cruce con otro rango de fechas
                 const totalSalePeriodsCrossing = yield StorageGateway.getTotalSalePeriodsCrossing({ start_date: payload.start_date, end_date: payload.end_date });
                 if (totalSalePeriodsCrossing > 0)
                     throw new Error('El rango de fechas se cruza con otro rango de fechas');
-                const today = new Date();
-                let status = 'pending';
-                // verificar si el rango de fechas esta activo
-                if (today >= payload.start_date && today <= payload.end_date)
-                    console.log('El rango de fechas esta activo', today);
-                status = 'active';
-                // verificar si el rango de fechas ya paso
-                if (today > payload.end_date)
-                    throw new Error('La fecha de inicio debe ser mayor a la fecha actual');
-                payload.status = status;
                 // registrar el periodo de venta
                 const id_period = yield StorageGateway.registerSalePeriod(payload);
                 // registrar las especialidades y sus fichas permitidas
@@ -107,6 +109,53 @@ class SalePeriodController {
                     status: 200,
                     error: false
                 };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
+    updateSalePeriod(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la peticion
+                const payload = req.body;
+                if (!payload.id_period)
+                    throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                // validar el cuerpo de la peticion
+                if (!payload.start_date || !payload.end_date)
+                    throw new Error('La fecha de inicio y la fecha de fin son obligatorias');
+                // validar que la fechas
+                const startDate = new Date(payload.start_date);
+                const endDate = new Date(payload.end_date);
+                const today = new Date();
+                if (startDate >= endDate)
+                    throw new Error('La fecha de inicio debe ser menor a la fecha de fin');
+                let status = 'pending';
+                if (today >= startDate && today <= endDate) {
+                    status = 'active';
+                }
+                payload.status = status;
+                const StorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
+                // validar que el rango de fechas no se cruce con otro rango de fechas
+                const totalSalePeriodsCrossing = yield StorageGateway.getTotalSalePeriodsCrossing({ start_date: payload.start_date, end_date: payload.end_date, id_period: payload.id_period });
+                if (totalSalePeriodsCrossing > 0)
+                    throw new Error('El rango de fechas se cruza con otro rango de fechas');
+                // actualizar el periodo de venta
+                yield StorageGateway.updateSalePeriod(payload);
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: true,
+                    message: 'Sale period updated successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
             }
             catch (error) {
                 logger_1.default.error(error);
@@ -119,4 +168,5 @@ class SalePeriodController {
 exports.SalePeriodController = SalePeriodController;
 SalePeriodRouter.get('/get-sale-period-page', new SalePeriodController().getSalePeriodsPage);
 SalePeriodRouter.post('/register-sale-period', new SalePeriodController().registerSalePeriod);
+SalePeriodRouter.post('/update-sale-period', new SalePeriodController().updateSalePeriod);
 exports.default = SalePeriodRouter;

@@ -28,3 +28,10 @@
 {"code":"ER_BAD_NULL_ERROR","errno":1048,"level":"error","sql":"INSERT INTO speciality_by_period (id_period, id_speciality, tokens_allowed) VALUES (NULL, 1, 1000)","sqlMessage":"Column 'id_period' cannot be null","sqlState":"23000","timestamp":"2024-07-02T16:13:06.657Z"}
 {"code":"ER_BAD_NULL_ERROR","errno":1048,"level":"error","sql":"INSERT INTO speciality_by_period (id_period, id_speciality, tokens_allowed) VALUES (NULL, 1, 1000)","sqlMessage":"Column 'id_period' cannot be null","sqlState":"23000","timestamp":"2024-07-02T16:15:32.520Z"}
 {"code":"ER_BAD_NULL_ERROR","errno":1048,"level":"error","sql":"INSERT INTO speciality_by_period (id_period, id_speciality, tokens_allowed) VALUES (NULL, 1, 1000)","sqlMessage":"Column 'id_period' cannot be null","sqlState":"23000","timestamp":"2024-07-02T16:16:55.904Z"}
+{"level":"error","timestamp":"2024-07-04T00:27:41.135Z"}
+{"level":"error","timestamp":"2024-07-04T00:28:21.078Z"}
+{"level":"error","timestamp":"2024-07-04T00:28:55.148Z"}
+{"level":"error","timestamp":"2024-07-04T00:31:55.741Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-07-04' AND end_date >= '2024-07-01' AND id_period != ?","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1","sqlState":"42000","timestamp":"2024-07-04T00:32:14.579Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-04T00:32:14.580Z"}
+{"level":"error","timestamp":"2024-07-04T00:51:15.760Z"}
