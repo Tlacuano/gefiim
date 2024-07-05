@@ -38,11 +38,22 @@ class SalePeriodStorageGateway {
     // para registrar y actualizar periodos de venta
     getTotalSalePeriodsCrossing(payload) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = payload.id_period ? 'SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND id_period != ?' : 'SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ?';
+            const query = payload.id_period ? "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND id_period != ? AND status IN ('pending', 'active')" : "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status IN ('pending', 'active')";
             try {
                 const response = yield (0, db_connection_1.queryDB)(query, [payload.end_date, payload.start_date, payload.id_period]);
                 const { total } = response[0];
                 return total;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSalePeriodById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM sale_periods WHERE id_period = ?", [payload.id_period]);
+                return response;
             }
             catch (error) {
                 throw (error);
@@ -75,6 +86,39 @@ class SalePeriodStorageGateway {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield (0, db_connection_1.queryDB)('UPDATE sale_periods SET start_date = ?, end_date = ?, status = ? WHERE id_period = ?', [payload.start_date, payload.end_date, payload.status, payload.id_period]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    changeStatusSalePeriod(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)('UPDATE sale_periods SET status = ? WHERE id_period = ?', [payload.status, payload.id_period]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateNewActiveSpeciality(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("UPDATE sale_periods SET status = 'active' WHERE start_date <= ? AND end_date >= ? AND status = 'pending'", [payload.today, payload.today]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    finalizeSalePeriod(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("UPDATE sale_periods SET status = 'finished' WHERE end_date < ? AND status = 'active'", [payload.today]);
                 return response;
             }
             catch (error) {

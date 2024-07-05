@@ -145,6 +145,12 @@ class SalePeriodController {
                 const totalSalePeriodsCrossing = yield StorageGateway.getTotalSalePeriodsCrossing({ start_date: payload.start_date, end_date: payload.end_date, id_period: payload.id_period });
                 if (totalSalePeriodsCrossing > 0)
                     throw new Error('El rango de fechas se cruza con otro rango de fechas');
+                // validar que el periodo no sea cancelado o finalizado
+                const salePeriod = yield StorageGateway.getSalePeriodById({ id_period: payload.id_period });
+                if (!salePeriod)
+                    throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                if (salePeriod[0].status === 'canceled' || salePeriod[0].status === 'finalized')
+                    throw new Error('El periodo de venta no se puede actualizar');
                 // actualizar el periodo de venta
                 yield StorageGateway.updateSalePeriod(payload);
                 // crear el cuerpo de la respuesta
@@ -164,9 +170,88 @@ class SalePeriodController {
             }
         });
     }
+    changeStatusSalePeriod(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const payload = req.body;
+                if (!payload.id_period)
+                    throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                if (!payload.status)
+                    throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                const StorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
+                const salePeriod = yield StorageGateway.getSalePeriodById({ id_period: payload.id_period });
+                // si el periodo de venta no existe
+                if (!salePeriod)
+                    throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                // si el periodo de venta ya esta activo el estado tiene que ser finalizado
+                if (salePeriod[0].status === 'active' && payload.status !== 'finalized')
+                    throw new Error('El estado del periodo de venta debe ser finalizado');
+                // si el periodo esta pendiente el estado tiene que ser cancelado
+                if (salePeriod[0].status === 'pending' && payload.status !== 'cancelled')
+                    throw new Error('El estado del periodo de venta debe ser cancelado');
+                // si el periodo ya esta finalizado no se puede cambiar el estado
+                if (salePeriod[0].status === 'finalized' || salePeriod[0].status === 'canceled')
+                    throw new Error('El estado del periodo de venta no se puede cambiar');
+                // cambiar el estado del periodo de venta
+                yield StorageGateway.changeStatusSalePeriod(payload);
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: true,
+                    message: 'Sale period status changed successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
+    autoChangeStatusSalePeriod(___, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // desactivar el periodo de venta que ya paso y activar el periodo de venta que ya inicia
+                const StorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
+                const today = new Date();
+                yield StorageGateway.finalizeSalePeriod({ today: today });
+                yield StorageGateway.updateNewActiveSpeciality({ today: today });
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: true,
+                    message: 'Sale period status changed successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
+    getCurrentPeriod(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
 }
 exports.SalePeriodController = SalePeriodController;
 SalePeriodRouter.get('/get-sale-period-page', new SalePeriodController().getSalePeriodsPage);
 SalePeriodRouter.post('/register-sale-period', new SalePeriodController().registerSalePeriod);
 SalePeriodRouter.post('/update-sale-period', new SalePeriodController().updateSalePeriod);
+SalePeriodRouter.post('/change-status-sale-period', new SalePeriodController().changeStatusSalePeriod);
+SalePeriodRouter.post('/auto-change-status-sale-period', new SalePeriodController().autoChangeStatusSalePeriod);
 exports.default = SalePeriodRouter;

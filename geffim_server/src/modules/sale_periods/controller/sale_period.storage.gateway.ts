@@ -26,13 +26,24 @@ export class SalePeriodStorageGateway {
 
     // para registrar y actualizar periodos de venta
     async getTotalSalePeriodsCrossing(payload: { start_date: Date, end_date: Date, id_period?: number}) {
-        const query = payload.id_period ? 'SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND id_period != ?' : 'SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ?'
+        const query = payload.id_period ? "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND id_period != ? AND status IN ('pending', 'active')" : "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status IN ('pending', 'active')"
         try {
             const response = await queryDB<{ total: number }[]>(query, 
                 [payload.end_date, payload.start_date, payload.id_period]);
             
             const { total } = response[0];
             return total;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getSalePeriodById(payload: { id_period: number }) {
+        try {
+            const response = await queryDB<SalePeriod[]>("SELECT * FROM sale_periods WHERE id_period = ?", 
+                [payload.id_period]);
+
+            return response;
         } catch (error) {
             throw(error)
         }
@@ -68,5 +79,36 @@ export class SalePeriodStorageGateway {
             throw(error)
         }
     }
+
+    async changeStatusSalePeriod(payload: { id_period: number, status: string }) {
+        try {
+            const response = await queryDB('UPDATE sale_periods SET status = ? WHERE id_period = ?', 
+                [payload.status, payload.id_period]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async updateNewActiveSpeciality(payload:{ today: Date }) {
+        try {
+            const response = await queryDB("UPDATE sale_periods SET status = 'active' WHERE start_date <= ? AND end_date >= ? AND status = 'pending'", 
+                [payload.today, payload.today]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async finalizeSalePeriod(payload: { today: Date }) {
+        try {
+            const response = await queryDB("UPDATE sale_periods SET status = 'finished' WHERE end_date < ? AND status = 'active'", 
+                [payload.today]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
 
 }

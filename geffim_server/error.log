@@ -35,3 +35,4 @@
 {"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-07-04' AND end_date >= '2024-07-01' AND id_period != ?","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1","sqlState":"42000","timestamp":"2024-07-04T00:32:14.579Z"}
 {"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-04T00:32:14.580Z"}
 {"level":"error","timestamp":"2024-07-04T00:51:15.760Z"}
+{"level":"error","timestamp":"2024-07-05T16:42:54.578Z"}
