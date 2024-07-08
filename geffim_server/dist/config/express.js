@@ -16,6 +16,7 @@ const state_controller_1 = __importDefault(require("../modules/states/adapters/s
 const municipality_controller_1 = __importDefault(require("../modules/municipalities/adapters/municipality.controller"));
 const speciality_controller_1 = __importDefault(require("../modules/specialities/controller/speciality.controller"));
 const sale_period_controller_1 = __importDefault(require("../modules/sale_periods/controller/sale_period.controller"));
+const institutional_information_controller_1 = __importDefault(require("../modules/institutional_information/controller/institutional_information.controller"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
@@ -29,4 +30,5 @@ app.use('/api-gefiim/state', state_controller_1.default);
 app.use('/api-gefiim/municipality', municipality_controller_1.default);
 app.use('/api-gefiim/speciality', speciality_controller_1.default);
 app.use('/api-gefiim/sale-period', sale_period_controller_1.default);
+app.use('/api-gefiim/institutional-information', institutional_information_controller_1.default);
 exports.default = app;
