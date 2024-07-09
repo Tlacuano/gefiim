@@ -63,7 +63,6 @@ export class InstitutionalInformationController {
                 throw new Error('El color secundario no tiene un formato válido');
 
             // validar que el base64 es una imagen (png, jpg, jpeg)
-
             const base64Image = /^data:image\/(png|jpg|jpeg);base64,/;
             if(!base64Image.test(payload.logo as string))
                 throw new Error('El logo no tiene un formato válido');
@@ -77,11 +76,11 @@ export class InstitutionalInformationController {
             const orgigen_main_image = payload.main_image as string;
 
             //sacar el tipo de imagen
-            const typeLogo = origen_logo.split(';base64,').pop();
-            const typeMainImage = orgigen_main_image.split(';base64,').pop();
+            const typeLogo = origen_logo.split(';base64,').pop() as string;
+            const typeMainImage = orgigen_main_image.split(';base64,').pop() as string;
 
-            const logo_buffer = Buffer.from(origen_logo, 'base64');
-            const main_image_buffer = Buffer.from(orgigen_main_image, 'base64');
+            const logo_buffer = Buffer.from(typeLogo, 'base64');
+            const main_image_buffer = Buffer.from(typeMainImage, 'base64');
 
             // Crear el payload con los datos correctos
             payload.logo = logo_buffer;

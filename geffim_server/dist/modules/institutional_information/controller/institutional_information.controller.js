@@ -79,8 +79,8 @@ class InstitutionalInformationController {
                 //sacar el tipo de imagen
                 const typeLogo = origen_logo.split(';base64,').pop();
                 const typeMainImage = orgigen_main_image.split(';base64,').pop();
-                const logo_buffer = Buffer.from(origen_logo, 'base64');
-                const main_image_buffer = Buffer.from(orgigen_main_image, 'base64');
+                const logo_buffer = Buffer.from(typeLogo, 'base64');
+                const main_image_buffer = Buffer.from(typeMainImage, 'base64');
                 // Crear el payload con los datos correctos
                 payload.logo = logo_buffer;
                 payload.main_image = main_image_buffer;
