@@ -26,6 +26,9 @@ class InstitutionalInformationController {
                 const StorageGateway = new institutional_information_storage_gateway_1.InstitutionalInformationStorageGateway();
                 // Obtener la información institucional
                 const institutionalInformation = yield StorageGateway.getInstitutionalInformation();
+                // Convertir el logo y la imagen principal a base64
+                institutionalInformation.logo = Buffer.from(institutionalInformation.logo).toString('base64');
+                institutionalInformation.main_image = Buffer.from(institutionalInformation.main_image).toString('base64');
                 // Crear el cuerpo de la respuesta
                 const body = {
                     data: institutionalInformation,
@@ -69,6 +72,18 @@ class InstitutionalInformationController {
                     throw new Error('El logo no tiene un formato válido');
                 if (!base64Image.test(payload.main_image))
                     throw new Error('La imagen principal no tiene un formato válido');
+                // convertir el logo y la imagen principal a Blob
+                //sacar los datos de la imagen
+                const origen_logo = payload.logo;
+                const orgigen_main_image = payload.main_image;
+                //sacar el tipo de imagen
+                const typeLogo = origen_logo.split(';base64,').pop();
+                const typeMainImage = orgigen_main_image.split(';base64,').pop();
+                const logo_buffer = Buffer.from(origen_logo, 'base64');
+                const main_image_buffer = Buffer.from(orgigen_main_image, 'base64');
+                // Crear el payload con los datos correctos
+                payload.logo = logo_buffer;
+                payload.main_image = main_image_buffer;
                 // Instanciar el gateway
                 const StorageGateway = new institutional_information_storage_gateway_1.InstitutionalInformationStorageGateway();
                 // Actualizar la información institucional

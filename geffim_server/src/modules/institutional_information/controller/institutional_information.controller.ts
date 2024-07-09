@@ -16,6 +16,10 @@ export class InstitutionalInformationController {
             // Obtener la información institucional
             const institutionalInformation = await StorageGateway.getInstitutionalInformation();
 
+            // Convertir el logo y la imagen principal a base64
+            institutionalInformation.logo = Buffer.from(institutionalInformation.logo as Buffer).toString('base64');
+            institutionalInformation.main_image = Buffer.from(institutionalInformation.main_image as Buffer).toString('base64');
+
             // Crear el cuerpo de la respuesta
             const body: ResponseApi<InstitutionalInformation> = {
                 data: institutionalInformation,
@@ -61,10 +65,27 @@ export class InstitutionalInformationController {
             // validar que el base64 es una imagen (png, jpg, jpeg)
 
             const base64Image = /^data:image\/(png|jpg|jpeg);base64,/;
-            if(!base64Image.test(payload.logo))
+            if(!base64Image.test(payload.logo as string))
                 throw new Error('El logo no tiene un formato válido');
-            if(!base64Image.test(payload.main_image))
+            if(!base64Image.test(payload.main_image as string))
                 throw new Error('La imagen principal no tiene un formato válido');
+
+            // convertir el logo y la imagen principal a Blob
+            
+            //sacar los datos de la imagen
+            const origen_logo = payload.logo as string;
+            const orgigen_main_image = payload.main_image as string;
+
+            //sacar el tipo de imagen
+            const typeLogo = origen_logo.split(';base64,').pop();
+            const typeMainImage = orgigen_main_image.split(';base64,').pop();
+
+            const logo_buffer = Buffer.from(origen_logo, 'base64');
+            const main_image_buffer = Buffer.from(orgigen_main_image, 'base64');
+
+            // Crear el payload con los datos correctos
+            payload.logo = logo_buffer;
+            payload.main_image = main_image_buffer;          
 
 
             // Instanciar el gateway

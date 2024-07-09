@@ -22,7 +22,7 @@ const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.set('port', process.env.PORT || 3000);
 app.use((0, cors_1.default)({ origin: '*' }));
-app.use(express_1.default.json());
+app.use(express_1.default.json({ limit: '50mb' }));
 app.get('/', (__, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send('Hello World');
 }));
