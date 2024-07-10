@@ -4,6 +4,8 @@ import { validateError } from "../../../config/errors/error_handler";
 import { Candidate } from "../model/candidates";
 import { CandidatesStorageGateway } from "./candidates.storage.gateway";
 import { SpecialityStorageGateway } from "../../../modules/specialities/controller/speciality.storage.gateway";
+import { randomCode } from "../../../utils/security/random";
+import { encode } from "../../../utils/security/bcrypt";
 
 const CandidatesRouter = Router();
 
@@ -47,6 +49,7 @@ export class CandidatesController {
             if(!/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/.test(payload.curp))
                 throw new Error('La CURP del candidato no es válida');
 
+
             // validar que la edad del candidato sea mayor a 13 años
             const today = new Date();
             const birthdate = new Date(payload.birthdate);
@@ -72,7 +75,7 @@ export class CandidatesController {
 
             if(candidateCount > 0)
                 throw new Error('El candidato ya ha realizado su registro en el periodo actual');
-
+            
 
             // validar la dirección del candidato
             if(!payload.candidate_postal_code)
@@ -86,9 +89,9 @@ export class CandidatesController {
 
             if(!/^(\d{5})$/.test(payload.candidate_postal_code))
                 throw new Error('El código postal del candidato no es válido');
-            if(/^(?!.*<script\b).*$/g.test(payload.candidate_neighborhood))
+            if(/(<script)\b/g.test(payload.candidate_neighborhood))
                 throw new Error('La colonia del candidato no es válida');
-            if(/^(?!.*<script\b).*$/g.test(payload.candidate_street_and_number))
+            if(/(<script)\b/g.test(payload.candidate_street_and_number))
                 throw new Error('La calle y número del candidato no es válido');
 
 
@@ -111,6 +114,7 @@ export class CandidatesController {
                     throw new Error('El segundo apellido del tutor no es válido');
             }
 
+
             if(!/^(\d{10})$/.test(payload.tutor_phone_number))
                 throw new Error('El número de teléfono del tutor no es válido');
             if(payload.tutor_secondary_phone_number){
@@ -131,9 +135,9 @@ export class CandidatesController {
 
                 if(!/^(\d{5})$/.test(payload.tutor_postal_code))
                     throw new Error('El código postal del tutor no es válido');
-                if(/^(?!.*<script\b).*$/g.test(payload.tutor_neighborhood))
+                if(/(<script)\b/g.test(payload.tutor_neighborhood))
                     throw new Error('La colonia del tutor no es válida');
-                if(/^(?!.*<script\b).*$/g.test(payload.tutor_street_and_number))
+                if(/(<script)\b/g.test(payload.tutor_street_and_number))
                     throw new Error('La calle y número del tutor no es válido');
             }
 
@@ -155,22 +159,85 @@ export class CandidatesController {
                 throw new Error('La clave de la escuela no es válida');
             if(!/^(SECUNDARIA GENERAL|SECUNDARIA TECNICA|SECUNDARIA PRIVADA|TELESECUNDARIA)$/.test(payload.school_type))
                 throw new Error('El tipo de escuela no es válido');
-            if(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s,-]+$/g.test(payload.school_name))
+            if(!/^[A-ZÁÉÍÓÚÑÄËÏÖÜ][a-zA-ZáéíóúñäëïöüÁÉÍÓÚÑÄËÏÖÜ,-\s]*$/g.test(payload.school_name))
                 throw new Error('El nombre de la escuela no es válido');
             if(payload.average_grade < 0 || payload.average_grade > 10)
                 throw new Error('El promedio del candidato no es válido');
             if(!/^(Ninguna|Propia institución|Intercambio|Oportunidades|Continuación de estudios|Contra el abandono escolar|Desarrollo de competencias|Estudiantes con Alguna Discapacidad|Probems|Salario|Otra beca federal|Beca estatal|Beca particular|Beca internacional|Otra)$/.test(payload.scholarship_type))
                 throw new Error('El tipo de beca del candidato no es válido');
-            
 
+            // validar datos del periodo y especialidades
+            if(!payload.id_period)
+                throw new Error('El periodo no puede estar vacío');
+            if(!payload.specialities_by_period)
+                throw new Error('Las especialidades no pueden estar vacías');
+
+            // validar que el candidato haya seleccionado 3 especialidades, que no se repitan y que esten las 3 gerarquizadas
+            if(payload.specialities_by_period.length !== 3)
+                throw new Error('El candidato debe seleccionar 3 especialidades');
+
+            const hierarchySet = new Set([1, 2, 3]);
+            const specialitySet = new Set();
+
+            for (const speciality of payload.specialities_by_period) {
+                if(!speciality.id_speciality)
+                    throw new Error('La especialidad no puede estar vacía');
+                if(!speciality.hierarchy)
+                    throw new Error('La jerarquía de la especialidad no puede estar vacía');
+
+                if(!hierarchySet.has(speciality.hierarchy))
+                    throw new Error('La jerarquía de la especialidad no es válida');
+
+                if(specialitySet.has(speciality.id_speciality))
+                    throw new Error('Las especialidades no pueden repetirse');
+
+                specialitySet.add(speciality.id_speciality);
+            }
+
+            
             // obtener el total de candidatos por especialidad en el periodo actual y los tokens permitidos
             const totalCandidates = await candidatesStorageGateway.findTotalCandidatesByPeriodAndSpeciality({ id_period: payload.id_period, id_speciality: payload.specialities_by_period[0].id_speciality });
             const tokensAllowed = await candidatesStorageGateway.getTokensAllowed({ id_period: payload.id_period, id_speciality: payload.specialities_by_period[0].id_speciality });
-
+            
             if(totalCandidates >= tokensAllowed)
                 throw new Error('El cupo para la especialidad seleccionada ya está lleno');
 
-            
+
+            // traer el numero de su ficha
+            const totalTokens = await candidatesStorageGateway.getTotalTokens({ id_period: payload.id_period });
+            const token = totalTokens + 1;
+            payload.username = payload.id_period + token.toString().padStart(5, '0');
+
+            //generar una contraseña aleatoria
+            const passwordBlank = randomCode();
+            payload.password = await encode(passwordBlank);
+
+            // registrar al candidato en el siguiente orden: dirección, candidato, direccion del tutor si aplica, tutor, escuela, especialidades
+            // registrar dirección del candidato
+            payload.candidate_id_address = await candidatesStorageGateway.registerAddress({postal_code: payload.candidate_postal_code, id_municipality: payload.candidate_id_municipality, neighborhood: payload.candidate_neighborhood, street_and_number: payload.candidate_street_and_number});
+
+            // registrar candidato
+            payload.id_candidate = await candidatesStorageGateway.registerCandidate(payload);
+
+            // registrar dirección del tutor si aplica
+            if(payload.tutor_live_separated){
+                payload.tutor_id_address = await candidatesStorageGateway.registerAddress({postal_code: payload.tutor_postal_code, id_municipality: payload.tutor_id_municipality, neighborhood: payload.tutor_neighborhood, street_and_number: payload.tutor_street_and_number});
+            }
+
+            // registrar tutor
+            payload.tutor_id_tutor = await candidatesStorageGateway.registerTutor(payload);
+
+            // registrar escuela
+            payload.id_highschool = await candidatesStorageGateway.registerHighschoolInformation(payload);
+
+            // registrar especialidades 
+            for(const speciality of payload.specialities_by_period){
+                const specialityByPeriod = await candidatesStorageGateway.getSpecialitiesByPeriodAndSpeciality({ id_period: payload.id_period, id_speciality: speciality.id_speciality });
+                await candidatesStorageGateway.registerSpecialitiesSelected({ id_candidate: payload.id_candidate, id_speciality_by_period: specialityByPeriod, herarchy: speciality.hierarchy });
+            }
+
+
+            res.status(200).json({message: 'Candidato registrado correctamente'});
 
         } catch (error) {
             logger.error(error)
@@ -180,3 +247,9 @@ export class CandidatesController {
         }
     }
 }
+
+
+CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
+
+
+export default CandidatesRouter;

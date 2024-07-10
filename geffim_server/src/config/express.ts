@@ -3,6 +3,7 @@ import MunicipalityRouter from '../modules/municipalities/adapters/municipality.
 import SpecialityRouter from '../modules/specialities/controller/speciality.controller';
 import SalePeriodRouter from '../modules/sale_periods/controller/sale_period.controller';
 import InstitutionalInformationRouter from '../modules/institutional_information/controller/institutional_information.controller';
+import CandidatesRouter from '../modules/candidates/controller/candidates.controller';
 
 
 import express from 'express';
@@ -23,6 +24,7 @@ app.use('/api-gefiim/municipality', MunicipalityRouter);
 app.use('/api-gefiim/speciality', SpecialityRouter);
 app.use('/api-gefiim/sale-period', SalePeriodRouter);
 app.use('/api-gefiim/institutional-information', InstitutionalInformationRouter);
+app.use('/api-gefiim/candidates', CandidatesRouter);
 
 
 

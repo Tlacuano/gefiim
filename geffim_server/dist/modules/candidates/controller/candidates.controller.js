@@ -17,6 +17,8 @@ const express_1 = require("express");
 const logger_1 = __importDefault(require("../../../config/logs/logger"));
 const error_handler_1 = require("../../../config/errors/error_handler");
 const candidates_storage_gateway_1 = require("./candidates.storage.gateway");
+const random_1 = require("../../../utils/security/random");
+const bcrypt_1 = require("../../../utils/security/bcrypt");
 const CandidatesRouter = (0, express_1.Router)();
 class CandidatesController {
     registerCandidate(req, res) {
@@ -83,9 +85,9 @@ class CandidatesController {
                     throw new Error('La calle y número del candidato no puede estar vacía');
                 if (!/^(\d{5})$/.test(payload.candidate_postal_code))
                     throw new Error('El código postal del candidato no es válido');
-                if (/^(?!.*<script\b).*$/g.test(payload.candidate_neighborhood))
+                if (/(<script)\b/g.test(payload.candidate_neighborhood))
                     throw new Error('La colonia del candidato no es válida');
-                if (/^(?!.*<script\b).*$/g.test(payload.candidate_street_and_number))
+                if (/(<script)\b/g.test(payload.candidate_street_and_number))
                     throw new Error('La calle y número del candidato no es válido');
                 // validar la información del tutor
                 if (!payload.tutor_name)
@@ -122,9 +124,9 @@ class CandidatesController {
                         throw new Error('La calle y número del tutor no puede estar vacía');
                     if (!/^(\d{5})$/.test(payload.tutor_postal_code))
                         throw new Error('El código postal del tutor no es válido');
-                    if (/^(?!.*<script\b).*$/g.test(payload.tutor_neighborhood))
+                    if (/(<script)\b/g.test(payload.tutor_neighborhood))
                         throw new Error('La colonia del tutor no es válida');
-                    if (/^(?!.*<script\b).*$/g.test(payload.tutor_street_and_number))
+                    if (/(<script)\b/g.test(payload.tutor_street_and_number))
                         throw new Error('La calle y número del tutor no es válido');
                 }
                 // validar la información de la escuela
@@ -144,17 +146,64 @@ class CandidatesController {
                     throw new Error('La clave de la escuela no es válida');
                 if (!/^(SECUNDARIA GENERAL|SECUNDARIA TECNICA|SECUNDARIA PRIVADA|TELESECUNDARIA)$/.test(payload.school_type))
                     throw new Error('El tipo de escuela no es válido');
-                if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s,-]+$/g.test(payload.school_name))
+                if (!/^[A-ZÁÉÍÓÚÑÄËÏÖÜ][a-zA-ZáéíóúñäëïöüÁÉÍÓÚÑÄËÏÖÜ,-\s]*$/g.test(payload.school_name))
                     throw new Error('El nombre de la escuela no es válido');
                 if (payload.average_grade < 0 || payload.average_grade > 10)
                     throw new Error('El promedio del candidato no es válido');
                 if (!/^(Ninguna|Propia institución|Intercambio|Oportunidades|Continuación de estudios|Contra el abandono escolar|Desarrollo de competencias|Estudiantes con Alguna Discapacidad|Probems|Salario|Otra beca federal|Beca estatal|Beca particular|Beca internacional|Otra)$/.test(payload.scholarship_type))
                     throw new Error('El tipo de beca del candidato no es válido');
+                // validar datos del periodo y especialidades
+                if (!payload.id_period)
+                    throw new Error('El periodo no puede estar vacío');
+                if (!payload.specialities_by_period)
+                    throw new Error('Las especialidades no pueden estar vacías');
+                // validar que el candidato haya seleccionado 3 especialidades, que no se repitan y que esten las 3 gerarquizadas
+                if (payload.specialities_by_period.length !== 3)
+                    throw new Error('El candidato debe seleccionar 3 especialidades');
+                const hierarchySet = new Set([1, 2, 3]);
+                const specialitySet = new Set();
+                for (const speciality of payload.specialities_by_period) {
+                    if (!speciality.id_speciality)
+                        throw new Error('La especialidad no puede estar vacía');
+                    if (!speciality.hierarchy)
+                        throw new Error('La jerarquía de la especialidad no puede estar vacía');
+                    if (!hierarchySet.has(speciality.hierarchy))
+                        throw new Error('La jerarquía de la especialidad no es válida');
+                    if (specialitySet.has(speciality.id_speciality))
+                        throw new Error('Las especialidades no pueden repetirse');
+                    specialitySet.add(speciality.id_speciality);
+                }
                 // obtener el total de candidatos por especialidad en el periodo actual y los tokens permitidos
                 const totalCandidates = yield candidatesStorageGateway.findTotalCandidatesByPeriodAndSpeciality({ id_period: payload.id_period, id_speciality: payload.specialities_by_period[0].id_speciality });
                 const tokensAllowed = yield candidatesStorageGateway.getTokensAllowed({ id_period: payload.id_period, id_speciality: payload.specialities_by_period[0].id_speciality });
                 if (totalCandidates >= tokensAllowed)
                     throw new Error('El cupo para la especialidad seleccionada ya está lleno');
+                // traer el numero de su ficha
+                const totalTokens = yield candidatesStorageGateway.getTotalTokens({ id_period: payload.id_period });
+                const token = totalTokens + 1;
+                payload.username = payload.id_period + token.toString().padStart(5, '0');
+                //generar una contraseña aleatoria
+                const passwordBlank = (0, random_1.randomCode)();
+                payload.password = yield (0, bcrypt_1.encode)(passwordBlank);
+                // registrar al candidato en el siguiente orden: dirección, candidato, direccion del tutor si aplica, tutor, escuela, especialidades
+                // registrar dirección del candidato
+                payload.candidate_id_address = yield candidatesStorageGateway.registerAddress({ postal_code: payload.candidate_postal_code, id_municipality: payload.candidate_id_municipality, neighborhood: payload.candidate_neighborhood, street_and_number: payload.candidate_street_and_number });
+                // registrar candidato
+                payload.id_candidate = yield candidatesStorageGateway.registerCandidate(payload);
+                // registrar dirección del tutor si aplica
+                if (payload.tutor_live_separated) {
+                    payload.tutor_id_address = yield candidatesStorageGateway.registerAddress({ postal_code: payload.tutor_postal_code, id_municipality: payload.tutor_id_municipality, neighborhood: payload.tutor_neighborhood, street_and_number: payload.tutor_street_and_number });
+                }
+                // registrar tutor
+                payload.tutor_id_tutor = yield candidatesStorageGateway.registerTutor(payload);
+                // registrar escuela
+                payload.id_highschool = yield candidatesStorageGateway.registerHighschoolInformation(payload);
+                // registrar especialidades 
+                for (const speciality of payload.specialities_by_period) {
+                    const specialityByPeriod = yield candidatesStorageGateway.getSpecialitiesByPeriodAndSpeciality({ id_period: payload.id_period, id_speciality: speciality.id_speciality });
+                    yield candidatesStorageGateway.registerSpecialitiesSelected({ id_candidate: payload.id_candidate, id_speciality_by_period: specialityByPeriod, herarchy: speciality.hierarchy });
+                }
+                res.status(200).json({ message: 'Candidato registrado correctamente' });
             }
             catch (error) {
                 logger_1.default.error(error);
@@ -165,3 +214,5 @@ class CandidatesController {
     }
 }
 exports.CandidatesController = CandidatesController;
+CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
+exports.default = CandidatesRouter;
