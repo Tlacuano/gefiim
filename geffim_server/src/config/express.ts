@@ -5,7 +5,7 @@ import SalePeriodRouter from '../modules/sale_periods/controller/sale_period.con
 import InstitutionalInformationRouter from '../modules/institutional_information/controller/institutional_information.controller';
 import CandidatesRouter from '../modules/candidates/controller/candidates.controller';
 
-
+import { Authenticator } from './jwt';
 import express from 'express';
 import cors from 'cors';
 

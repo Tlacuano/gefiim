@@ -247,7 +247,7 @@ export class CandidatesController {
         }
     }
 }
-
+ 
 
 CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
 
