@@ -145,5 +145,50 @@ class CandidatesStorageGateway {
             }
         });
     }
+    // obtener los datos para la generación de ficha
+    getStateByMunicipality(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`SELECT s.name FROM states s JOIN municipalities m ON s.id_state = m.id_state WHERE m.id_municipality = ?`, [payload.id_municipality]);
+                return response[0].name;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getMunicipalityByMunicipality(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`SELECT name FROM municipalities WHERE id_municipality = ?`, [payload.id_municipality]);
+                return response[0].name;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSalePeriod(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`SELECT * FROM sale_periods WHERE id_period = ?`, [payload.id_period]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getInstitutionalInformation() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM institutional_information");
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
 }
 exports.CandidatesStorageGateway = CandidatesStorageGateway;

@@ -1,0 +1,18 @@
+.full-flex-screen {
+    display: flex;
+    height: 100vh;
+}
+
+.selectable {
+    cursor: pointer;
+}
+
+.text-hover{
+    -webkit-user-select: none; 
+    -moz-user-select: none;    
+    -ms-user-select: none;    
+    user-select: none;
+}
+.text-hover:hover {
+    text-decoration: underline;
+}

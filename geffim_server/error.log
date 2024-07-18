@@ -68,3 +68,18 @@
 {"code":"ER_BAD_FIELD_ERROR","errno":1054,"level":"error","sql":"SELECT total_tokens\n                                                                        FROM sale_periods\n                                                                        WHERE id_period = 12","sqlMessage":"Unknown column 'total_tokens' in 'field list'","sqlState":"42S22","timestamp":"2024-07-10T19:08:17.623Z"}
 {"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-10T19:08:17.624Z"}
 {"level":"error","timestamp":"2024-07-10T20:06:59.932Z"}
+{"level":"error","timestamp":"2024-07-17T20:35:38.752Z"}
+{"level":"error","timestamp":"2024-07-17T20:37:11.754Z"}
+{"level":"error","timestamp":"2024-07-17T20:37:42.832Z"}
+{"level":"error","timestamp":"2024-07-17T20:38:06.714Z"}
+{"level":"error","timestamp":"2024-07-17T20:38:32.233Z"}
+{"level":"error","timestamp":"2024-07-17T20:39:54.630Z"}
+{"level":"error","timestamp":"2024-07-17T20:40:59.511Z"}
+{"level":"error","timestamp":"2024-07-17T20:41:19.231Z"}
+{"level":"error","timestamp":"2024-07-17T20:43:16.787Z"}
+{"level":"error","timestamp":"2024-07-17T20:44:32.814Z"}
+{"level":"error","timestamp":"2024-07-17T20:45:01.799Z"}
+{"level":"error","timestamp":"2024-07-17T20:45:21.981Z"}
+{"level":"error","timestamp":"2024-07-17T20:45:35.025Z"}
+{"level":"error","timestamp":"2024-07-17T20:46:06.738Z"}
+{"level":"error","timestamp":"2024-07-18T18:33:41.330Z"}

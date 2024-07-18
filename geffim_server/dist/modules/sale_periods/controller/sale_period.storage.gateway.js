@@ -40,7 +40,7 @@ class SalePeriodStorageGateway {
         return __awaiter(this, void 0, void 0, function* () {
             const query = payload.id_period ? "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND id_period != ? AND status IN ('pending', 'active')" : "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status IN ('pending', 'active')";
             try {
-                const response = yield (0, db_connection_1.queryDB)(query, [payload.end_date, payload.start_date, payload.id_period]);
+                const response = yield (0, db_connection_1.queryDB)(query, [payload.start_date, payload.end_date, payload.id_period]);
                 const { total } = response[0];
                 return total;
             }
@@ -63,7 +63,7 @@ class SalePeriodStorageGateway {
     registerSalePeriod(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield (0, db_connection_1.queryDB)('INSERT INTO sale_periods (start_date, end_date, status) VALUES (?, ?, ?)', [payload.start_date, payload.end_date, payload.status]);
+                const response = yield (0, db_connection_1.queryDB)('INSERT INTO sale_periods (start_date, end_date, bank_name, bank_account, bank_clabe, concept, amount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [payload.start_date, payload.end_date, payload.bank_name, payload.bank_account, payload.bank_clabe, payload.concept, payload.amount, payload.status]);
                 return response.insertId;
             }
             catch (error) {
@@ -85,7 +85,7 @@ class SalePeriodStorageGateway {
     updateSalePeriod(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield (0, db_connection_1.queryDB)('UPDATE sale_periods SET start_date = ?, end_date = ?, status = ? WHERE id_period = ?', [payload.start_date, payload.end_date, payload.status, payload.id_period]);
+                const response = yield (0, db_connection_1.queryDB)('UPDATE sale_periods SET start_date = ?, end_date = ?, bank_name = ?, bank_account = ?, bank_clabe = ?, concept = ?, amount = ?, status = ? WHERE id_period = ?', [payload.start_date, payload.end_date, payload.bank_name, payload.bank_account, payload.bank_clabe, payload.concept, payload.amount, payload.status, payload.id_period]);
                 return response;
             }
             catch (error) {
@@ -119,6 +119,33 @@ class SalePeriodStorageGateway {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield (0, db_connection_1.queryDB)("UPDATE sale_periods SET status = 'finished' WHERE end_date < ? AND status = 'active'", [payload.today]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getCurrrentSalePeriod(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status = 'active'", [payload.today, payload.today]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getTotalTokens() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select s.id_speciality, s.name, sbp.tokens_allowed, count(CASE WHEN ss.herarchy = 1 THEN ss.id_selected_speciality END) as saled from sale_periods sp
+                                                                            join speciality_by_period sbp on sp.id_period = sbp.id_period
+                                                                            join specialities s on sbp.id_speciality = s.id_speciality
+                                                                            left join selected_specialities ss on sbp.id_speciality_by_period = ss.id_speciality_by_period
+                                                                            where sp.status = 'active'
+                                                                            group by s.name, sbp.tokens_allowed, s.id_speciality;`, []);
                 return response;
             }
             catch (error) {

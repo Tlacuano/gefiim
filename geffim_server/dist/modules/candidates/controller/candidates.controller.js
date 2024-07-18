@@ -19,6 +19,8 @@ const error_handler_1 = require("../../../config/errors/error_handler");
 const candidates_storage_gateway_1 = require("./candidates.storage.gateway");
 const random_1 = require("../../../utils/security/random");
 const bcrypt_1 = require("../../../utils/security/bcrypt");
+const format_date_string_1 = require("../../../utils/security/format_date_string");
+const create_token_1 = require("../functions/create_token");
 const CandidatesRouter = (0, express_1.Router)();
 class CandidatesController {
     registerCandidate(req, res) {
@@ -167,6 +169,8 @@ class CandidatesController {
                         throw new Error('La especialidad no puede estar vacía');
                     if (!speciality.hierarchy)
                         throw new Error('La jerarquía de la especialidad no puede estar vacía');
+                    if (!speciality.name)
+                        throw new Error('El nombre de la especialidad no puede estar vacío');
                     if (!hierarchySet.has(speciality.hierarchy))
                         throw new Error('La jerarquía de la especialidad no es válida');
                     if (specialitySet.has(speciality.id_speciality))
@@ -203,7 +207,80 @@ class CandidatesController {
                     const specialityByPeriod = yield candidatesStorageGateway.getSpecialitiesByPeriodAndSpeciality({ id_period: payload.id_period, id_speciality: speciality.id_speciality });
                     yield candidatesStorageGateway.registerSpecialitiesSelected({ id_candidate: payload.id_candidate, id_speciality_by_period: specialityByPeriod, herarchy: speciality.hierarchy });
                 }
-                res.status(200).json({ message: 'Candidato registrado correctamente' });
+                // generar ficha
+                //obtener los datos faltantes
+                const candidate_state = yield candidatesStorageGateway.getStateByMunicipality({ id_municipality: payload.candidate_id_municipality });
+                const candidate_municipality = yield candidatesStorageGateway.getMunicipalityByMunicipality({ id_municipality: payload.candidate_id_municipality });
+                const tutor_state = payload.tutor_live_separated ? yield candidatesStorageGateway.getStateByMunicipality({ id_municipality: payload.tutor_id_municipality }) : '';
+                const tutor_municipality = payload.tutor_live_separated ? yield candidatesStorageGateway.getMunicipalityByMunicipality({ id_municipality: payload.tutor_id_municipality }) : '';
+                const school_state = yield candidatesStorageGateway.getStateByMunicipality({ id_municipality: payload.school_id_municipality });
+                const school_municipality = yield candidatesStorageGateway.getMunicipalityByMunicipality({ id_municipality: payload.school_id_municipality });
+                const sale_period = yield candidatesStorageGateway.getSalePeriod({ id_period: payload.id_period });
+                const institutionalInformation = yield candidatesStorageGateway.getInstitutionalInformation();
+                institutionalInformation.logo = `data:image/png;base64,${Buffer.from(institutionalInformation.logo).toString('base64')}`;
+                const dataToDocument = {
+                    logo: institutionalInformation.logo,
+                    token: payload.username,
+                    speciality_1: payload.specialities_by_period[0].name,
+                    speciality_2: payload.specialities_by_period[1].name,
+                    speciality_3: payload.specialities_by_period[2].name,
+                    name: payload.name,
+                    first_last_name: payload.first_last_name,
+                    second_last_name: payload.second_last_name ? payload.second_last_name : '',
+                    curp: payload.curp,
+                    birthdate: (0, format_date_string_1.formatDate)(payload.birthdate.toString()),
+                    gender: payload.gender === 'M' ? 'Masculino' : 'Femenino',
+                    email: payload.email,
+                    phone_number: payload.phone_number,
+                    secondary_phone_number: payload.secondary_phone_number,
+                    candidate_postal_code: payload.candidate_postal_code,
+                    candidate_state: candidate_state,
+                    candidate_municipality: candidate_municipality,
+                    candidate_neighborhood: payload.candidate_neighborhood,
+                    candidate_street_and_number: payload.candidate_street_and_number,
+                    // tutors
+                    tutor_name: payload.tutor_name,
+                    tutor_first_last_name: payload.tutor_first_last_name,
+                    tutor_second_last_name: payload.tutor_second_last_name ? payload.tutor_second_last_name : '',
+                    tutor_live_separated: payload.tutor_live_separated,
+                    tutor_phone_number: payload.tutor_phone_number,
+                    tutor_secondary_phone_number: payload.tutor_secondary_phone_number,
+                    // tutor address
+                    tutor_postal_code: payload.tutor_live_separated ? payload.tutor_postal_code : '',
+                    tutor_municipality: payload.tutor_live_separated ? tutor_municipality : '',
+                    tutor_state: payload.tutor_live_separated ? tutor_state : '',
+                    tutor_neighborhood: payload.tutor_live_separated ? payload.tutor_neighborhood : '',
+                    tutor_street_and_number: payload.tutor_live_separated ? payload.tutor_street_and_number : '',
+                    // highschool information
+                    school_key: payload.school_key,
+                    school_type: payload.school_type,
+                    school_name: payload.school_name,
+                    school_state: school_state,
+                    school_municipality: school_municipality,
+                    average_grade: payload.average_grade.toString(),
+                    has_debts: payload.has_debts,
+                    scholarship_type: payload.scholarship_type,
+                    // bank information
+                    bank_name: sale_period.bank_name,
+                    bank_account: sale_period.bank_account,
+                    bank_clabe: sale_period.bank_clabe,
+                    concept: sale_period.concept,
+                    amount: sale_period.amount.toString(),
+                };
+                // generar documento
+                const document = yield (0, create_token_1.createToken)(dataToDocument);
+                // generar cuerpo de respuesta
+                const body = {
+                    data: {
+                        token_number: payload.username,
+                        password: passwordBlank,
+                        token: document,
+                    },
+                    status: 200,
+                    message: 'Candidato registrado correctamente',
+                    error: false
+                };
+                res.status(200).json(body);
             }
             catch (error) {
                 logger_1.default.error(error);

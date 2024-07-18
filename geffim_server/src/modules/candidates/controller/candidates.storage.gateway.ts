@@ -1,5 +1,7 @@
 import { queryDB } from "../../../utils/data_base/db_connection";
 import { Candidate } from "../model/candidates";
+import { SalePeriod } from "../../../modules/sale_periods/model/sale_period";
+import { InstitutionalInformation } from "../../../modules/institutional_information/model/institutional_information";
 
 
 export class CandidatesStorageGateway {
@@ -126,4 +128,46 @@ export class CandidatesStorageGateway {
             throw(error)
         }
     }
+
+    // obtener los datos para la generación de ficha
+
+    async getStateByMunicipality(payload: {id_municipality: number}) {
+        try {
+            const response = await queryDB<{name: string}[]>(`SELECT s.name FROM states s JOIN municipalities m ON s.id_state = m.id_state WHERE m.id_municipality = ?`,
+                [payload.id_municipality]);
+            return response[0].name;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getMunicipalityByMunicipality(payload: {id_municipality: number}) {
+        try {
+            const response = await queryDB<{name: string}[]>(`SELECT name FROM municipalities WHERE id_municipality = ?`,
+                [payload.id_municipality]);
+            return response[0].name;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getSalePeriod(payload: {id_period: number}) {
+        try {
+            const response = await queryDB<SalePeriod[]>(`SELECT * FROM sale_periods WHERE id_period = ?`,
+                [payload.id_period]);
+            return response[0];
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getInstitutionalInformation() {
+        try {
+            const response = await queryDB<InstitutionalInformation[]>("SELECT * FROM institutional_information");
+            return response[0];
+        } catch (error) {
+            throw(error)
+        }
+    }
+
 }

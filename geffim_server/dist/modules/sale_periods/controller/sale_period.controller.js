@@ -66,6 +66,22 @@ class SalePeriodController {
                 // validar el cuerpo de la peticion
                 if (!payload.start_date || !payload.end_date)
                     throw new Error('La fecha de inicio y la fecha de fin son obligatorias');
+                // validar datos de la cuenta bancaria
+                if (!payload.bank_name)
+                    throw new Error('El nombre del banco es obligatorio');
+                if (!payload.bank_account)
+                    throw new Error('El numero de cuenta es obligatorio');
+                if (!payload.bank_clabe)
+                    throw new Error('El numero de clabe es obligatorio');
+                if (!payload.concept)
+                    throw new Error('El concepto es obligatorio');
+                if (!payload.amount || payload.amount <= 0)
+                    throw new Error('El monto debe ser un numero positivo');
+                // que la cuenta bancaria y la clabe sean numericas
+                if (isNaN(Number(payload.bank_account)))
+                    throw new Error('El numero de cuenta debe ser numerico');
+                if (isNaN(Number(payload.bank_clabe)))
+                    throw new Error('El numero de clabe debe ser numerico');
                 // validar las fechas
                 const startDate = new Date(payload.start_date);
                 const endDate = new Date(payload.end_date);
@@ -89,11 +105,11 @@ class SalePeriodController {
                 // registrar el periodo de venta
                 const id_period = yield StorageGateway.registerSalePeriod(payload);
                 // registrar las especialidades y sus fichas permitidas
-                payload.speciality_by_period.forEach((speciality) => __awaiter(this, void 0, void 0, function* () {
+                for (const speciality of payload.speciality_by_period) {
                     if (!speciality.id_speciality)
-                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                        throw new Error('Error del servidor');
                     if (speciality.tokens_allowed <= 0 || !Number.isInteger(speciality.tokens_allowed))
-                        throw new Error('Las fichas permitidas deben ser un numero entero positivo');
+                        throw new Error('Las fichas permitidas deben ser un número entero positivo');
                     // validar que la especialidad exista
                     const specialityGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
                     const existSpeciality = yield specialityGateway.getSpecialityById(speciality.id_speciality);
@@ -101,7 +117,7 @@ class SalePeriodController {
                         throw new Error('La especialidad no existe');
                     // registrar la especialidad con sus fichas permitidas
                     yield StorageGateway.registerSpecialityBySalePeriod({ id_period: id_period, id_speciality: speciality.id_speciality, tokens_allowed: speciality.tokens_allowed });
-                }));
+                }
                 // crear el cuerpo de la respuesta
                 const body = {
                     data: true,
@@ -129,6 +145,22 @@ class SalePeriodController {
                 // validar el cuerpo de la peticion
                 if (!payload.start_date || !payload.end_date)
                     throw new Error('La fecha de inicio y la fecha de fin son obligatorias');
+                // validar datos de la cuenta bancaria
+                if (!payload.bank_name)
+                    throw new Error('El nombre del banco es obligatorio');
+                if (!payload.bank_account)
+                    throw new Error('El numero de cuenta es obligatorio');
+                if (!payload.bank_clabe)
+                    throw new Error('El numero de clabe es obligatorio');
+                if (!payload.concept)
+                    throw new Error('El concepto es obligatorio');
+                if (!payload.amount || payload.amount <= 0)
+                    throw new Error('El monto debe ser un numero positivo');
+                // que la cuenta bancaria y la clabe sean numericas
+                if (isNaN(Number(payload.bank_account)))
+                    throw new Error('El numero de cuenta debe ser numerico');
+                if (isNaN(Number(payload.bank_clabe)))
+                    throw new Error('El numero de clabe debe ser numerico');
                 // validar que la fechas
                 const startDate = new Date(payload.start_date);
                 const endDate = new Date(payload.end_date);
@@ -236,9 +268,38 @@ class SalePeriodController {
             }
         });
     }
-    getCurrentPeriod(req, res) {
+    getCurrentPeriod(___, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                // instanciar el gateway
+                const StorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
+                // obtener la fecha actual
+                const today = new Date();
+                // obtener el periodo de venta actual
+                const currentSalePeriod = yield StorageGateway.getCurrrentSalePeriod({ today: today });
+                if (!currentSalePeriod)
+                    throw new Error('No hay periodo de venta activo');
+                // verificar si aun hay fichas disponibles
+                const specialities_oferted = yield StorageGateway.getTotalTokens();
+                //filtrar las especialidades que aun tienen fichas disponibles
+                const specialities = specialities_oferted.filter(speciality => speciality.saled < speciality.tokens_allowed);
+                // filtrar las especialidades que ya no tienen fichas disponibles
+                const specialities_saled = specialities_oferted.filter(speciality => speciality.saled === speciality.tokens_allowed);
+                if (specialities.length === 0)
+                    throw new Error('No hay fichas disponibles');
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: {
+                        currentSalePeriod: currentSalePeriod.id_period,
+                        specialities: specialities.map(speciality => { return { id_speciality: speciality.id_speciality, name: speciality.name }; }),
+                        specialities_saled: specialities_saled.map(speciality => { return { id_speciality: speciality.id_speciality, name: speciality.name }; }),
+                    },
+                    message: 'Current sale period fetched successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
             }
             catch (error) {
                 logger_1.default.error(error);
@@ -254,4 +315,5 @@ SalePeriodRouter.post('/register-sale-period', new SalePeriodController().regist
 SalePeriodRouter.post('/update-sale-period', new SalePeriodController().updateSalePeriod);
 SalePeriodRouter.post('/change-status-sale-period', new SalePeriodController().changeStatusSalePeriod);
 SalePeriodRouter.post('/auto-change-status-sale-period', new SalePeriodController().autoChangeStatusSalePeriod);
+SalePeriodRouter.get('/get-current-period', new SalePeriodController().getCurrentPeriod);
 exports.default = SalePeriodRouter;

@@ -27,10 +27,10 @@ export class SalePeriodStorageGateway {
     // para registrar y actualizar periodos de venta
     async getTotalSalePeriodsCrossing(payload: { start_date: Date, end_date: Date, id_period?: number}) {
         const query = payload.id_period ? "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND id_period != ? AND status IN ('pending', 'active')" : "SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status IN ('pending', 'active')"
+        
         try {
             const response = await queryDB<{ total: number }[]>(query, 
-                [payload.end_date, payload.start_date, payload.id_period]);
-            
+                [payload.start_date, payload.end_date, payload.id_period]);
             const { total } = response[0];
             return total;
         } catch (error) {
@@ -51,8 +51,8 @@ export class SalePeriodStorageGateway {
 
     async registerSalePeriod(payload: registerSalePeriodRequestDto) {
         try {
-            const response = await queryDB<{insertId: number}>('INSERT INTO sale_periods (start_date, end_date, status) VALUES (?, ?, ?)', 
-                [payload.start_date, payload.end_date, payload.status]);
+            const response = await queryDB<{insertId: number}>('INSERT INTO sale_periods (start_date, end_date, bank_name, bank_account, bank_clabe, concept, amount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                [payload.start_date, payload.end_date, payload.bank_name, payload.bank_account, payload.bank_clabe, payload.concept, payload.amount, payload.status]);
             
             return response.insertId;
         } catch (error) {
@@ -72,8 +72,8 @@ export class SalePeriodStorageGateway {
 
     async updateSalePeriod(payload: registerSalePeriodRequestDto){
         try {
-            const response = await queryDB('UPDATE sale_periods SET start_date = ?, end_date = ?, status = ? WHERE id_period = ?', 
-                [payload.start_date, payload.end_date, payload.status, payload.id_period]);
+            const response = await queryDB('UPDATE sale_periods SET start_date = ?, end_date = ?, bank_name = ?, bank_account = ?, bank_clabe = ?, concept = ?, amount = ?, status = ? WHERE id_period = ?',
+                [payload.start_date, payload.end_date, payload.bank_name, payload.bank_account, payload.bank_clabe, payload.concept, payload.amount, payload.status, payload.id_period]);
             return response;
         } catch (error) {
             throw(error)
@@ -110,5 +110,29 @@ export class SalePeriodStorageGateway {
         }
     }
 
+    async getCurrrentSalePeriod(payload: { today: Date }) {
+        try {
+            const response = await queryDB<SalePeriod[]>("SELECT * FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status = 'active'", 
+                [payload.today, payload.today]);
+            return response[0];
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getTotalTokens(){
+        try {
+            const response = await queryDB<{id_speciality:number, name:string, tokens_allowed: number, saled: number }[]>(`select s.id_speciality, s.name, sbp.tokens_allowed, count(CASE WHEN ss.herarchy = 1 THEN ss.id_selected_speciality END) as saled from sale_periods sp
+                                                                            join speciality_by_period sbp on sp.id_period = sbp.id_period
+                                                                            join specialities s on sbp.id_speciality = s.id_speciality
+                                                                            left join selected_specialities ss on sbp.id_speciality_by_period = ss.id_speciality_by_period
+                                                                            where sp.status = 'active'
+                                                                            group by s.name, sbp.tokens_allowed, s.id_speciality;`, 
+                []);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
 
 }

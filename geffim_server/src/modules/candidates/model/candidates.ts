@@ -52,14 +52,17 @@ export type Candidate = {
         {
             id_speciality: number,
             hierarchy: number,
+            name: string,
         },
         {
             id_speciality: number,
             hierarchy: number,
+            name: string,
         },
         {
             id_speciality: number,
             hierarchy: number,
+            name: string,
         }
     ],
     id_period: number,

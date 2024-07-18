@@ -4,6 +4,9 @@ import { validateError } from "../../../config/errors/error_handler";
 import { RequestToAuth } from "../model/requestToAuth";
 import { AuthStorageGateway } from "./auth.storage.gateway";
 import { ResponseAuthenticated } from "../model/responseAuthenticated";
+import { generateToken } from "../../../config/jwt";
+import { compare } from "../../../utils/security/bcrypt";
+import { ResponseApi } from "../../../kernel/types";
 
 const AuthRouter = Router()
 
@@ -49,10 +52,22 @@ export class AuthController {
                 password = candidate.password
             }            
 
-            // generar el token
-            
+            // validar la contraseña
+            if(!await compare(payload.password, password))
+                throw new Error('Usuario o contraseña incorrectos');
 
-            
+            // generar el token
+            authenticated.token = generateToken(authenticated);
+
+            // responder al cliente
+            const body: ResponseApi<ResponseAuthenticated> = {
+                data: authenticated,
+                status: 200,
+                message: 'Authenticated successfully',
+                error: false
+            };
+
+            res.status(200).json(body);
             
         } catch (error) {
             logger.error(error)
