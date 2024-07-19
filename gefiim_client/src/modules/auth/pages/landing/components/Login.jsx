@@ -1,9 +1,13 @@
 import { Col, Form, Row } from "react-bootstrap"
 import { ButtonComponent, InputComponent } from "../../../../../components"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { AuthContext } from "../../../context"
+import { LoadAlert, ToastWarning } from "../../../../../components/SweetAlertToast"
+import axios from '../../../../../config/http-clientt.gateway'
 
 export const Login = ({ decreaseComponent }) => {
+    const { login } = useContext(AuthContext)
 
     const [form, setForm] = useState({
         username: '',
@@ -21,8 +25,8 @@ export const Login = ({ decreaseComponent }) => {
         }
     })
 
-    const validateForm = () => {
-        let error = false
+    const validateForm = async () => {
+        let check = false
         let newError = {
             username: {
                 error: false,
@@ -37,18 +41,29 @@ export const Login = ({ decreaseComponent }) => {
         if (form.username === '') {
             newError.username.error = true
             newError.username.message = 'Este campo es obligatorio'
-            error = true
+            check = true
         }
 
         if (form.password === '') {
             newError.password.error = true
             newError.password.message = 'Este campo es obligatorio'
-            error = true
+            check = true
         }
 
         setError(newError)
-        if (!error) {
-            console.log(form)
+
+        if (!check) {
+            try {
+                LoadAlert(true)
+                const response = await axios.doPost('/auth/login', form)
+                const { username, token, role } = response.data
+
+                login( username, token, role )
+                LoadAlert(false)
+
+            } catch (error) {
+                ToastWarning(error.response.data.message)
+            }
         } 
     }
 

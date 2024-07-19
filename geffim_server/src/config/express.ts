@@ -4,6 +4,7 @@ import SpecialityRouter from '../modules/specialities/controller/speciality.cont
 import SalePeriodRouter from '../modules/sale_periods/controller/sale_period.controller';
 import InstitutionalInformationRouter from '../modules/institutional_information/controller/institutional_information.controller';
 import CandidatesRouter from '../modules/candidates/controller/candidates.controller';
+import AuthRouter from '../modules/auth/controller/auth.controller';
 
 import { Authenticator } from './jwt';
 import express from 'express';
@@ -19,6 +20,8 @@ app.get('/', async (__, res) => {
     res.send('Hello World');
 });
 
+
+app.use('/api-gefiim/auth', AuthRouter);
 app.use('/api-gefiim/state', StateRouter);
 app.use('/api-gefiim/municipality', MunicipalityRouter);
 app.use('/api-gefiim/speciality', SpecialityRouter);

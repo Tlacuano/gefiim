@@ -83,3 +83,41 @@
 {"level":"error","timestamp":"2024-07-17T20:45:35.025Z"}
 {"level":"error","timestamp":"2024-07-17T20:46:06.738Z"}
 {"level":"error","timestamp":"2024-07-18T18:33:41.330Z"}
+{"level":"error","timestamp":"2024-07-18T19:52:48.337Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-18T19:52:48.338Z"}
+{"level":"error","timestamp":"2024-07-18T19:54:29.984Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-18T19:54:29.985Z"}
+{"level":"error","timestamp":"2024-07-18T19:55:19.476Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-18T19:55:19.476Z"}
+{"level":"error","timestamp":"2024-07-18T19:55:28.748Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-18T19:55:28.749Z"}
+{"level":"error","timestamp":"2024-07-18T19:55:36.253Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-18T19:55:36.254Z"}
+{"level":"error","timestamp":"2024-07-18T19:56:54.788Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-18T19:56:54.788Z"}
+{"level":"error","timestamp":"2024-07-18T22:16:28.127Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:16:28.128Z"}
+{"level":"error","timestamp":"2024-07-18T22:17:20.233Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:17:20.234Z"}
+{"level":"error","timestamp":"2024-07-18T22:17:39.314Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:17:39.316Z"}
+{"level":"error","timestamp":"2024-07-18T22:17:51.408Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:17:51.409Z"}
+{"level":"error","timestamp":"2024-07-18T22:18:11.760Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:18:11.760Z"}
+{"level":"error","timestamp":"2024-07-18T22:18:15.610Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:18:15.610Z"}
+{"level":"error","timestamp":"2024-07-18T22:18:19.494Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:18:19.494Z"}
+{"level":"error","timestamp":"2024-07-18T22:21:09.784Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-18T22:21:09.785Z"}
+{"level":"error","timestamp":"2024-07-19T05:00:09.413Z"}
+{"level":"error","message":"La fecha de nacimiento del candidato no puede estar vacía","timestamp":"2024-07-19T05:00:09.415Z"}
+{"level":"error","timestamp":"2024-07-19T05:00:16.938Z"}
+{"level":"error","message":"La fecha de nacimiento del candidato no puede estar vacía","timestamp":"2024-07-19T05:00:16.939Z"}
+{"level":"error","timestamp":"2024-07-19T05:32:08.892Z"}
+{"level":"error","message":"El nombre de la escuela no es válido","timestamp":"2024-07-19T05:32:08.893Z"}
+{"level":"error","timestamp":"2024-07-19T05:43:21.738Z"}
+{"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-19T05:43:21.739Z"}
+{"level":"error","timestamp":"2024-07-19T18:48:33.875Z"}
+{"level":"error","message":"Usuario o contraseña incorrectos","timestamp":"2024-07-19T18:48:33.876Z"}

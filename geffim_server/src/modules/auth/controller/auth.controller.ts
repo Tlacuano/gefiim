@@ -50,6 +50,8 @@ export class AuthController {
                 authenticated.role = 'CANDIDATE'
                 authenticated.username = candidate.username
                 password = candidate.password
+
+                // validar que el candidato sea del periodo actual
             }            
 
             // validar la contraseña
@@ -76,5 +78,9 @@ export class AuthController {
             res.status(errorBody.status).json(errorBody); 
         }
     }
-    
 }
+
+
+AuthRouter.post('/login', new AuthController().login);
+
+export default AuthRouter;

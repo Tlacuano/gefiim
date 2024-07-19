@@ -4,7 +4,8 @@ import { authReducer } from "./authReducer"
 
 
 const init = () => {
-    return JSON.parse(localStorage.getItem('auth')) || { logged: false }
+    const user = JSON.parse(localStorage.getItem('auth')) || { logged: false }
+    return user.payload ? { logged: true, authInformation: user.payload } : { logged: false }
 }
 
 

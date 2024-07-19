@@ -40,7 +40,7 @@ export const Stepper = ({ steps, currentStep }) => {
                     ))}
                 </Col>
             </Row>
-            <Row className="mt-3">
+            <Row className="mt-5">
                 <Col>
                     <h3>
                         {steps[currentStep]}

@@ -54,6 +54,7 @@ class AuthController {
                     authenticated.role = 'CANDIDATE';
                     authenticated.username = candidate.username;
                     password = candidate.password;
+                    // validar que el candidato sea del periodo actual
                 }
                 // validar la contraseña
                 if (!(yield (0, bcrypt_1.compare)(payload.password, password)))
@@ -78,3 +79,5 @@ class AuthController {
     }
 }
 exports.AuthController = AuthController;
+AuthRouter.post('/login', new AuthController().login);
+exports.default = AuthRouter;

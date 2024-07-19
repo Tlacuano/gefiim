@@ -1,4 +1,5 @@
 export type requestToGenarateTokenDTO = {
+    logo : string;
     token: string;
     speciality_1: string;
     speciality_2: string;

@@ -7,7 +7,6 @@ import { AuthRoutes } from "./modules"
 import { AppRouter } from "./components"
 
 import axios from './config/http-clientt.gateway'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 function App() {
   const { logged, role } = useContext(AuthContext)

@@ -18,6 +18,7 @@ const speciality_controller_1 = __importDefault(require("../modules/specialities
 const sale_period_controller_1 = __importDefault(require("../modules/sale_periods/controller/sale_period.controller"));
 const institutional_information_controller_1 = __importDefault(require("../modules/institutional_information/controller/institutional_information.controller"));
 const candidates_controller_1 = __importDefault(require("../modules/candidates/controller/candidates.controller"));
+const auth_controller_1 = __importDefault(require("../modules/auth/controller/auth.controller"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
@@ -27,6 +28,7 @@ app.use(express_1.default.json({ limit: '50mb' }));
 app.get('/', (__, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send('Hello World');
 }));
+app.use('/api-gefiim/auth', auth_controller_1.default);
 app.use('/api-gefiim/state', state_controller_1.default);
 app.use('/api-gefiim/municipality', municipality_controller_1.default);
 app.use('/api-gefiim/speciality', speciality_controller_1.default);

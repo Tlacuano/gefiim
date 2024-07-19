@@ -148,8 +148,6 @@ class CandidatesController {
                     throw new Error('La clave de la escuela no es válida');
                 if (!/^(SECUNDARIA GENERAL|SECUNDARIA TECNICA|SECUNDARIA PRIVADA|TELESECUNDARIA)$/.test(payload.school_type))
                     throw new Error('El tipo de escuela no es válido');
-                if (!/^[A-ZÁÉÍÓÚÑÄËÏÖÜ][a-zA-ZáéíóúñäëïöüÁÉÍÓÚÑÄËÏÖÜ,-\s]*$/g.test(payload.school_name))
-                    throw new Error('El nombre de la escuela no es válido');
                 if (payload.average_grade < 0 || payload.average_grade > 10)
                     throw new Error('El promedio del candidato no es válido');
                 if (!/^(Ninguna|Propia institución|Intercambio|Oportunidades|Continuación de estudios|Contra el abandono escolar|Desarrollo de competencias|Estudiantes con Alguna Discapacidad|Probems|Salario|Otra beca federal|Beca estatal|Beca particular|Beca internacional|Otra)$/.test(payload.scholarship_type))
@@ -289,7 +287,34 @@ class CandidatesController {
             }
         });
     }
+    validateCurpOnPeriod(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la petición
+                const payload = req.body;
+                // instanciar el gateway
+                const candidatesStorageGateway = new candidates_storage_gateway_1.CandidatesStorageGateway();
+                // buscar si el candidato ya realizo su registro en el periodo actual
+                const candidateCount = yield candidatesStorageGateway.findCandidateByPeriod({ curp: payload.curp, id_period: payload.id_period });
+                if (candidateCount > 0)
+                    throw new Error('El candidato ya ha realizado su registro en el periodo actual');
+                const body = {
+                    data: true,
+                    status: 200,
+                    message: 'CURP válida',
+                    error: false
+                };
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
 }
 exports.CandidatesController = CandidatesController;
 CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
+CandidatesRouter.post('/validate-curp-on-period', new CandidatesController().validateCurpOnPeriod);
 exports.default = CandidatesRouter;
