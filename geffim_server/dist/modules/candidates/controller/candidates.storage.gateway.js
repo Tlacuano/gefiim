@@ -190,5 +190,40 @@ class CandidatesStorageGateway {
             }
         });
     }
+    findCandidateByPeriodAndUser(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`SELECT
+                                                                                CONCAT(c.first_last_name, ' ', c.second_last_name, ' ', c.name) AS name,
+                                                                                c.curp,
+                                                                                s.name AS speciality_name,
+                                                                                c.username as ficha,
+                                                                                IF(c.payed = 1, 'Pagado', 'Pendiente') AS payment
+                                                                            FROM candidates c
+                                                                                JOIN selected_specialities ss ON c.id_candidate = ss.id_candidate
+                                                                                JOIN speciality_by_period sbp ON ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                                JOIN sale_periods sp ON sbp.id_period = sp.id_period
+                                                                                JOIN specialities s ON sbp.id_speciality = s.id_speciality
+                                                                            WHERE c.username = ?
+                                                                                AND sp.id_period = ?
+                                                                                AND ss.herarchy = 1`, [payload.username, payload.id_period]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    registerPayment(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`UPDATE candidates SET payed = ? WHERE username = ?`, [payload.payed, payload.username]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
 }
 exports.CandidatesStorageGateway = CandidatesStorageGateway;

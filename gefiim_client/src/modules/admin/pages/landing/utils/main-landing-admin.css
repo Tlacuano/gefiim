@@ -1,0 +1,28 @@
+.sidebar {
+    width: 70px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+}
+
+.text-secondary-color {
+    color: var(--secondary-color) !important;
+}
+
+.content {
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+    }
+}

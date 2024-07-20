@@ -21,6 +21,7 @@ const random_1 = require("../../../utils/security/random");
 const bcrypt_1 = require("../../../utils/security/bcrypt");
 const format_date_string_1 = require("../../../utils/security/format_date_string");
 const create_token_1 = require("../functions/create_token");
+const response_messages_1 = require("../../../utils/messages/response_messages");
 const CandidatesRouter = (0, express_1.Router)();
 class CandidatesController {
     registerCandidate(req, res) {
@@ -313,8 +314,72 @@ class CandidatesController {
             }
         });
     }
+    getCandidateByPeriodAndUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la petición
+                const payload = req.body;
+                // validar que el cuerpo de la petición
+                if (!payload.username)
+                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                if (!payload.id_period)
+                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                // instanciar el gateway
+                const candidatesStorageGateway = new candidates_storage_gateway_1.CandidatesStorageGateway();
+                // buscar si el candidato ya realizo su registro en el periodo actual
+                const candidate = yield candidatesStorageGateway.findCandidateByPeriodAndUser({ username: payload.username, id_period: payload.id_period });
+                if (!candidate)
+                    throw new Error('No se encontró al candidato');
+                const body = {
+                    data: candidate,
+                    status: 200,
+                    message: 'el candidato fue encontrado',
+                    error: false
+                };
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
+    registerPayment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la petición
+                const payload = req.body;
+                // instanciar el gateway
+                const candidatesStorageGateway = new candidates_storage_gateway_1.CandidatesStorageGateway();
+                // validar que el cuerpo de la petición
+                if (!payload.username)
+                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                // buscar si el candidato ya realizo su registro en el periodo actual
+                yield candidatesStorageGateway.registerPayment({ username: payload.username, payed: payload.payed });
+                const body = {
+                    data: true,
+                    status: 200,
+                    message: 'Pago registrado correctamente',
+                    error: false
+                };
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
 }
 exports.CandidatesController = CandidatesController;
+//admin
 CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
+//guest
 CandidatesRouter.post('/validate-curp-on-period', new CandidatesController().validateCurpOnPeriod);
+//admin
+CandidatesRouter.post('/get-candidate-by-period-and-user', new CandidatesController().getCandidateByPeriodAndUser);
+//admin
+CandidatesRouter.post('/register-payment', new CandidatesController().registerPayment);
 exports.default = CandidatesRouter;

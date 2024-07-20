@@ -107,14 +107,14 @@ class SalePeriodController {
                 // registrar las especialidades y sus fichas permitidas
                 for (const speciality of payload.speciality_by_period) {
                     if (!speciality.id_speciality)
-                        throw new Error('Error del servidor');
+                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
                     if (speciality.tokens_allowed <= 0 || !Number.isInteger(speciality.tokens_allowed))
                         throw new Error('Las fichas permitidas deben ser un número entero positivo');
                     // validar que la especialidad exista
                     const specialityGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
                     const existSpeciality = yield specialityGateway.getSpecialityById(speciality.id_speciality);
                     if (!existSpeciality)
-                        throw new Error('La especialidad no existe');
+                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
                     // registrar la especialidad con sus fichas permitidas
                     yield StorageGateway.registerSpecialityBySalePeriod({ id_period: id_period, id_speciality: speciality.id_speciality, tokens_allowed: speciality.tokens_allowed });
                 }
@@ -291,6 +291,8 @@ class SalePeriodController {
                 const body = {
                     data: {
                         currentSalePeriod: currentSalePeriod.id_period,
+                        start_date: `${currentSalePeriod.start_date.getDate()}/${currentSalePeriod.start_date.getMonth() + 1}/${currentSalePeriod.start_date.getFullYear()}`,
+                        end_date: `${currentSalePeriod.end_date.getDate()}/${currentSalePeriod.end_date.getMonth() + 1}/${currentSalePeriod.end_date.getFullYear()}`,
                         specialities: specialities.map(speciality => { return { id_speciality: speciality.id_speciality, name: speciality.name }; }),
                         specialities_saled: specialities_saled.map(speciality => { return { id_speciality: speciality.id_speciality, name: speciality.name }; }),
                     },

@@ -14,7 +14,7 @@ instance.interceptors.request.use(
         const authData = JSON.parse(localStorage.getItem('auth'))
 
         if (authData) {
-            config.headers['Authorization'] = `Bearer ${authInformation.payload.token}`
+            config.headers['Authorization'] = `Bearer ${authData.payload.token}`
         }
 
         return config

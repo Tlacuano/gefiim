@@ -43,7 +43,7 @@ export const Home = ({ increaseComponent }) => {
             </Row>
             <Row className="mt-4">
                 <Col className="text-center">
-                    <span className="selectable text-hover" style={{ fontSize: 19 }} onClick={ increaseComponent } >Inicias sesión</span>
+                    <span className="selectable text-hover" style={{ fontSize: 19 }} onClick={ increaseComponent } >Iniciar sesión</span>
                 </Col>
             </Row>
         </>

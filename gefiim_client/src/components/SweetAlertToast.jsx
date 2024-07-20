@@ -1,13 +1,13 @@
 import Swal from "sweetalert2";
 
 export const SweetAlert = (icon = 'question', title, text, confirmuttonText, onConfirm ) => {
-
     Swal.fire({
         icon: icon,
         title: title,
         text: text,
         showCancelButton: true,
         cancelButtonText: "Cancelar",
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: confirmuttonText,
 
     }).then(async (result) => {

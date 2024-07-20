@@ -16,6 +16,7 @@ function App() {
       const response = await axios.doGet('/institutional-information/get-institutional-information')
       
       const textColorPrimary = textColor(response.data.primary_color)
+      response.data.textColorPrimary = textColorPrimary
 
       document.documentElement.style.setProperty('--primary-color', response.data.primary_color)
       document.documentElement.style.setProperty('--secondary-color', response.data.secondary_color)
@@ -24,7 +25,7 @@ function App() {
       localStorage.setItem('institutionalInformation', JSON.stringify(response.data))
 
     } catch (error) {
-      console.log(error)
+      console.log(error + 'error')
     }
   }
 

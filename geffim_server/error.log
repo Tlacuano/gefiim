@@ -121,3 +121,77 @@
 {"level":"error","message":"El candidato ya ha realizado su registro en el periodo actual","timestamp":"2024-07-19T05:43:21.739Z"}
 {"level":"error","timestamp":"2024-07-19T18:48:33.875Z"}
 {"level":"error","message":"Usuario o contraseña incorrectos","timestamp":"2024-07-19T18:48:33.876Z"}
+{"level":"error","timestamp":"2024-07-20T02:20:46.760Z"}
+{"level":"error","message":"date.split is not a function","timestamp":"2024-07-20T02:20:46.768Z"}
+{"level":"error","timestamp":"2024-07-20T02:20:46.813Z"}
+{"level":"error","message":"date.split is not a function","timestamp":"2024-07-20T02:20:46.842Z"}
+{"level":"error","timestamp":"2024-07-20T03:45:35.283Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:45:35.283Z"}
+{"level":"error","timestamp":"2024-07-20T03:45:35.381Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:45:35.381Z"}
+{"level":"error","timestamp":"2024-07-20T03:45:51.079Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:45:51.079Z"}
+{"level":"error","timestamp":"2024-07-20T03:45:51.159Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:45:51.160Z"}
+{"level":"error","timestamp":"2024-07-20T03:46:50.326Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:46:50.326Z"}
+{"level":"error","timestamp":"2024-07-20T03:46:50.340Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:46:50.340Z"}
+{"level":"error","timestamp":"2024-07-20T03:47:02.509Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:47:02.509Z"}
+{"level":"error","timestamp":"2024-07-20T03:47:02.561Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T03:47:02.561Z"}
+{"level":"error","timestamp":"2024-07-20T17:20:38.635Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T17:20:38.635Z"}
+{"level":"error","timestamp":"2024-07-20T17:23:45.861Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-20T17:23:45.862Z"}
+{"level":"error","timestamp":"2024-07-20T17:59:26.807Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T17:59:26.808Z"}
+{"level":"error","timestamp":"2024-07-20T17:59:59.681Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T17:59:59.682Z"}
+{"level":"error","timestamp":"2024-07-20T18:01:05.232Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:01:05.232Z"}
+{"level":"error","timestamp":"2024-07-20T18:01:22.780Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:01:22.781Z"}
+{"level":"error","timestamp":"2024-07-20T18:01:53.118Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:01:53.119Z"}
+{"level":"error","timestamp":"2024-07-20T18:02:29.813Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:02:29.814Z"}
+{"level":"error","timestamp":"2024-07-20T18:02:46.479Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:02:46.480Z"}
+{"level":"error","timestamp":"2024-07-20T18:03:26.655Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:03:26.656Z"}
+{"level":"error","timestamp":"2024-07-20T18:03:46.743Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:03:46.744Z"}
+{"level":"error","timestamp":"2024-07-20T18:04:22.926Z"}
+{"level":"error","message":"El nombre de usuario no puede estar vacío","timestamp":"2024-07-20T18:04:22.927Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:19.328Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:19.328Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:28.126Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:28.128Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:29.658Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:29.658Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:30.135Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:30.136Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:30.585Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:30.586Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:31.033Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:31.033Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:31.502Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:31.503Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:31.922Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:31.922Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:32.421Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:32.421Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:32.921Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:32.921Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:33.348Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:33.349Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:33.814Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:33.814Z"}
+{"level":"error","timestamp":"2024-07-20T18:45:34.288Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:45:34.288Z"}
+{"level":"error","timestamp":"2024-07-20T18:47:02.172Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:47:02.172Z"}
+{"level":"error","timestamp":"2024-07-20T18:47:10.684Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:47:10.684Z"}

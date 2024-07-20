@@ -18,7 +18,7 @@ export type Candidate = {
     candidate_neighborhood: string,
     candidate_street_and_number: string,
 
-    // tutors
+    // tutorsñ
     tutor_id_tutor: number,
     tutor_name: string,
     tutor_first_last_name: string,

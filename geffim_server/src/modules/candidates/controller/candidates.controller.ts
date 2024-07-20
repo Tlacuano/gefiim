@@ -1,7 +1,7 @@
+import { Candidate } from './../model/candidates';
 import { Router, Request, Response } from "express"
 import logger from "../../../config/logs/logger"
 import { validateError } from "../../../config/errors/error_handler";
-import { Candidate } from "../model/candidates";
 import { CandidatesStorageGateway } from "./candidates.storage.gateway";
 import { randomCode } from "../../../utils/security/random";
 import { encode } from "../../../utils/security/bcrypt";
@@ -10,6 +10,7 @@ import { formatDate } from "../../../utils/security/format_date_string";
 import { createToken } from "../functions/create_token";
 import { ResponseApi } from "../../../kernel/types";
 import { registerCandidateRequestDto } from "./dtos/response_register_candidate.dto";
+import { MESSAGES } from "../../../utils/messages/response_messages";
 
 const CandidatesRouter = Router();
 
@@ -373,13 +374,86 @@ export class CandidatesController {
             res.status(errorBody.status).json(errorBody);            
         }
     }
+
+    async getCandidateByPeriodAndUser (req: Request, res: Response) {
+        try {
+            // obtener el cuerpo de la petición
+            const payload = req.body as Candidate;
+
+            // validar que el cuerpo de la petición
+            if(!payload.username)
+                throw new Error(MESSAGES.BAD_REQUEST.DEFAULT);
+            if(!payload.id_period)
+                throw new Error(MESSAGES.BAD_REQUEST.DEFAULT);
+
+            // instanciar el gateway
+            const candidatesStorageGateway = new CandidatesStorageGateway();
+
+            // buscar si el candidato ya realizo su registro en el periodo actual
+            const candidate = await candidatesStorageGateway.findCandidateByPeriodAndUser({ username: payload.username, id_period: payload.id_period });
+
+            if(!candidate)
+                throw new Error('No se encontró al candidato');
+
+            const body: ResponseApi<Object> = {
+                data: candidate,
+                status: 200,
+                message: 'el candidato fue encontrado',
+                error: false
+            }
+
+            res.status(200).json(body);
+
+        } catch (error) {
+            logger.error(error)
+
+            const errorBody = validateError(error as Error);
+            res.status(errorBody.status).json(errorBody);
+        }
+    }
+
+    async registerPayment (req: Request, res: Response) {
+        try {
+            // obtener el cuerpo de la petición
+            const payload = req.body as { username: string, payed: boolean };
+
+            // instanciar el gateway
+            const candidatesStorageGateway = new CandidatesStorageGateway();
+
+            // validar que el cuerpo de la petición
+            if(!payload.username)
+                throw new Error(MESSAGES.BAD_REQUEST.DEFAULT);
+        
+            // buscar si el candidato ya realizo su registro en el periodo actual
+            await candidatesStorageGateway.registerPayment({ username: payload.username, payed: payload.payed });
+
+            const body: ResponseApi<boolean> = {
+                data: true,
+                status: 200,
+                message: 'Pago registrado correctamente',
+                error: false
+            }
+
+            res.status(200).json(body);
+
+        } catch (error) {
+            logger.error(error)
+
+            const errorBody = validateError(error as Error);
+            res.status(errorBody.status).json(errorBody);
+        }
+    }
 }
 
 
-
-
+//admin
 CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
+//guest
 CandidatesRouter.post('/validate-curp-on-period', new CandidatesController().validateCurpOnPeriod);
+//admin
+CandidatesRouter.post('/get-candidate-by-period-and-user', new CandidatesController().getCandidateByPeriodAndUser);
+//admin
+CandidatesRouter.post('/register-payment', new CandidatesController().registerPayment);
 
 
 export default CandidatesRouter;

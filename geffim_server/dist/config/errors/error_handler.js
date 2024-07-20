@@ -72,6 +72,7 @@ const errors = {
     'La jerarquía de la especialidad no es válida': { data: undefined, message: 'La jerarquía de la especialidad no es válida', status: 400, error: true },
     'Las especialidades no pueden repetirse': { data: undefined, message: 'Las especialidades no pueden repetirse', status: 400, error: true },
     'El cupo para la especialidad seleccionada ya está lleno': { data: undefined, message: 'El cupo para la especialidad seleccionada ya está lleno', status: 400, error: true },
+    'No se encontró al candidato': { data: undefined, message: 'No se encontró al candidato', status: 400, error: true },
     'El color primario no puede estar vacío': { data: undefined, message: 'El color primario no puede estar vacío', status: 400, error: true },
     'El color secundario no puede estar vacío': { data: undefined, message: 'El color secundario no puede estar vacío', status: 400, error: true },
     'El logo no puede estar vacío': { data: undefined, message: 'El logo no puede estar vacío', status: 400, error: true },

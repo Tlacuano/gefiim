@@ -8,6 +8,7 @@ import { SalePeriod } from "../model/sale_period";
 import { registerSalePeriodRequestDto } from "./dto/register_sale_period.request.dto";
 import { MESSAGES } from "../../../utils/messages/response_messages";
 import { SpecialityStorageGateway } from "../../../modules/specialities/controller/speciality.storage.gateway";
+import { formatDate } from "../../../utils/security/format_date_string";
 
 const SalePeriodRouter = Router();
 
@@ -116,7 +117,7 @@ export class SalePeriodController {
             // registrar las especialidades y sus fichas permitidas
             for (const speciality of payload.speciality_by_period) {
                 if (!speciality.id_speciality)
-                    throw new Error('Error del servidor');
+                    throw new Error(MESSAGES.SERVER_ERROR);
                 if (speciality.tokens_allowed <= 0 || !Number.isInteger(speciality.tokens_allowed))
                     throw new Error('Las fichas permitidas deben ser un número entero positivo');
     
@@ -125,7 +126,7 @@ export class SalePeriodController {
                 const existSpeciality = await specialityGateway.getSpecialityById(speciality.id_speciality);
     
                 if (!existSpeciality)
-                    throw new Error('La especialidad no existe');
+                    throw new Error(MESSAGES.SERVER_ERROR);
     
                 // registrar la especialidad con sus fichas permitidas
                 await StorageGateway.registerSpecialityBySalePeriod({ id_period: id_period, id_speciality: speciality.id_speciality, tokens_allowed: speciality.tokens_allowed });
@@ -341,6 +342,8 @@ export class SalePeriodController {
             const body: ResponseApi<Object> = {
                 data: {
                     currentSalePeriod: currentSalePeriod.id_period,
+                    start_date: `${currentSalePeriod.start_date.getDate()}/${currentSalePeriod.start_date.getMonth() + 1}/${currentSalePeriod.start_date.getFullYear()}`,
+                    end_date: `${currentSalePeriod.end_date.getDate()}/${currentSalePeriod.end_date.getMonth() + 1}/${currentSalePeriod.end_date.getFullYear()}`,
                     specialities: specialities.map(speciality => { return { id_speciality: speciality.id_speciality, name: speciality.name } }),
                     specialities_saled: specialities_saled.map(speciality => { return { id_speciality: speciality.id_speciality, name: speciality.name } }),
                 },

@@ -34,6 +34,8 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.removeItem('auth')
         dispatch(action)
+
+        window.location.href = '/'
     }
 
     return (
