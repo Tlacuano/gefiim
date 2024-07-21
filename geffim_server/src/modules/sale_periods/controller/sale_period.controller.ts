@@ -31,6 +31,11 @@ export class SalePeriodController {
             const totalSalePeriods = await StorageGateway.getTotalSalePeriods();
             const salePeriods = await StorageGateway.getSalePeriodsPaginated({ limit: limit, offset: offset });
 
+            for (let i = 0; i < salePeriods.length; i++) {
+                salePeriods[i].start_date_string = `${salePeriods[i].start_date.getDate()}/${salePeriods[i].start_date.getMonth() + 1}/${salePeriods[i].start_date.getFullYear()}`;
+                salePeriods[i].end_date_string = `${salePeriods[i].end_date.getDate()}/${salePeriods[i].end_date.getMonth() + 1}/${salePeriods[i].end_date.getFullYear()}`;
+            }
+
             // crear el cuerpo de la respuesta
             const body: ResponseApi<Pagination<SalePeriod[]>> = {
                 data: {

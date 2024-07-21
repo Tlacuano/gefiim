@@ -29,6 +29,18 @@ export const ToastWarning = (title, text) => {
     });
 }
 
+export const ToastSuccess = (title, text) => {
+    Swal.fire({
+        icon: 'success',
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        timer: 3000,
+        toast: true,
+        position: "top-end",
+    });
+}
+
 export const LoadAlert = (show) => {
     if (show) {
         Swal.fire({

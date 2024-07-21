@@ -1630,3 +1630,18 @@
 {"level":"error","timestamp":"2024-07-20T18:47:10.684Z"}
 {"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-20T18:47:10.684Z"}
 {"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-20T18:49:06.805Z"}
+{"level":"error","timestamp":"2024-07-21T02:22:01.479Z"}
+{"level":"error","message":"No se encontró al candidato","timestamp":"2024-07-21T02:22:01.479Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T03:37:35.109Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T04:02:52.943Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T04:03:49.794Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T04:04:14.881Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T04:04:21.389Z"}
+{"code":"ER_TRUNCATED_WRONG_VALUE","errno":1292,"level":"error","sql":"UPDATE sale_periods SET start_date = '2024-07-15T06:00:00.000Z', end_date = '2024-07-30T06:00:00.000Z', bank_name = 'Citibanamex', bank_account = '1234567812345678', bank_clabe = '123456123456123456', concept = 'recuperacion de los costos del examen de adminisión', amount = 15.2, status = 'active' WHERE id_period = 2","sqlMessage":"Incorrect date value: '2024-07-15T06:00:00.000Z' for column 'start_date' at row 1","sqlState":"22007","timestamp":"2024-07-21T07:42:43.018Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T07:42:43.019Z"}
+{"level":"error","timestamp":"2024-07-21T07:42:43.020Z"}
+{"code":"ER_TRUNCATED_WRONG_VALUE","errno":1292,"level":"error","sql":"UPDATE sale_periods SET start_date = '2024-07-15T06:00:00.000Z', end_date = '2024-07-30T06:00:00.000Z', bank_name = 'Citibanamex', bank_account = '1234567812345678', bank_clabe = '123456123456123456', concept = 'recuperacion de los costos del examen de adminisión', amount = 15.2, status = 'active' WHERE id_period = 2","sqlMessage":"Incorrect date value: '2024-07-15T06:00:00.000Z' for column 'start_date' at row 1","sqlState":"22007","timestamp":"2024-07-21T07:49:13.064Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T07:49:13.065Z"}
+{"level":"error","timestamp":"2024-07-21T07:49:13.066Z"}
+{"level":"error","timestamp":"2024-07-21T08:43:25.208Z"}
+{"level":"error","message":"payload.speciality_by_period is not iterable","timestamp":"2024-07-21T08:43:25.208Z"}

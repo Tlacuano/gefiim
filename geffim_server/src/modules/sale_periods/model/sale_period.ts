@@ -8,4 +8,6 @@ export type SalePeriod = {
     bank_clabe: string,
     concept: string,
     amount: number,
+    start_date_string: string,
+    end_date_string: string,
 }

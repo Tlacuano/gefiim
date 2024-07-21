@@ -17,3 +17,15 @@
     text-decoration: underline;
 }
 
+
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: var(--text-color-primary) !important;
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+  
+.page-link {
+    color: var(--primary-color) !important;
+}

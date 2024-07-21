@@ -4,6 +4,7 @@ import './utils/main-landing-admin.css'
 import { Route, Routes } from "react-router-dom"
 
 import { Stadistics } from "../stadistics"
+import { SalePeriods } from "../sale_periods/SalePeriods"
 
 export const LandingAdmin = () => {
     return (
@@ -15,6 +16,7 @@ export const LandingAdmin = () => {
                 <Col className="content px-5">
                     <Routes>
                         <Route path="/" element={<Stadistics/>} />
+                        <Route path="/periodo-de-venta" element={<SalePeriods/>} />
                     </Routes>
                 </Col>
             </Row>
