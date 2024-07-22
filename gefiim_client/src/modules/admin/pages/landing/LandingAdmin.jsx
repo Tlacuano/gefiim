@@ -5,6 +5,8 @@ import { Route, Routes } from "react-router-dom"
 
 import { Stadistics } from "../stadistics"
 import { SalePeriods } from "../sale_periods/SalePeriods"
+import { Specialities } from "../specialitys/Specialities"
+import { InstitutionalInformation } from "../institutional_information/InstitutionalInformation"
 
 export const LandingAdmin = () => {
     return (
@@ -17,6 +19,8 @@ export const LandingAdmin = () => {
                     <Routes>
                         <Route path="/" element={<Stadistics/>} />
                         <Route path="/periodo-de-venta" element={<SalePeriods/>} />
+                        <Route path="/especialidades" element={<Specialities />} />
+                        <Route path="/informacion-institucional" element={<InstitutionalInformation />} />
                     </Routes>
                 </Col>
             </Row>

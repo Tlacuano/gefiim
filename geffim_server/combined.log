@@ -1645,3 +1645,86 @@
 {"level":"error","timestamp":"2024-07-21T07:49:13.066Z"}
 {"level":"error","timestamp":"2024-07-21T08:43:25.208Z"}
 {"level":"error","message":"payload.speciality_by_period is not iterable","timestamp":"2024-07-21T08:43:25.208Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T18:05:59.115Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T19:24:00.391Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:20:05.226Z"}
+{"level":"error","timestamp":"2024-07-21T20:20:05.461Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-21T20:20:05.462Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:24:51.615Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:29:37.959Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:30:21.292Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:31:03.836Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:32:10.617Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:33:11.191Z"}
+{"level":"error","timestamp":"2024-07-21T20:50:37.332Z"}
+{"level":"error","message":"Las fichas permitidas deben ser un número entero positivo","timestamp":"2024-07-21T20:50:37.333Z"}
+{"level":"error","timestamp":"2024-07-21T20:51:46.132Z"}
+{"level":"error","message":"El rango de fechas se cruza con otro rango de fechas","timestamp":"2024-07-21T20:51:46.133Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T20:55:36.969Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-8' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:57:14.710Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:57:14.711Z"}
+{"level":"error","timestamp":"2024-07-21T20:57:14.712Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-8' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:57:30.228Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:57:30.229Z"}
+{"level":"error","timestamp":"2024-07-21T20:57:30.229Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-9' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:57:53.028Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:57:53.028Z"}
+{"level":"error","timestamp":"2024-07-21T20:57:53.029Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-9' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:57:55.311Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:57:55.312Z"}
+{"level":"error","timestamp":"2024-07-21T20:57:55.312Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-9' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:58:01.655Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:58:01.655Z"}
+{"level":"error","timestamp":"2024-07-21T20:58:01.656Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-9' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:58:05.505Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:58:05.506Z"}
+{"level":"error","timestamp":"2024-07-21T20:58:05.507Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-9' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:58:07.680Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:58:07.680Z"}
+{"level":"error","timestamp":"2024-07-21T20:58:07.680Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-9' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:58:09.558Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:58:09.559Z"}
+{"level":"error","timestamp":"2024-07-21T20:58:09.559Z"}
+{"code":"ER_WRONG_VALUE","errno":1525,"level":"error","sql":"SELECT COUNT(id_period) as total FROM sale_periods WHERE start_date <= '2024-7-32' AND end_date >= '2024-8-9' AND id_period != 5 AND status IN ('pending', 'active')","sqlMessage":"Incorrect DATE value: '2024-7-32'","sqlState":"HY000","timestamp":"2024-07-21T20:58:12.151Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-21T20:58:12.151Z"}
+{"level":"error","timestamp":"2024-07-21T20:58:12.152Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T22:31:55.211Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T22:32:02.558Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T22:32:04.461Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T23:26:44.201Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T23:29:24.666Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-21T23:30:18.346Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T00:17:55.008Z"}
+{"level":"error","timestamp":"2024-07-22T00:35:22.086Z"}
+{"level":"error","message":"El estado del periodo de venta debe ser cancelado","timestamp":"2024-07-22T00:35:22.087Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T00:37:25.562Z"}
+{"level":"error","timestamp":"2024-07-22T00:37:45.384Z"}
+{"level":"error","message":"El estado del periodo de venta no se puede cambiar","timestamp":"2024-07-22T00:37:45.385Z"}
+{"level":"error","timestamp":"2024-07-22T00:41:00.542Z"}
+{"level":"error","message":"El estado del periodo de venta debe ser cancelado","timestamp":"2024-07-22T00:41:00.543Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:04:03.623Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:05:12.870Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:06:05.781Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:08:11.350Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:11:48.063Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:12:32.665Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:12:49.311Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T01:15:43.737Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T02:31:41.392Z"}
+{"level":"error","timestamp":"2024-07-22T04:16:33.536Z"}
+{"level":"error","message":"El acronimo de la especialidad no es valido","timestamp":"2024-07-22T04:16:33.537Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:17:36.412Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:18:15.013Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:18:23.572Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:38:14.149Z"}
+{"level":"error","timestamp":"2024-07-22T04:42:42.808Z"}
+{"level":"error","message":"El acronimo ya existe","timestamp":"2024-07-22T04:42:42.809Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:44:06.914Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:44:32.221Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:45:04.453Z"}
+{"level":"error","timestamp":"2024-07-22T04:46:00.265Z"}
+{"level":"error","message":"El nombre de la especialidad no es valido","timestamp":"2024-07-22T04:46:00.265Z"}
+{"level":"error","timestamp":"2024-07-22T04:46:16.566Z"}
+{"level":"error","message":"El nombre de la especialidad no es valido","timestamp":"2024-07-22T04:46:16.567Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T04:47:11.164Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-22T05:49:03.526Z"}

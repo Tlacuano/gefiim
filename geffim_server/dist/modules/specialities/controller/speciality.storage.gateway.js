@@ -70,6 +70,28 @@ class SpecialityStorageGateway {
             }
         });
     }
+    getSpecialityByNameWithId(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE name = ? AND id_speciality != ?", [payload.name, payload.id_speciality]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSpecialityByAcronymWithId(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE acronym = ? AND id_speciality != ?", [payload.acronym, payload.id_speciality]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
     registerSpeciality(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -107,6 +129,17 @@ class SpecialityStorageGateway {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities WHERE status = 1");
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getAllSpecialities(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)("SELECT * FROM specialities");
                 return response;
             }
             catch (error) {

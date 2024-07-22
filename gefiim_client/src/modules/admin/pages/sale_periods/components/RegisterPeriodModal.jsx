@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Col, Modal, Row } from "react-bootstrap"
+import { useEffect, useState } from "react";
+import { Alert, Col, Modal, Row } from "react-bootstrap"
 import { ButtonComponent, InputComponent } from "../../../../../components";
 import { LoadAlert, SweetAlert, ToastSuccess, ToastWarning } from "../../../../../components/SweetAlertToast";
 
@@ -44,7 +44,8 @@ export const RegisterPeriodModal = ({ show, handleClose }) => {
         bank_name: '',
         bank_clabe: '',
         concept: '',
-        amount: ''
+        amount: '',
+        speciality_by_period:[]
     });
 
     const validate = () => {
@@ -162,11 +163,22 @@ export const RegisterPeriodModal = ({ show, handleClose }) => {
                     try {
                         const payload = { ...salePeriodCopy }
 
-                        const start_date = new Date(payload.start_date)
-                        const end_date = new Date(payload.end_date)
+                        if(payload.start_date.includes('T')){
+                            payload.start_date = payload.start_date.split('T')[0]
+                        }
 
-                        payload.start_date = `${start_date.getFullYear()}-${start_date.getMonth() + 1}-${start_date.getDate()}`
-                        payload.end_date = `${end_date.getFullYear()}-${end_date.getMonth() + 1}-${end_date.getDate()}`
+                        if(payload.end_date.includes('T')){
+                            payload.end_date = payload.end_date.split('T')[0]
+                        }
+
+                        //parsear a entero los tokens permitidos
+                        payload.speciality_by_period = payload.speciality_by_period.map((speciality) => {
+                            
+                            return {
+                                id_speciality: speciality.id_speciality,
+                                tokens_allowed: parseInt(speciality.tokens_allowed)
+                            }
+                        })
 
                         LoadAlert(true)
                         const response = await axios.doPost('/sale-period/register-sale-period', payload)
@@ -189,88 +201,150 @@ export const RegisterPeriodModal = ({ show, handleClose }) => {
         }
     }
 
+    const getSpecialities = async () => {
+        try {
+            LoadAlert(true)
+            const response = await axios.doGet('/speciality/get-all-specialities')
+            LoadAlert(false)
+
+            if(response.data){
+                const speciality_by_period = response.data.specialitiesActive.map((speciality) => {
+                    return {
+                        id_speciality: speciality.id_speciality,
+                        tokens_allowed: 0,
+                        name: speciality.name
+                    }
+                })
+
+                setSalePeriodCopy({...salePeriodCopy, speciality_by_period})
+            }
+        } catch (error) {
+            LoadAlert(false)
+            ToastWarning(error.response.data.message)
+        }
+    }
+
+    useEffect(() => {
+        getSpecialities()
+    }, [show])
+
     return(
-        <Modal show={show} onHide={handleClose} centered>
+        <Modal show={show} onHide={handleClose} centered size="xl">
             <Modal.Header closeButton>
                 <Modal.Title>Registrar periodo de venta</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row>
-                    <Col className="mb-3" lg='6' md='6' sm='6' xs='6'>
-                        <InputComponent
-                            label="Fecha de inicio"
-                            value={salePeriodCopy.start_date}
-                            onChange={(e) => setSalePeriodCopy({...salePeriodCopy, start_date: e.target.value})}
-                            error={error.start_date.error}
-                            errorMessage={error.start_date.message}
-                            type={'date'}
-                        />
+                    <Col lg='6' md='6' sm='12' xs='12'>
+                        <Row>
+                            <Col className="mb-3" lg='6' md='6' sm='6' xs='6'>
+                                <InputComponent
+                                    label="Fecha de inicio"
+                                    value={salePeriodCopy.start_date}
+                                    onChange={(e) => setSalePeriodCopy({...salePeriodCopy, start_date: e.target.value})}
+                                    error={error.start_date.error}
+                                    errorMessage={error.start_date.message}
+                                    type={'date'}
+                                />
+                            </Col>
+                            <Col className="mb-3"  lg='6' md='6' sm='6' xs='6'>
+                                <InputComponent
+                                    label="Fecha de fin"
+                                    value={salePeriodCopy.end_date}
+                                    onChange={(e) => setSalePeriodCopy({...salePeriodCopy, end_date: e.target.value})}
+                                    error={error.end_date.error}
+                                    errorMessage={error.end_date.message}
+                                    type={'date'}
+                                />
+                            </Col>
+                            <Col className="mb-1" lg='12' md='12' sm='12' xs='12'>
+                                <hr/>
+                            </Col>
+                            {/* Datos bancarios */}
+                            <h5 className="mb-3">Datos bancarios</h5>
+                            <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
+                                <InputComponent
+                                    label="Cuenta bancaria"
+                                    value={salePeriodCopy.bank_account}
+                                    onChange={(e) => setSalePeriodCopy({...salePeriodCopy, bank_account: e.target.value})}
+                                    error={error.bank_account.error}
+                                    errorMessage={error.bank_account.message}
+                                />
+                            </Col>
+                            <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
+                                <InputComponent
+                                    label="Nombre del banco"
+                                    value={salePeriodCopy.bank_name}
+                                    onChange={(e) => setSalePeriodCopy({...salePeriodCopy, bank_name: e.target.value})}
+                                    error={error.bank_name.error}
+                                    errorMessage={error.bank_name.message}
+                                />
+                            </Col>
+                            <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
+                                <InputComponent
+                                    label="Cuenta CLABE"
+                                    value={salePeriodCopy.bank_clabe}
+                                    onChange={(e) => setSalePeriodCopy({...salePeriodCopy, bank_clabe: e.target.value})}
+                                    error={error.bank_clabe.error}
+                                    errorMessage={error.bank_clabe.message}
+                                />
+                            </Col>
+                            <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
+                                <InputComponent
+                                    label="Concepto"
+                                    value={salePeriodCopy.concept}
+                                    onChange={(e) => setSalePeriodCopy({...salePeriodCopy, concept: e.target.value})}
+                                    error={error.concept.error}
+                                    errorMessage={error.concept.message}
+                                />
+                            </Col>
+                            <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
+                                <InputComponent
+                                    label="Monto"
+                                    value={salePeriodCopy.amount}
+                                    onChange={(e) => setSalePeriodCopy({...salePeriodCopy, amount: e.target.value})}
+                                    error={error.amount.error}
+                                    errorMessage={error.amount.message}
+                                />
+                            </Col>
+                        </Row>
                     </Col>
-                    <Col className="mb-3"  lg='6' md='6' sm='6' xs='6'>
-                        <InputComponent
-                            label="Fecha de fin"
-                            value={salePeriodCopy.end_date}
-                            onChange={(e) => setSalePeriodCopy({...salePeriodCopy, end_date: e.target.value})}
-                            error={error.end_date.error}
-                            errorMessage={error.end_date.message}
-                            type={'date'}
-                        />
-                    </Col>
-                    <Col className="mb-1" lg='12' md='12' sm='12' xs='12'>
-                        <hr/>
-                    </Col>
-                    {/* Datos bancarios */}
-                    <h5 className="mb-3">Datos bancarios</h5>
-                    <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
-                        <InputComponent
-                            label="Cuenta bancaria"
-                            value={salePeriodCopy.bank_account}
-                            onChange={(e) => setSalePeriodCopy({...salePeriodCopy, bank_account: e.target.value})}
-                            error={error.bank_account.error}
-                            errorMessage={error.bank_account.message}
-                        />
-                    </Col>
-                    <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
-                        <InputComponent
-                            label="Nombre del banco"
-                            value={salePeriodCopy.bank_name}
-                            onChange={(e) => setSalePeriodCopy({...salePeriodCopy, bank_name: e.target.value})}
-                            error={error.bank_name.error}
-                            errorMessage={error.bank_name.message}
-                        />
-                    </Col>
-                    <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
-                        <InputComponent
-                            label="Cuenta CLABE"
-                            value={salePeriodCopy.bank_clabe}
-                            onChange={(e) => setSalePeriodCopy({...salePeriodCopy, bank_clabe: e.target.value})}
-                            error={error.bank_clabe.error}
-                            errorMessage={error.bank_clabe.message}
-                        />
-                    </Col>
-                    <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
-                        <InputComponent
-                            label="Concepto"
-                            value={salePeriodCopy.concept}
-                            onChange={(e) => setSalePeriodCopy({...salePeriodCopy, concept: e.target.value})}
-                            error={error.concept.error}
-                            errorMessage={error.concept.message}
-                        />
-                    </Col>
-                    <Col className="mb-3"  lg='12' md='12' sm='12' xs='12'>
-                        <InputComponent
-                            label="Monto"
-                            value={salePeriodCopy.amount}
-                            onChange={(e) => setSalePeriodCopy({...salePeriodCopy, amount: e.target.value})}
-                            error={error.amount.error}
-                            errorMessage={error.amount.message}
-                        />
+                    <Col  lg='6' md='6' sm='12' xs='12'>
+                        <Row
+                            style={{
+                                maxHeight: '70vh',
+                                overflowY: 'auto'
+                            }}
+                        >
+                            <Col className="mb-3" lg='12' md='12' sm='12' xs='12'>
+                                <h5>Fichas autorizadas por especialidad</h5>
+                                <Alert variant="warning">
+                                    Las especialidades activas se consideran para el registro de fichas autorizadas
+                                </Alert>
+                            </Col>
+                            {
+                                salePeriodCopy.speciality_by_period.map((speciality, index) => (
+                                    <Col className="mb-3" key={index} lg='12' md='12' sm='12' xs='12'>
+                                        <InputComponent
+                                            label={speciality.name}
+                                            value={speciality.tokens_allowed}
+                                            onChange={(e) => {
+                                                const speciality_by_period = [...salePeriodCopy.speciality_by_period]
+                                                speciality_by_period[index].tokens_allowed = e.target.value
+                                                setSalePeriodCopy({...salePeriodCopy, speciality_by_period})
+                                            }}
+                                            type={'number'}
+                                        />
+                                    </Col>
+                                ))
+                            }
+                        </Row>
                     </Col>
                     <Col className="mb-2 mt-2 text-end" lg='12' md='12' sm='12' xs='12'>
                         <ButtonComponent
                             action={validate}
                         >
-                            Guardar cambios
+                            Registrar periodo
                         </ButtonComponent>
                     </Col>
                 </Row>

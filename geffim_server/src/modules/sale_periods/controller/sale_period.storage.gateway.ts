@@ -16,7 +16,7 @@ export class SalePeriodStorageGateway {
 
     async getSalePeriodsPaginated(payload: { limit: number, offset: number }) {
         try {
-            const response = await queryDB<SalePeriod[]>("SELECT * FROM sale_periods LIMIT ? OFFSET ? ", 
+            const response = await queryDB<SalePeriod[]>("SELECT * FROM sale_periods ORDER BY start_date DESC LIMIT ? OFFSET ? ", 
                 [payload.limit, payload.offset]);
             return response;
         } catch (error) {
@@ -122,13 +122,67 @@ export class SalePeriodStorageGateway {
 
     async getTotalTokens(){
         try {
-            const response = await queryDB<{id_speciality:number, name:string, tokens_allowed: number, saled: number }[]>(`select s.id_speciality, s.name, sbp.tokens_allowed, count(CASE WHEN ss.herarchy = 1 THEN ss.id_selected_speciality END) as saled from sale_periods sp
-                                                                            join speciality_by_period sbp on sp.id_period = sbp.id_period
-                                                                            join specialities s on sbp.id_speciality = s.id_speciality
-                                                                            left join selected_specialities ss on sbp.id_speciality_by_period = ss.id_speciality_by_period
-                                                                            where sp.status = 'active'
-                                                                            group by s.name, sbp.tokens_allowed, s.id_speciality;`, 
+            const response = await queryDB<{id_speciality:number, name:string, tokens_allowed: number, saled: number }[]>(`SELECT
+                                                                                                                                s.id_speciality,
+                                                                                                                                s.name,
+                                                                                                                                COALESCE(sbp.tokens_allowed, 0) AS tokens_allowed,
+                                                                                                                                COUNT(CASE WHEN ss.herarchy = 1 THEN ss.id_selected_speciality END) AS saled
+                                                                                                                            FROM
+                                                                                                                                specialities s
+                                                                                                                            LEFT JOIN
+                                                                                                                                speciality_by_period sbp ON s.id_speciality = sbp.id_speciality
+                                                                                                                            LEFT JOIN
+                                                                                                                                sale_periods sp ON sbp.id_period = sp.id_period AND sp.status = 'active'
+                                                                                                                            LEFT JOIN
+                                                                                                                                selected_specialities ss ON sbp.id_speciality_by_period = ss.id_speciality_by_period
+                                                                                                                            WHERE
+                                                                                                                                s.status = 1
+                                                                                                                            GROUP BY
+                                                                                                                                s.id_speciality, s.name, sbp.tokens_allowed;`, 
                 []);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    // actualizar tokens vendidos
+
+    async getSpecialityBySalePeriod(payload: { id_period: number }) {
+        try {
+            const response = await queryDB<{id_speciality:number, name:string, tokens_allowed: number, saled: number }[]>(` SELECT
+                                                                                                                                s.id_speciality,
+                                                                                                                                s.name,
+                                                                                                                                COALESCE(sbp.tokens_allowed, 0) AS tokens_allowed
+                                                                                                                            FROM
+                                                                                                                                specialities s
+                                                                                                                            LEFT JOIN
+                                                                                                                                speciality_by_period sbp ON s.id_speciality = sbp.id_speciality AND sbp.id_period = ?
+                                                                                                                            WHERE
+                                                                                                                                s.status = 1
+                                                                                                                            ORDER BY
+                                                                                                                                s.id_speciality;`, 
+                [payload.id_period]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async existSpecialityBySalePeriod(payload: { id_period: number, id_speciality: number }) {
+        try {
+            const response = await queryDB<{id_speciality_by_period: number, tokens_allowed:number}[]>(`select id_speciality_by_period, tokens_allowed from speciality_by_period where id_period = ? and id_speciality = ?;`, 
+                [payload.id_period, payload.id_speciality]);
+            return response[0];
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async updateTokensAllowed(payload: { id_speciality_by_period: number, tokens_allowed: number }) {
+        try {
+            const response = await queryDB('UPDATE speciality_by_period SET tokens_allowed = ? WHERE id_speciality_by_period = ?', 
+                [payload.tokens_allowed, payload.id_speciality_by_period]);
             return response;
         } catch (error) {
             throw(error)

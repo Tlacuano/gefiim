@@ -104,7 +104,7 @@ const errors: { [x: string]: ResponseApi<undefined> } = {
     'El acronimo de la especialidad no es valido' : { data: undefined, message: 'El acronimo de la especialidad no es valido', status: 400, error: true },
     'El nombre de la especialidad ya existe' : { data: undefined, message: 'El nombre de la especialidad ya existe', status: 400, error: true },
     'El acronimo ya existe' : { data: undefined, message: 'El acronimo ya existe', status: 400, error: true },
-
+    'El acronimo no puede tener mas de 7 caracteres' : { data: undefined, message: 'El acronimo no puede tener mas de 7 caracteres', status: 400, error: true },
 
 
 

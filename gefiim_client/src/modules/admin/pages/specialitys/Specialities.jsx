@@ -1,47 +1,43 @@
 import { useEffect, useState } from "react";
-import { NavbarAdmin } from "../../components/NavbarAdmin";
+import { NavbarAdmin } from "../../components/NavbarAdmin"
 import { LoadAlert, ToastWarning } from "../../../../components/SweetAlertToast";
-import { Card, Col, Pagination, Row } from "react-bootstrap";
-import { ButtonComponent } from "../../../../components";
-import { ButtonIconComponent } from "../../../../components/ButtonIconComponent";
-import { EditSalePeriodModal } from "./components/EditSalePeriodModal";
-import { RegisterPeriodModal } from "./components/RegisterPeriodModal";
 
 import axios from "../../../../config/http-clientt.gateway";
+import { Card, Col, Pagination, Row } from "react-bootstrap";
+import { ButtonComponent, InputComponent } from "../../../../components";
+import { ButtonIconComponent } from "../../../../components/ButtonIconComponent";
+import { RegisterSpecialityModal } from "./components/RegisterSpecialityModal";
+import { EditEspecialityModal } from "./components/EditEspecialityModal";
 
 
-export const SalePeriods = () => {
-    const [periods, setPeriods] = useState(null);
+export const Specialities = () => {
+    const [specialities, setSpecialities] = useState(null);
     const [pageObject, setPageObject] = useState({
         page: 1,
         limit: 14
     });
-    
-    // Modals
-    const [EditModal, setEditModal] = useState(false);
-    const [period, setPeriod] = useState();
+    const [search, setSearch] = useState('');
 
     const [registerModal, setRegisterModal] = useState(false);
+    const [editModal, setEditModal] = useState(false);
+    const [speciality, setSpeciality] = useState(null);
 
 
-    const editSalePeriod = (period) => {
-        setEditModal(true);
-        setPeriod(period);
-    };
-
-    const getPeriods = async (page = 1, limit = 14) => {
+    const getSpecialities = async () => {
         try {
-            const response = await axios.doGet(`/sale-period/get-sale-period-page?page=${page}&limit=${limit}`);
-            setPeriods(response.data);
+            const response = await axios.doPost(`/speciality/get-specialities-page?page=${pageObject.page}&limit=${pageObject.limit}`, { value: search });
+            setSpecialities(response.data);
 
         } catch (error) {
             ToastWarning(error.response.data.message);
         }
-    };
+    }
 
-    useEffect(() => {
-        getPeriods(pageObject.page, pageObject.limit);
-    }, [pageObject]);
+    const editSpeciality = (speciality) => {
+        setSpeciality(speciality);
+        setEditModal(true);
+    }
+
 
     const handlePrev = () => {
         if (pageObject.page > 1) {
@@ -50,57 +46,71 @@ export const SalePeriods = () => {
     };
 
     const handleNext = () => {
-        if (periods && pageObject.page < Math.ceil(periods.total / pageObject.limit)) {
+        if (specialities && pageObject.page < Math.ceil(specialities.total / pageObject.limit)) {
             setPageObject({ ...pageObject, page: pageObject.page + 1 });
         }
     };
 
+
+    useEffect(() => {
+        getSpecialities();
+    }, [])
+
+    useEffect(() => {
+        getSpecialities();
+    }, [pageObject, search])
+
     return (
         <>
-            <NavbarAdmin title="Periodos de venta" />
+            <NavbarAdmin title="Especialidades" />
             {
-                periods === null ? (
+                specialities === null ?
                     <div className="text-center">
                         <h1>Cargando...</h1>
                     </div>
-                ) : (
+                    :
                     <Row>
-                        <Col className="text-end my-4" lg='12' md='12' sm='12' xs='12'>
+                        <Col lg='4' md='4' sm='12' xs='12'>
+                            <InputComponent
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </Col>
+                        <Col className="text-end mb-4">
                             <ButtonComponent
+                                className="mt-3"
+                                action={() => setRegisterModal(true)}
                                 pl={40}
                                 pr={40}
                                 textSize={20}
-                                action={ () => setRegisterModal(true) }
                             >
-                                Registrar periodo
+                                Registrar especialidad
                             </ButtonComponent>
                         </Col>
+
                         <Col lg='12' md='12' sm='12' xs='12'>
                             <Card>
-                                <div className="table-responsive" style={{ minHeight:'68vh'}}>
+                                <div className="table-responsive" style={{ minHeight: '68vh' }}>
                                     <table className="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Fecha de inicio</th>
-                                                <th>Fecha de fin</th>
+                                                <th>Nombre</th>
+                                                <th>Acronimo</th>
                                                 <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                periods.content.map((period, index) => (
+                                                specialities.content.map((speciality, index) => (
                                                     <tr key={index}>
-                                                        <td>{period.start_date_string}</td>
-                                                        <td>{period.end_date_string}</td>
-                                                        <td>{period.status === 'active' ? 'Activo' 
-                                                                : period.status === 'pending' ? 'Pendiente'
-                                                                : period.status === 'canceled' ? 'Cancelado'
-                                                                : period.status === 'finalized' && 'Finalizado'}</td>
+                                                        <td>{speciality.name}</td>
+                                                        <td>{speciality.acronym}</td>
+                                                        <td>{speciality.status ? 'Activo' : 'Inactivo'}</td>
                                                         <td>
                                                             <ButtonIconComponent
                                                                 icon='pen'
-                                                                action={ () => editSalePeriod(period) }
+                                                                action={() => editSpeciality(speciality)}
                                                                 size='20'
                                                                 className='mx-2'
                                                             />
@@ -114,7 +124,7 @@ export const SalePeriods = () => {
                                 <Pagination className="mx-5">
                                     <Pagination.Prev onClick={handlePrev} />
                                     {
-                                        Array.from({ length: Math.ceil(periods.total / pageObject.limit) }).map((_, index) => (
+                                        Array.from({ length: Math.ceil(specialities.total / pageObject.limit) }).map((_, index) => (
                                             <Pagination.Item
                                                 key={index + 1}
                                                 active={index + 1 === pageObject.page}
@@ -129,11 +139,9 @@ export const SalePeriods = () => {
                             </Card>
                         </Col>
                     </Row>
-                )
             }
-
-            <EditSalePeriodModal show={EditModal} handleClose={() =>  setEditModal(false) } salePeriod={period}/>
-            <RegisterPeriodModal show={registerModal} handleClose={() => setRegisterModal(false)} />
+            <RegisterSpecialityModal show={registerModal} handleClose={() => setRegisterModal(false)} />
+            <EditEspecialityModal show={editModal} handleClose={() => setEditModal(false)} speciality={speciality} />
         </>
-    );
-};
+    )
+}

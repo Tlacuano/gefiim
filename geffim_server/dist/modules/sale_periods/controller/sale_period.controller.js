@@ -86,6 +86,17 @@ class SalePeriodController {
                     throw new Error('El numero de cuenta debe ser numerico');
                 if (isNaN(Number(payload.bank_clabe)))
                     throw new Error('El numero de clabe debe ser numerico');
+                for (const speciality of payload.speciality_by_period) {
+                    if (!speciality.id_speciality)
+                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                    if (speciality.tokens_allowed <= 0 || !Number.isInteger(speciality.tokens_allowed))
+                        throw new Error('Las fichas permitidas deben ser un número entero positivo');
+                    // validar que la especialidad exista
+                    const specialityGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
+                    const existSpeciality = yield specialityGateway.getSpecialityById(speciality.id_speciality);
+                    if (!existSpeciality)
+                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                }
                 // validar las fechas
                 const startDate = new Date(payload.start_date);
                 const endDate = new Date(payload.end_date);
@@ -110,15 +121,6 @@ class SalePeriodController {
                 const id_period = yield StorageGateway.registerSalePeriod(payload);
                 // registrar las especialidades y sus fichas permitidas
                 for (const speciality of payload.speciality_by_period) {
-                    if (!speciality.id_speciality)
-                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
-                    if (speciality.tokens_allowed <= 0 || !Number.isInteger(speciality.tokens_allowed))
-                        throw new Error('Las fichas permitidas deben ser un número entero positivo');
-                    // validar que la especialidad exista
-                    const specialityGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
-                    const existSpeciality = yield specialityGateway.getSpecialityById(speciality.id_speciality);
-                    if (!existSpeciality)
-                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
                     // registrar la especialidad con sus fichas permitidas
                     yield StorageGateway.registerSpecialityBySalePeriod({ id_period: id_period, id_speciality: speciality.id_speciality, tokens_allowed: speciality.tokens_allowed });
                 }
@@ -223,7 +225,7 @@ class SalePeriodController {
                 if (salePeriod[0].status === 'active' && payload.status !== 'finalized')
                     throw new Error('El estado del periodo de venta debe ser finalizado');
                 // si el periodo esta pendiente el estado tiene que ser cancelado
-                if (salePeriod[0].status === 'pending' && payload.status !== 'cancelled')
+                if (salePeriod[0].status === 'pending' && payload.status !== 'canceled')
                     throw new Error('El estado del periodo de venta debe ser cancelado');
                 // si el periodo ya esta finalizado no se puede cambiar el estado
                 if (salePeriod[0].status === 'finalized' || salePeriod[0].status === 'canceled')
@@ -234,6 +236,58 @@ class SalePeriodController {
                 const body = {
                     data: true,
                     message: 'Sale period status changed successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
+    updateTokensAllowed(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la peticion
+                const payload = req.body;
+                // validar el cuerpo de la peticion
+                if (!payload.id_period)
+                    throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                // instanciar el gateway
+                const StorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
+                for (const speciality of payload.speciality_by_period) {
+                    if (!speciality.id_speciality || !Number.isInteger(speciality.tokens_allowed))
+                        throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                    if (speciality.tokens_allowed <= 0)
+                        throw new Error('Las fichas permitidas deben ser un número entero positivo');
+                    // validar que la especialidad exista
+                    const specialityGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
+                    const existSpeciality = yield specialityGateway.getSpecialityById(speciality.id_speciality);
+                    if (!existSpeciality)
+                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                    // validar que el periodo de venta exista
+                    const existSalePeriod = yield StorageGateway.getSalePeriodById({ id_period: payload.id_period });
+                    if (!existSalePeriod)
+                        throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                    // validar que la especialidad este registrada en el periodo de venta
+                    const existSpecialityByPeriod = yield StorageGateway.existSpecialityBySalePeriod({ id_period: payload.id_period, id_speciality: speciality.id_speciality });
+                    if (existSpecialityByPeriod) {
+                        // actualizar las fichas permitidas
+                        yield StorageGateway.updateTokensAllowed({ id_speciality_by_period: existSpecialityByPeriod.id_speciality_by_period, tokens_allowed: speciality.tokens_allowed });
+                    }
+                    else {
+                        // registrar la especialidad con sus fichas permitidas
+                        yield StorageGateway.registerSpecialityBySalePeriod({ id_period: payload.id_period, id_speciality: speciality.id_speciality, tokens_allowed: speciality.tokens_allowed });
+                    }
+                }
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: true,
+                    message: 'Tokens allowed updated successfully',
                     status: 200,
                     error: false
                 };
@@ -314,12 +368,44 @@ class SalePeriodController {
             }
         });
     }
+    getSpecialitiesBySalePeriod(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener los parametros de la peticion
+                const payload = req.body;
+                // validar los parametros de la peticion
+                if (!payload.id_period)
+                    throw new Error(response_messages_1.MESSAGES.SERVER_ERROR);
+                // instanciar el gateway
+                const StorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
+                // obtener las especialidades del periodo de venta
+                const specialities = yield StorageGateway.getSpecialityBySalePeriod({ id_period: payload.id_period });
+                // crear el cuerpo de la respuesta
+                const body = {
+                    data: specialities,
+                    message: 'Specialities fetched successfully',
+                    status: 200,
+                    error: false
+                };
+                // enviar la respuesta
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
 }
 exports.SalePeriodController = SalePeriodController;
 SalePeriodRouter.get('/get-sale-period-page', new SalePeriodController().getSalePeriodsPage);
 SalePeriodRouter.post('/register-sale-period', new SalePeriodController().registerSalePeriod);
 SalePeriodRouter.post('/update-sale-period', new SalePeriodController().updateSalePeriod);
 SalePeriodRouter.post('/change-status-sale-period', new SalePeriodController().changeStatusSalePeriod);
+SalePeriodRouter.post('/get-specialities-by-sale-period', new SalePeriodController().getSpecialitiesBySalePeriod);
+SalePeriodRouter.post('/update-tokens-allowed', new SalePeriodController().updateTokensAllowed);
+//guest
 SalePeriodRouter.post('/auto-change-status-sale-period', new SalePeriodController().autoChangeStatusSalePeriod);
 SalePeriodRouter.get('/get-current-period', new SalePeriodController().getCurrentPeriod);
 exports.default = SalePeriodRouter;

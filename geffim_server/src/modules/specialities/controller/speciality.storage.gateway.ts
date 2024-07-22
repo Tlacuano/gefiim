@@ -53,6 +53,24 @@ export class SpecialityStorageGateway {
         }
     }
 
+    async getSpecialityByNameWithId(payload: { name: string, id_speciality: number }) {
+        try {
+            const response = await queryDB<Speciality[]>("SELECT * FROM specialities WHERE name = ? AND id_speciality != ?", [payload.name, payload.id_speciality]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getSpecialityByAcronymWithId(payload: { acronym: string, id_speciality: number }) {
+        try {
+            const response = await queryDB<Speciality[]>("SELECT * FROM specialities WHERE acronym = ? AND id_speciality != ?", [payload.acronym, payload.id_speciality]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
     async registerSpeciality(payload: Speciality) {
         try {
             const response = await queryDB('INSERT INTO specialities (name, acronym) VALUES (?, ?)', [payload.name, payload.acronym]);
@@ -83,6 +101,15 @@ export class SpecialityStorageGateway {
     async getSpecialitiesActive(payload: void) {
         try {
             const response = await queryDB<Speciality[]>("SELECT * FROM specialities WHERE status = 1");
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getAllSpecialities(payload: void) {
+        try {
+            const response = await queryDB<Speciality[]>("SELECT * FROM specialities");
             return response;
         } catch (error) {
             throw(error)

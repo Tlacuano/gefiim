@@ -33,10 +33,10 @@ export const SidebarXL = () => {
                     <FontAwesomeIcon icon='calendar' onClick={()=> navigate('/periodo-de-venta')} style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
                 <Nav.Item href="#">
-                    <FontAwesomeIcon icon='sitemap'  style={{ fontSize:'28px'}}  className="text-secondary-color my-3 selectable" />
+                    <FontAwesomeIcon icon='sitemap' onClick={()=> navigate('/especialidades')}  style={{ fontSize:'28px'}}  className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
                 <Nav.Item href="#">
-                    <FontAwesomeIcon icon='school' style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />
+                    <FontAwesomeIcon icon='school' onClick={()=> navigate('/informacion-institucional')} style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
                 <Nav.Item href="#">
                     <FontAwesomeIcon icon='folder' style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />

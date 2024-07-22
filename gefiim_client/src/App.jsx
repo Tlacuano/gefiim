@@ -7,6 +7,7 @@ import { AuthRoutes } from "./modules"
 import { AppRouter } from "./components"
 
 import axios from './config/http-clientt.gateway'
+import { ToastWarning } from "./components/SweetAlertToast"
 
 function App() {
   const { logged, role } = useContext(AuthContext)
@@ -22,10 +23,19 @@ function App() {
       document.documentElement.style.setProperty('--secondary-color', response.data.secondary_color)
       document.documentElement.style.setProperty('--text-color-primary', textColorPrimary)
 
+      // Cambiar el logo de la pestaña
+      const link = document.querySelector("link[rel*='icon']")
+      const logo = 'data:image/png;base64,' + response.data.logo
+      link.href = logo
+
+      // cambiarr el titulo de la pestaña
+      document.title = response.data.name + ' - Registro de candidatos'
+
+
       localStorage.setItem('institutionalInformation', JSON.stringify(response.data))
 
     } catch (error) {
-      console.log(error + 'error')
+      ToastWarning(error.response.data.message)
     }
   }
 
