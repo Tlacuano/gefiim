@@ -7,6 +7,7 @@ import { Stadistics } from "../stadistics"
 import { SalePeriods } from "../sale_periods/SalePeriods"
 import { Specialities } from "../specialitys/Specialities"
 import { InstitutionalInformation } from "../institutional_information/InstitutionalInformation"
+import { Users } from "../users/Users"
 
 export const LandingAdmin = () => {
     return (
@@ -21,6 +22,7 @@ export const LandingAdmin = () => {
                         <Route path="/periodo-de-venta" element={<SalePeriods/>} />
                         <Route path="/especialidades" element={<Specialities />} />
                         <Route path="/informacion-institucional" element={<InstitutionalInformation />} />
+                        <Route path="/administradores" element={<Users />} />
                     </Routes>
                 </Col>
             </Row>

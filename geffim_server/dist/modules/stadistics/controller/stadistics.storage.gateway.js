@@ -44,9 +44,9 @@ class StadisticsStorageGateway {
     CAST(COALESCE(sbp.tokens_allowed, 0) AS UNSIGNED) AS total_tokens
 FROM
     specialities s
-LEFT JOIN
+JOIN
     speciality_by_period sbp ON s.id_speciality = sbp.id_speciality
-LEFT JOIN
+JOIN
     sale_periods sp ON sbp.id_period = sp.id_period AND sp.id_period = ? AND sp.status = 'active'
 LEFT JOIN
     selected_specialities ss ON sbp.id_speciality_by_period = ss.id_speciality_by_period AND ss.herarchy = 1

@@ -25,7 +25,6 @@ export const Landing = () => {
     const [component, setComponent] = useState(1)
 
     const increaseComponent = () => {
-        console.log('aumentar')
         setComponent(component + 1)
     }
 
@@ -43,7 +42,7 @@ export const Landing = () => {
                 <Container style={{height:'100%'}}>
                     <Row>
                         <Col className="text-center">
-                            <img style={{ maxWidth: '70%' }} src={`data:image/png;base64,${data.logo}`} alt="logo" className="logo p-5" />
+                            <img style={{ maxWidth: '70%', maxHeight:'40vh' }} src={`data:image/png;base64,${data.logo}`} alt="logo" className="logo p-5" />
                         </Col>
                     </Row>
                     {

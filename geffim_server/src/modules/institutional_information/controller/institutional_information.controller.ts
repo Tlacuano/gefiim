@@ -94,8 +94,8 @@ export class InstitutionalInformationController {
             await StorageGateway.updateInstitutionalInformation(payload);
 
             // Crear el cuerpo de la respuesta
-            const body: ResponseApi<null> = {
-                data: null,
+            const body: ResponseApi<boolean> = {
+                data: true,
                 status: 200,
                 message: 'Institutional information updated successfully',
                 error: false
@@ -114,6 +114,8 @@ export class InstitutionalInformationController {
 }
 
 InstitutionalInformationRouter.get('/get-institutional-information', new InstitutionalInformationController().getInstitutionalInformation);
+
+// admin
 InstitutionalInformationRouter.post('/update-institutional-information', new InstitutionalInformationController().updateInstitutionalInformation);
 
 export default InstitutionalInformationRouter;

@@ -203,9 +203,7 @@ export const RegisterPeriodModal = ({ show, handleClose }) => {
 
     const getSpecialities = async () => {
         try {
-            LoadAlert(true)
             const response = await axios.doGet('/speciality/get-all-specialities')
-            LoadAlert(false)
 
             if(response.data){
                 const speciality_by_period = response.data.specialitiesActive.map((speciality) => {
@@ -219,7 +217,6 @@ export const RegisterPeriodModal = ({ show, handleClose }) => {
                 setSalePeriodCopy({...salePeriodCopy, speciality_by_period})
             }
         } catch (error) {
-            LoadAlert(false)
             ToastWarning(error.response.data.message)
         }
     }
