@@ -6,6 +6,7 @@ import InstitutionalInformationRouter from '../modules/institutional_information
 import CandidatesRouter from '../modules/candidates/controller/candidates.controller';
 import AuthRouter from '../modules/auth/controller/auth.controller';
 import StadisticsRouter from '../modules/stadistics/controller/stadistics.controlles';
+import UserRouter from '../modules/users/controller/user.controller';
 
 import { Authenticator } from './jwt';
 import express from 'express';
@@ -30,6 +31,7 @@ app.use('/api-gefiim/sale-period', SalePeriodRouter);
 app.use('/api-gefiim/institutional-information', InstitutionalInformationRouter);
 app.use('/api-gefiim/candidates', CandidatesRouter);
 app.use('/api-gefiim/stadistics', StadisticsRouter);
+app.use('/api-gefiim/user', UserRouter);
 
 
 

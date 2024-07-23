@@ -26,7 +26,7 @@ class AuthStorageGateway {
     findUserOnAdminTable(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield (0, db_connection_1.queryDB)(`select * from admins where username = ?`, [payload.username]);
+                const response = yield (0, db_connection_1.queryDB)(`select * from admins where username = ?  AND status = 1`, [payload.username]);
                 return response[0];
             }
             catch (error) {

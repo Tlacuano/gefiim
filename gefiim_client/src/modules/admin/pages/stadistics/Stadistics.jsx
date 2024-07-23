@@ -5,9 +5,10 @@ import { Loanding } from "./components/Loanding"
 import { NoPeriod } from "./components/NoPeriod"
 import { Card, Row, Col, CardBody, ProgressBar } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { ToastWarning } from "../../../../components/SweetAlertToast"
+import { LoadAlert, ToastWarning } from "../../../../components/SweetAlertToast"
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { RegisterPaymentModal } from "./components/RegisterPaymentModal"
+import { base64ToFile } from "../../../../utils/functions/base64ToFile"
 
 export const Stadistics = () => {
     const [data, setData] = useState('')
@@ -30,6 +31,17 @@ export const Stadistics = () => {
         try {
             const response = await axios.doPost('/stadistics/get-stadistics', { id_period: data.currentSalePeriod })
             setStadistics(response.data)
+        } catch (error) {
+            ToastWarning(error.response.data.message)
+        }
+    }
+
+    const generateList = async () => {
+        try {
+            LoadAlert(true)
+            const response = await axios.doPost('/candidates/generate-list', { id_period: data.currentSalePeriod })
+            LoadAlert(false)
+            base64ToFile(response.data, 'Lista de candidatos generada el ')
         } catch (error) {
             ToastWarning(error.response.data.message)
         }
@@ -78,9 +90,9 @@ export const Stadistics = () => {
                                                         </div>
                                                     </Col>
                                                     <Col>
-                                                        <div className="text-center h-100">
+                                                        <div className="text-center h-100 selectable"  onClick={generateList}>
                                                             <FontAwesomeIcon icon='download' size='3x' />
-                                                            <p className="text-muted m-0 mt-2">Generar reporte</p>
+                                                            <p className="text-muted m-0 mt-2">Generar lista</p>
                                                         </div>
                                                     </Col>
                                                 </Row>

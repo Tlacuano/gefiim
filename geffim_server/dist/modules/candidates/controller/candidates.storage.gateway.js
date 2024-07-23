@@ -225,5 +225,103 @@ class CandidatesStorageGateway {
             }
         });
     }
+    findCandidateToList(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select
+                                                                    CONCAT(c.first_last_name, ' ', c.second_last_name, ' ', c.name) as full_name,
+                                                                    c.username as no_ficha,
+                                                                    s.name as speciality
+                                                                from candidates c
+                                                                join selected_specialities ss on c.id_candidate = ss.id_candidate
+                                                                join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                join specialities s on sbp.id_speciality = s.id_speciality
+                                                                where
+                                                                    c.payed = 1
+                                                                    and ss.herarchy = 1
+                                                                    and sbp.id_period = ?
+                                                                ORDER BY speciality ASC`, [payload.id_period]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    // informacion del candidato por partes
+    getTotalCandidatesBySearch(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`SELECT COUNT(id_candidate) AS total FROM candidates WHERE curp like ? OR username like ?`, ['%' + payload.value + '%', '%' + payload.value + '%']);
+                return response[0].total;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getCandidatesPaginated(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`SELECT * FROM candidates WHERE curp like ? OR username like ? ORDER BY username DESC LIMIT ? OFFSET ?`, ['%' + payload.value + '%', '%' + payload.value + '%', payload.limit, payload.offset]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getCandidateById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`SELECT
+                                                            c.id_candidate,
+                                                            c.name,
+                                                            c.first_last_name,
+                                                            c.second_last_name,
+                                                            c.curp,
+                                                            c.birthdate,
+                                                            c.gender,
+                                                            c.email,
+                                                            m.id_state AS id_birth_state,
+                                                            C.id_birth_municipality,
+                                                            c.phone_number,
+                                                            c.secondary_phone_number,
+                                                            c.username,
+                                                            c.id_address
+                                                        FROM
+                                                            candidates c
+                                                        JOIN municipalities m on c.id_birth_municipality = m.id_municipality
+                                                        WHERE
+                                                            c.id_candidate = ?;`, [payload.id_candidate]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getAddressesById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select
+                                                                a.id_address,
+                                                                a.postal_code,
+                                                                m.id_state as id_state,
+                                                                a.id_municipality,
+                                                                a.neighborhood,
+                                                                a.street_and_number
+                                                            from
+                                                                addresses a
+                                                            join municipalities m on a.id_municipality = m.id_municipality
+                                                            where
+                                                                a.id_address = ?`, [payload.id_address]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
 }
 exports.CandidatesStorageGateway = CandidatesStorageGateway;

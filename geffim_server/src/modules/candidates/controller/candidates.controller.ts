@@ -1,3 +1,4 @@
+import { log } from 'winston';
 import { Candidate } from './../model/candidates';
 import { Router, Request, Response } from "express"
 import logger from "../../../config/logs/logger"
@@ -8,9 +9,11 @@ import { encode } from "../../../utils/security/bcrypt";
 import { requestToGenarateTokenDTO } from "./dtos/request_to_generatte_token.dto";
 import { formatDate } from "../../../utils/security/format_date_string";
 import { createToken } from "../functions/create_token";
-import { ResponseApi } from "../../../kernel/types";
+import { generateList } from '../functions/create_list';
+import { Pagination, ResponseApi } from "../../../kernel/types";
 import { registerCandidateRequestDto } from "./dtos/response_register_candidate.dto";
 import { MESSAGES } from "../../../utils/messages/response_messages";
+import { RequestToGenerateListDto } from './dtos/request_to_generate_list.dto';
 
 const CandidatesRouter = Router();
 
@@ -443,17 +446,136 @@ export class CandidatesController {
             res.status(errorBody.status).json(errorBody);
         }
     }
+    
+    async generateList (req: Request, res: Response) {
+            try {
+                // obtener el cuerpo de la petición
+                const payload = req.body as { id_period: number };
+    
+                // instanciar el gateway
+                const candidatesStorageGateway = new CandidatesStorageGateway();
+    
+                // validar que el cuerpo de la petición
+                if(!payload.id_period)
+                    throw new Error(MESSAGES.BAD_REQUEST.DEFAULT);
+    
+                // buscar los candidatos para la lista
+                const candidates = await candidatesStorageGateway.findCandidateToList({ id_period: payload.id_period });
+                const institutionalInformation = await candidatesStorageGateway.getInstitutionalInformation();
+                const logo = `data:image/png;base64,${Buffer.from(institutionalInformation.logo as Buffer).toString('base64')}`;
+    
+    
+                const today = new Date();
+    
+                const payload_to_document: RequestToGenerateListDto = {
+                    logo: logo,
+                    candidates: candidates,
+                    date: `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`,
+                }
+    
+                const document = await generateList(payload_to_document);
+    
+                // generar cuerpo de respuesta
+                const body: ResponseApi<string> = {
+                    data: document,
+                    status: 200,
+                    message: 'Lista generada correctamente',
+                    error: false
+                }
+    
+                res.status(200).json(body);
+    
+            } catch (error) {
+                logger.error(error)
+    
+                const errorBody = validateError(error as Error);
+                res.status(errorBody.status).json(errorBody);
+            }
+    }
+
+    // PARA EL MODULO DE CANDIDATOS
+    async getCandidatesPage (req: Request, res: Response) {
+        try {
+            // obtener el cuerpo de la petición
+            const params = req.query as any;
+            const payload = req.body as { value: string }
+
+            const page = parseInt(params.page);
+            const limit = parseInt(params.limit);
+            // calcular el offset
+            const offset = (page - 1) * limit;
+
+            // instanciar el gateway
+            const candidatesStorageGateway = new CandidatesStorageGateway();
+
+            //obtener el total de candidatos
+            const total = await candidatesStorageGateway.getTotalCandidatesBySearch(payload);
+
+            // obtener los candidatos
+            const candidates = await candidatesStorageGateway.getCandidatesPaginated({ limit, offset, value: payload.value });
+
+            for (const candidate of candidates) {
+                candidate.password = '';
+            }
+
+            // generar cuerpo de respuesta
+            const body : ResponseApi<Pagination<Candidate[]>> = {
+                data: {
+                    content: candidates,
+                    page: page,
+                    limit: limit,
+                    total: total
+                },
+                status: 200,
+                message: 'Candidatos obtenidos correctamente',
+                error: false
+            }
+
+            res.status(200).json(body);
+            
+        } catch (error) {
+            logger.error(error)
+    
+            const errorBody = validateError(error as Error);
+            res.status(errorBody.status).json(errorBody);
+        }
+    }
+
+    async getCandidateToEdit (req: Request, res: Response) {
+        try {
+            // obtener el cuerpo de la petición
+            const payload = req.body as { id_candidate: number };
+
+            if(!payload.id_candidate)
+                throw new Error(MESSAGES.BAD_REQUEST.DEFAULT);
+
+            // instanciar el gateway
+            const candidatesStorageGateway = new CandidatesStorageGateway();
+
+            const candidateInfo = await candidatesStorageGateway.getCandidateById(payload);
+
+        } catch (error) {
+            logger.error(error)
+    
+            const errorBody = validateError(error as Error);
+            res.status(errorBody.status).json(errorBody);            
+        }
+    }
+
 }
 
 
-//admin
-CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
 //guest
+CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
 CandidatesRouter.post('/validate-curp-on-period', new CandidatesController().validateCurpOnPeriod);
+
 //admin
 CandidatesRouter.post('/get-candidate-by-period-and-user', new CandidatesController().getCandidateByPeriodAndUser);
-//admin
 CandidatesRouter.post('/register-payment', new CandidatesController().registerPayment);
+CandidatesRouter.post('/generate-list', new CandidatesController().generateList);
+CandidatesRouter.post('/get-candidates-page', new CandidatesController().getCandidatesPage);
+
+
 
 
 export default CandidatesRouter;

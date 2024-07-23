@@ -21,6 +21,7 @@ const random_1 = require("../../../utils/security/random");
 const bcrypt_1 = require("../../../utils/security/bcrypt");
 const format_date_string_1 = require("../../../utils/security/format_date_string");
 const create_token_1 = require("../functions/create_token");
+const create_list_1 = require("../functions/create_list");
 const response_messages_1 = require("../../../utils/messages/response_messages");
 const CandidatesRouter = (0, express_1.Router)();
 class CandidatesController {
@@ -372,14 +373,110 @@ class CandidatesController {
             }
         });
     }
+    generateList(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la petición
+                const payload = req.body;
+                // instanciar el gateway
+                const candidatesStorageGateway = new candidates_storage_gateway_1.CandidatesStorageGateway();
+                // validar que el cuerpo de la petición
+                if (!payload.id_period)
+                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                // buscar los candidatos para la lista
+                const candidates = yield candidatesStorageGateway.findCandidateToList({ id_period: payload.id_period });
+                const institutionalInformation = yield candidatesStorageGateway.getInstitutionalInformation();
+                const logo = `data:image/png;base64,${Buffer.from(institutionalInformation.logo).toString('base64')}`;
+                const today = new Date();
+                const payload_to_document = {
+                    logo: logo,
+                    candidates: candidates,
+                    date: `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`,
+                };
+                const document = yield (0, create_list_1.generateList)(payload_to_document);
+                // generar cuerpo de respuesta
+                const body = {
+                    data: document,
+                    status: 200,
+                    message: 'Lista generada correctamente',
+                    error: false
+                };
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
+    // PARA EL MODULO DE CANDIDATOS
+    getCandidatesPage(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la petición
+                const params = req.query;
+                const payload = req.body;
+                const page = parseInt(params.page);
+                const limit = parseInt(params.limit);
+                // calcular el offset
+                const offset = (page - 1) * limit;
+                // instanciar el gateway
+                const candidatesStorageGateway = new candidates_storage_gateway_1.CandidatesStorageGateway();
+                //obtener el total de candidatos
+                const total = yield candidatesStorageGateway.getTotalCandidatesBySearch(payload);
+                // obtener los candidatos
+                const candidates = yield candidatesStorageGateway.getCandidatesPaginated({ limit, offset, value: payload.value });
+                for (const candidate of candidates) {
+                    candidate.password = '';
+                }
+                // generar cuerpo de respuesta
+                const body = {
+                    data: {
+                        content: candidates,
+                        page: page,
+                        limit: limit,
+                        total: total
+                    },
+                    status: 200,
+                    message: 'Candidatos obtenidos correctamente',
+                    error: false
+                };
+                res.status(200).json(body);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
+    getCandidateToEdit(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // obtener el cuerpo de la petición
+                const payload = req.body;
+                if (!payload.id_candidate)
+                    throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                // instanciar el gateway
+                const candidatesStorageGateway = new candidates_storage_gateway_1.CandidatesStorageGateway();
+                const candidateInfo = yield candidatesStorageGateway.getCandidateById(payload);
+            }
+            catch (error) {
+                logger_1.default.error(error);
+                const errorBody = (0, error_handler_1.validateError)(error);
+                res.status(errorBody.status).json(errorBody);
+            }
+        });
+    }
 }
 exports.CandidatesController = CandidatesController;
-//admin
-CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
 //guest
+CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
 CandidatesRouter.post('/validate-curp-on-period', new CandidatesController().validateCurpOnPeriod);
 //admin
 CandidatesRouter.post('/get-candidate-by-period-and-user', new CandidatesController().getCandidateByPeriodAndUser);
-//admin
 CandidatesRouter.post('/register-payment', new CandidatesController().registerPayment);
+CandidatesRouter.post('/generate-list', new CandidatesController().generateList);
+CandidatesRouter.post('/get-candidates-page', new CandidatesController().getCandidatesPage);
 exports.default = CandidatesRouter;

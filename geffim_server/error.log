@@ -267,3 +267,28 @@
 {"code":"ER_WRONG_FIELD_WITH_GROUP","errno":1055,"level":"error","sql":"SELECT\n    s.acronym AS speciality_name,\n    CAST(COALESCE(SUM(CASE WHEN c.payed = 1 THEN 1 ELSE 0 END), 0) AS UNSIGNED) AS payed_count,\n    CAST(COALESCE(SUM(CASE WHEN c.payed = 0 THEN 1 ELSE 0 END), 0) AS UNSIGNED) AS not_payed_count,\n    CAST(COALESCE(sbp.tokens_allowed, 0) AS UNSIGNED) AS total_tokens\nFROM\n    specialities s\nJOIN\n    speciality_by_period sbp ON s.id_speciality = sbp.id_speciality\nJOIN\n    sale_periods sp ON sbp.id_period = sp.id_period AND sp.id_period = 2 AND sp.status = 'active'\nLEFT JOIN\n    selected_specialities ss ON sbp.id_speciality_by_period = ss.id_speciality_by_period AND ss.herarchy = 1\nLEFT JOIN\n    candidates c ON ss.id_candidate = c.id_candidate\nWHERE\n    s.status = 1\nGROUP BY\n    s.name, sbp.tokens_allowed;\n","sqlMessage":"Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'gefiim.s.acronym' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by","sqlState":"42000","timestamp":"2024-07-22T18:54:42.262Z"}
 {"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-22T18:54:42.263Z"}
 {"level":"error","timestamp":"2024-07-22T18:54:42.263Z"}
+{"code":"ER_SP_UNDECLARED_VAR","errno":1327,"level":"error","sql":"SELECT * FROM admins LIMIT NaN OFFSET NaN ","sqlMessage":"Undeclared variable: NaN","sqlState":"42000","timestamp":"2024-07-23T00:38:45.933Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T00:38:45.936Z"}
+{"level":"error","timestamp":"2024-07-23T00:38:45.937Z"}
+{"code":"ER_SP_UNDECLARED_VAR","errno":1327,"level":"error","sql":"SELECT * FROM admins LIMIT NaN OFFSET NaN ","sqlMessage":"Undeclared variable: NaN","sqlState":"42000","timestamp":"2024-07-23T00:38:46.053Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T00:38:46.054Z"}
+{"level":"error","timestamp":"2024-07-23T00:38:46.055Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"select * from candidates where username = 'Araceli' ANS status = 1","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ANS status = 1' at line 1","sqlState":"42000","timestamp":"2024-07-23T03:12:43.003Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T03:12:43.004Z"}
+{"level":"error","timestamp":"2024-07-23T03:12:43.005Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"select * from candidates where username = 'Araceli' ANS status = 1","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ANS status = 1' at line 1","sqlState":"42000","timestamp":"2024-07-23T03:12:47.448Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T03:12:47.449Z"}
+{"level":"error","timestamp":"2024-07-23T03:12:47.450Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"select * from candidates where username = 'emilio' ANS status = 1","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ANS status = 1' at line 1","sqlState":"42000","timestamp":"2024-07-23T03:13:12.774Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T03:13:12.775Z"}
+{"level":"error","timestamp":"2024-07-23T03:13:12.776Z"}
+{"level":"error","timestamp":"2024-07-23T03:14:28.595Z"}
+{"level":"error","message":"Usuario o contraseña incorrectos","timestamp":"2024-07-23T03:14:28.596Z"}
+{"level":"error","timestamp":"2024-07-23T03:37:54.775Z"}
+{"level":"error","message":"El usuario no existe","timestamp":"2024-07-23T03:37:54.775Z"}
+{"level":"error","timestamp":"2024-07-23T03:50:45.673Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T03:50:45.674Z"}
+{"level":"error","timestamp":"2024-07-23T03:51:39.882Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T03:51:39.883Z"}
+{"level":"error","timestamp":"2024-07-23T03:56:30.959Z"}
+{"level":"error","message":"Usuario o contraseña incorrectos","timestamp":"2024-07-23T03:56:30.960Z"}

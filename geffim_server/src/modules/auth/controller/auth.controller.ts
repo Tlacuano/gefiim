@@ -78,6 +78,16 @@ export class AuthController {
             res.status(errorBody.status).json(errorBody); 
         }
     }
+
+    // recover password
+    async getUserbyUsername(req:Request, res:Response){
+    }
+
+    async checkVerificationCode(req:Request, res:Response){
+    }
+
+    async changePassword(req:Request, res:Response){
+    }
 }
 
 

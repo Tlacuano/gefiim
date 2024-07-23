@@ -14,7 +14,7 @@ export class AuthStorageGateway {
 
     async findUserOnAdminTable(payload: RequestToAuth){
         try {
-            const response = await queryDB<{username : string, password : string}[]>(`select * from admins where username = ?`, [payload.username]);
+            const response = await queryDB<{username : string, password : string}[]>(`select * from admins where username = ?  AND status = 1`, [payload.username]);
             return response[0];            
         } catch (error) {
             throw error;

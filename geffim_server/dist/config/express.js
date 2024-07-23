@@ -20,6 +20,7 @@ const institutional_information_controller_1 = __importDefault(require("../modul
 const candidates_controller_1 = __importDefault(require("../modules/candidates/controller/candidates.controller"));
 const auth_controller_1 = __importDefault(require("../modules/auth/controller/auth.controller"));
 const stadistics_controlles_1 = __importDefault(require("../modules/stadistics/controller/stadistics.controlles"));
+const user_controller_1 = __importDefault(require("../modules/users/controller/user.controller"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
@@ -37,4 +38,5 @@ app.use('/api-gefiim/sale-period', sale_period_controller_1.default);
 app.use('/api-gefiim/institutional-information', institutional_information_controller_1.default);
 app.use('/api-gefiim/candidates', candidates_controller_1.default);
 app.use('/api-gefiim/stadistics', stadistics_controlles_1.default);
+app.use('/api-gefiim/user', user_controller_1.default);
 exports.default = app;

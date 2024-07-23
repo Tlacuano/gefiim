@@ -77,6 +77,19 @@ class AuthController {
             }
         });
     }
+    // recover password
+    getUserbyUsername(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+    checkVerificationCode(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+    changePassword(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
 }
 exports.AuthController = AuthController;
 AuthRouter.post('/login', new AuthController().login);

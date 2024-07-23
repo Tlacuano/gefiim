@@ -1,44 +1,40 @@
-import { useEffect, useState } from "react";
-import { NavbarAdmin } from "../../components/NavbarAdmin"
-import { ToastWarning } from "../../../../components/SweetAlertToast";
-
-import axios from "../../../../config/http-clientt.gateway";
 import { Card, Col, Pagination, Row } from "react-bootstrap";
-import { ButtonComponent } from "../../../../components";
+import { NavbarAdmin } from "../../components/NavbarAdmin"
+import { useEffect, useState } from "react";
+import { InputComponent } from "../../../../components";
+import { ToastWarning } from "../../../../components/SweetAlertToast";
+import axios from "../../../../config/http-clientt.gateway";
 import { ButtonIconComponent } from "../../../../components/ButtonIconComponent";
-import { RegisterAdminModal } from "./components/RegisterAdminModal";
-import { EditAdminModal } from "./components/EditAdminModal";
 
-
-
-export const Users = () => {
-    const [users, setUsers] = useState(null);
+export const Candidates = () => {
+    const [candidates, setCandidates] = useState(null);
     const [pageObject, setPageObject] = useState({
         page: 1,
         limit: 14
     });
-    const [registerModal, setRegisterModal] = useState(false);
-    const [editModal, setEditModal] = useState(false);
-    const [user, setUser] = useState(null);
+    const [search, setSearch] = useState('');
 
-    const getUsers = async () => {
+    const getCandidates = async () => {
         try {
-            const response = await axios.doGet(`user/get-page-user?page=${pageObject.page}&limit=${pageObject.limit}`);
-            setUsers(response.data);
+            const response = await axios.doPost(`/candidates/get-candidates-page?page=${pageObject.page}&limit=${pageObject.limit}`, { value: search });
+            setCandidates(response.data);
+
             console.log(response.data);
         } catch (error) {
             ToastWarning(error.response.data.message);
         }
     }
-    const editUser = (user) => {
-        setEditModal(true);
-        setUser(user);
+
+    const editCandidate = async (candidate) => {
+        try {
+            console.log(candidate);
+            // const response = await axios.doPut(`/speciality/update-speciality/${speciality.id}`, speciality);
+            // ToastSuccess(response.data.message);
+            // getSpecialities();
+        } catch (error) {
+            ToastWarning(error.response.data.message);
+        }
     }
-
-
-    useEffect(() => {
-        getUsers();
-    }, [pageObject])
 
     const handlePrev = () => {
         if (pageObject.page > 1) {
@@ -47,57 +43,59 @@ export const Users = () => {
     };
 
     const handleNext = () => {
-        if (periods && pageObject.page < Math.ceil(periods.total / pageObject.limit)) {
+        if (specialities && pageObject.page < Math.ceil(candidates.total / pageObject.limit)) {
             setPageObject({ ...pageObject, page: pageObject.page + 1 });
         }
     };
 
+
+    useEffect(() => {
+        getCandidates();
+    }, [search, pageObject])
+
     return(
         <>
-            <NavbarAdmin title="Administradores" />
-
+            <NavbarAdmin title="Candidatos" />
             {
-                users === null ?
+                candidates === null ?
                     <div className="text-center">
                         <h1>Cargando...</h1>
                     </div>
                 :
                     <Row>
-                        <Col className="text-end my-4" lg='12' md='12' sm='12' xs='12'>
-                            <ButtonComponent
-                                pl={40}
-                                pr={40}
-                                textSize={20}
-                                action={ () => setRegisterModal(true) }
-                            >
-                                Registrar administrador
-                            </ButtonComponent>
+                        <Col className="mb-3" lg='4' md='4' sm='12' xs='12'>
+                            <InputComponent
+                                label='Buscar por CURP o No. de ficha'
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
                         </Col>
+
                         <Col lg='12' md='12' sm='12' xs='12'>
                             <Card>
-                                <div className="table-responsive" style={{ minHeight:'68vh'}}>
+                                <div className="table-responsive" style={{ minHeight: '68vh' }}>
                                     <table className="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Nombre</th>
+                                                <th>No. ficha</th>
+                                                <th>Nombre Completo</th>
+                                                <th>CURP</th>
                                                 <th>Correo</th>
-                                                <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                users.content.map(user => (
-                                                    <tr key={user.id_admin}>
-                                                        <td>{user.username}</td>
-                                                        <td>{user.email}</td>
-                                                        <td>{user.status ? 'Activo' : 'Inactivo'}</td>
+                                                candidates.content.map((candidate) => (
+                                                    <tr key={candidate.id}>
+                                                        <td>{candidate.username}</td>
+                                                        <td>{candidate.name} {candidate.first_last_name} {candidate.second_last_name}</td>
+                                                        <td>{candidate.curp}</td>
+                                                        <td>{candidate.email}</td>
                                                         <td>
                                                             <ButtonIconComponent
                                                                 icon='pen'
-                                                                action={ () => editUser(user) }
-                                                                size='20'
-                                                                className='mx-2'
+                                                                action={() => editCandidate(candidate)}
                                                             />
                                                         </td>
                                                     </tr>
@@ -106,10 +104,11 @@ export const Users = () => {
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <Pagination className="mx-5">
                                     <Pagination.Prev onClick={handlePrev} />
                                     {
-                                        Array.from({ length: Math.ceil(users.total / pageObject.limit) }).map((_, index) => (
+                                        Array.from({ length: Math.ceil(candidates.total / pageObject.limit) }).map((_, index) => (
                                             <Pagination.Item
                                                 key={index + 1}
                                                 active={index + 1 === pageObject.page}
@@ -121,12 +120,11 @@ export const Users = () => {
                                     }
                                     <Pagination.Next onClick={handleNext} />
                                 </Pagination>
+
                             </Card>
                         </Col>
                     </Row>
             }
-            <RegisterAdminModal show={registerModal} handleClose={() => setRegisterModal(false)} />
-            <EditAdminModal show={editModal} handleClose={() => setEditModal(false)} admin={user} />
         </>
     )
 }
