@@ -164,6 +164,11 @@ class UserController {
                 const user = yield StorageGateway.getUserByUsername(payload.username);
                 if (user.length === 0)
                     throw new Error('El usuario no existe');
+                // traer el total de usuarios activos
+                const totalUsersActive = yield StorageGateway.getCountUsersActive();
+                // no puede haber menos de dos usuarios activos
+                if (totalUsersActive === 1 && user[0].status)
+                    throw new Error('No se puede desactivar el último usuario activo');
                 // actualizar el usuario
                 yield StorageGateway.changeStatus(payload);
                 // crear el cuerpo de la respuesta

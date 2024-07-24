@@ -292,3 +292,165 @@
 {"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T03:51:39.883Z"}
 {"level":"error","timestamp":"2024-07-23T03:56:30.959Z"}
 {"level":"error","message":"Usuario o contraseña incorrectos","timestamp":"2024-07-23T03:56:30.960Z"}
+{"level":"error","timestamp":"2024-07-23T21:56:33.942Z"}
+{"level":"error","message":"candidateInfo.birthdate.split is not a function","timestamp":"2024-07-23T21:56:33.943Z"}
+{"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"level":"error","sql":"SELECT\n                                                            c.id_candidate,\n                                                            c.name,\n                                                            c.first_last_name,\n                                                            c.second_last_name,\n                                                            c.curp,\n                                                            ATE_FORMAT(c.birthdate, '%Y-%m-%d') AS birthdate,\n                                                            c.gender,\n                                                            c.email,\n                                                            m.id_state AS id_birth_state,\n                                                            C.id_birth_municipality,\n                                                            c.phone_number,\n                                                            c.secondary_phone_number,\n                                                            c.username,\n                                                            c.id_address\n                                                        FROM\n                                                            candidates c\n                                                        JOIN municipalities m on c.id_birth_municipality = m.id_municipality\n                                                        WHERE\n                                                            c.id_candidate = 7;","sqlMessage":"FUNCTION gefiim.ATE_FORMAT does not exist","sqlState":"42000","timestamp":"2024-07-23T22:52:45.164Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T22:52:45.165Z"}
+{"level":"error","timestamp":"2024-07-23T22:52:45.165Z"}
+{"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"level":"error","sql":"SELECT\n                                                            c.id_candidate,\n                                                            c.name,\n                                                            c.first_last_name,\n                                                            c.second_last_name,\n                                                            c.curp,\n                                                            ATE_FORMAT(c.birthdate, '%Y-%m-%d') AS birthdate,\n                                                            c.gender,\n                                                            c.email,\n                                                            m.id_state AS id_birth_state,\n                                                            C.id_birth_municipality,\n                                                            c.phone_number,\n                                                            c.secondary_phone_number,\n                                                            c.username,\n                                                            c.id_address\n                                                        FROM\n                                                            candidates c\n                                                        JOIN municipalities m on c.id_birth_municipality = m.id_municipality\n                                                        WHERE\n                                                            c.id_candidate = 7;","sqlMessage":"FUNCTION gefiim.ATE_FORMAT does not exist","sqlState":"42000","timestamp":"2024-07-23T22:52:50.853Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T22:52:50.854Z"}
+{"level":"error","timestamp":"2024-07-23T22:52:50.854Z"}
+{"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"level":"error","sql":"SELECT\n                                                            c.id_candidate,\n                                                            c.name,\n                                                            c.first_last_name,\n                                                            c.second_last_name,\n                                                            c.curp,\n                                                            ATE_FORMAT(c.birthdate, '%Y-%m-%d') AS birthdate,\n                                                            c.gender,\n                                                            c.email,\n                                                            m.id_state AS id_birth_state,\n                                                            C.id_birth_municipality,\n                                                            c.phone_number,\n                                                            c.secondary_phone_number,\n                                                            c.username,\n                                                            c.id_address\n                                                        FROM\n                                                            candidates c\n                                                        JOIN municipalities m on c.id_birth_municipality = m.id_municipality\n                                                        WHERE\n                                                            c.id_candidate = 7;","sqlMessage":"FUNCTION gefiim.ATE_FORMAT does not exist","sqlState":"42000","timestamp":"2024-07-23T22:52:53.577Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T22:52:53.578Z"}
+{"level":"error","timestamp":"2024-07-23T22:52:53.578Z"}
+{"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"level":"error","sql":"SELECT\n                                                            c.id_candidate,\n                                                            c.name,\n                                                            c.first_last_name,\n                                                            c.second_last_name,\n                                                            c.curp,\n                                                            ATE_FORMAT(c.birthdate, '%Y-%m-%d') AS birthdate,\n                                                            c.gender,\n                                                            c.email,\n                                                            m.id_state AS id_birth_state,\n                                                            C.id_birth_municipality,\n                                                            c.phone_number,\n                                                            c.secondary_phone_number,\n                                                            c.username,\n                                                            c.id_address\n                                                        FROM\n                                                            candidates c\n                                                        JOIN municipalities m on c.id_birth_municipality = m.id_municipality\n                                                        WHERE\n                                                            c.id_candidate = 10;","sqlMessage":"FUNCTION gefiim.ATE_FORMAT does not exist","sqlState":"42000","timestamp":"2024-07-23T22:52:54.967Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-23T22:52:54.968Z"}
+{"level":"error","timestamp":"2024-07-23T22:52:54.968Z"}
+{"level":"error","timestamp":"2024-07-23T23:06:55.330Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:06:55.331Z"}
+{"level":"error","timestamp":"2024-07-23T23:06:55.337Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:06:55.337Z"}
+{"level":"error","timestamp":"2024-07-23T23:07:03.921Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:07:03.922Z"}
+{"level":"error","timestamp":"2024-07-23T23:07:03.925Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:07:03.925Z"}
+{"level":"error","timestamp":"2024-07-23T23:15:12.784Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:15:12.784Z"}
+{"level":"error","timestamp":"2024-07-23T23:15:12.818Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:15:12.819Z"}
+{"level":"error","timestamp":"2024-07-23T23:16:41.846Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:16:41.846Z"}
+{"level":"error","timestamp":"2024-07-23T23:16:41.853Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:16:41.855Z"}
+{"level":"error","timestamp":"2024-07-23T23:20:18.673Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:20:18.674Z"}
+{"level":"error","timestamp":"2024-07-23T23:20:18.678Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:20:18.678Z"}
+{"level":"error","timestamp":"2024-07-23T23:22:00.924Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:22:00.924Z"}
+{"level":"error","timestamp":"2024-07-23T23:22:00.961Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:22:00.962Z"}
+{"level":"error","timestamp":"2024-07-23T23:23:25.963Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:23:25.963Z"}
+{"level":"error","timestamp":"2024-07-23T23:23:26.046Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:23:26.047Z"}
+{"level":"error","timestamp":"2024-07-23T23:39:51.637Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:39:51.638Z"}
+{"level":"error","timestamp":"2024-07-23T23:39:51.710Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:39:51.711Z"}
+{"level":"error","timestamp":"2024-07-23T23:41:39.373Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:41:39.373Z"}
+{"level":"error","timestamp":"2024-07-23T23:41:39.406Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:41:39.407Z"}
+{"level":"error","timestamp":"2024-07-23T23:41:39.449Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:41:39.450Z"}
+{"level":"error","timestamp":"2024-07-23T23:41:39.474Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:41:39.475Z"}
+{"level":"error","timestamp":"2024-07-23T23:42:59.948Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:42:59.948Z"}
+{"level":"error","timestamp":"2024-07-23T23:42:59.990Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:42:59.991Z"}
+{"level":"error","timestamp":"2024-07-23T23:43:56.961Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:43:56.961Z"}
+{"level":"error","timestamp":"2024-07-23T23:43:57.028Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:43:57.028Z"}
+{"level":"error","timestamp":"2024-07-23T23:45:56.535Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:45:56.535Z"}
+{"level":"error","timestamp":"2024-07-23T23:45:56.559Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:45:56.559Z"}
+{"level":"error","timestamp":"2024-07-23T23:46:28.541Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:46:28.541Z"}
+{"level":"error","timestamp":"2024-07-23T23:46:28.561Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:46:28.562Z"}
+{"level":"error","timestamp":"2024-07-23T23:47:21.657Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:47:21.657Z"}
+{"level":"error","timestamp":"2024-07-23T23:47:21.681Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-23T23:47:21.681Z"}
+{"level":"error","timestamp":"2024-07-24T00:32:45.494Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:32:45.494Z"}
+{"level":"error","timestamp":"2024-07-24T00:32:45.526Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:32:45.527Z"}
+{"level":"error","timestamp":"2024-07-24T00:33:23.057Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:33:23.057Z"}
+{"level":"error","timestamp":"2024-07-24T00:33:23.063Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:33:23.064Z"}
+{"level":"error","timestamp":"2024-07-24T00:33:29.332Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:33:29.333Z"}
+{"level":"error","timestamp":"2024-07-24T00:33:29.351Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:33:29.351Z"}
+{"level":"error","timestamp":"2024-07-24T00:39:19.547Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:39:19.548Z"}
+{"level":"error","timestamp":"2024-07-24T00:39:19.568Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:39:19.568Z"}
+{"level":"error","timestamp":"2024-07-24T00:41:53.266Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:41:53.266Z"}
+{"level":"error","timestamp":"2024-07-24T00:41:53.285Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:41:53.285Z"}
+{"level":"error","timestamp":"2024-07-24T00:42:26.802Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:42:26.803Z"}
+{"level":"error","timestamp":"2024-07-24T00:42:26.846Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:42:26.846Z"}
+{"level":"error","timestamp":"2024-07-24T00:43:22.885Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:43:22.885Z"}
+{"level":"error","timestamp":"2024-07-24T00:43:22.959Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:43:22.959Z"}
+{"level":"error","timestamp":"2024-07-24T00:43:51.390Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:43:51.391Z"}
+{"level":"error","timestamp":"2024-07-24T00:43:51.491Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:43:51.492Z"}
+{"level":"error","timestamp":"2024-07-24T00:44:08.776Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:44:08.776Z"}
+{"level":"error","timestamp":"2024-07-24T00:44:08.832Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-07-24T00:44:08.832Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"UPDATE candidates SET name = 'Araceli', first_last_name = 'Casarrubiaszzz', second_last_name = 'de la Cruz', curp = 'CXCA030729MMSSRRA2', birthdate '2003-07-29', gender = 'F', email = 'emilioetorres98@gmail.com', id_birth_municipality = 913, phone_number = '7774666887', secondary_phone_number = '7774666887', username = '200003' WHERE id_candidate = 10","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''2003-07-29', gender = 'F', email = 'emilioetorres98@gmail.com', id_birth_munici' at line 1","sqlState":"42000","timestamp":"2024-07-24T15:22:33.946Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-24T15:22:33.947Z"}
+{"level":"error","timestamp":"2024-07-24T15:22:33.948Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"UPDATE candidates SET name = 'Araceli', first_last_name = 'Casarrubiaszzzzzz', second_last_name = 'de la Cruz', curp = 'CXCA030729MMSSRRA2', birthdate  '2003-07-29', gender = 'F', email = 'emilioetorres98@gmail.com', id_birth_municipality = 913, phone_number = '7774666887', secondary_phone_number = '7774666887', username = '200003' WHERE id_candidate = 10","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''2003-07-29', gender = 'F', email = 'emilioetorres98@gmail.com', id_birth_munici' at line 1","sqlState":"42000","timestamp":"2024-07-24T15:27:53.621Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-24T15:27:53.623Z"}
+{"level":"error","timestamp":"2024-07-24T15:27:53.624Z"}
+{"level":"error","timestamp":"2024-07-24T15:42:22.980Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'postal_code')","timestamp":"2024-07-24T15:42:22.981Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT sbp.id_speciality_by_period\n                                                                                FROM speciality_by_period sbp\n                                                                                WHERE sbp.id_period = 2\n                                                                                AND sbp.id_speciality = `id_speciality` = 1, `herarchy` = 1, `id_selected_speciality` = 28","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', `herarchy` = 1, `id_selected_speciality` = 28' at line 4","sqlState":"42000","timestamp":"2024-07-24T16:28:36.237Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-24T16:28:36.238Z"}
+{"level":"error","timestamp":"2024-07-24T16:28:36.239Z"}
+{"code":"ER_PARSE_ERROR","errno":1064,"level":"error","sql":"SELECT sbp.id_speciality_by_period\n                                                                                FROM speciality_by_period sbp\n                                                                                WHERE sbp.id_period = 2\n                                                                                AND sbp.id_speciality = `id_speciality` = 1, `herarchy` = 1, `id_selected_speciality` = 28","sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', `herarchy` = 1, `id_selected_speciality` = 28' at line 4","sqlState":"42000","timestamp":"2024-07-24T16:30:18.740Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-07-24T16:30:18.741Z"}
+{"level":"error","timestamp":"2024-07-24T16:30:18.742Z"}
+{"level":"error","timestamp":"2024-07-24T16:31:02.363Z"}
+{"level":"error","message":"El cupo para la especialidad seleccionada ya está lleno","timestamp":"2024-07-24T16:31:02.364Z"}
+{"level":"error","timestamp":"2024-07-24T17:22:52.284Z"}
+{"level":"error","message":"No se puede desactivar el último usuario activo","timestamp":"2024-07-24T17:22:52.285Z"}
+{"level":"error","timestamp":"2024-07-24T19:16:29.058Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:16:29.060Z"}
+{"level":"error","timestamp":"2024-07-24T19:17:35.498Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:17:35.500Z"}
+{"level":"error","timestamp":"2024-07-24T19:17:56.595Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:17:56.596Z"}
+{"level":"error","timestamp":"2024-07-24T19:18:40.529Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:18:40.530Z"}
+{"level":"error","timestamp":"2024-07-24T19:18:56.360Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:18:56.361Z"}
+{"level":"error","timestamp":"2024-07-24T19:19:12.775Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:19:12.775Z"}
+{"level":"error","timestamp":"2024-07-24T19:19:27.277Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:19:27.278Z"}
+{"level":"error","timestamp":"2024-07-24T19:20:48.049Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:20:48.050Z"}
+{"level":"error","timestamp":"2024-07-24T19:21:28.473Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:21:28.474Z"}
+{"level":"error","timestamp":"2024-07-24T19:21:55.093Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:21:55.096Z"}
+{"level":"error","timestamp":"2024-07-24T19:23:29.626Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'generateToken')","timestamp":"2024-07-24T19:23:29.630Z"}
+{"level":"error","timestamp":"2024-07-24T19:24:16.296Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:24:16.297Z"}
+{"level":"error","timestamp":"2024-07-24T19:24:34.714Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:24:34.715Z"}
+{"level":"error","timestamp":"2024-07-24T19:25:10.856Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:25:10.857Z"}
+{"level":"error","timestamp":"2024-07-24T19:25:37.983Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:25:37.984Z"}
+{"level":"error","timestamp":"2024-07-24T19:25:55.464Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:25:55.465Z"}
+{"level":"error","timestamp":"2024-07-24T19:26:20.370Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:26:20.371Z"}

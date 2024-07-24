@@ -1,5 +1,10 @@
 export type CandidateInformationDto = {
-    candidate_info:{}
+    status: string;
+    candidate_info: CandidateDTO;
+    address_info: AddressDTO;
+    tutor_info: tutorDTO;
+    school_info: SchoolDTO;
+    speciality_selected: specialitySelectedDTO[];
 }
 
 
@@ -39,4 +44,22 @@ export type tutorDTO = {
     live_separated: boolean;
     id_address: number;
     tutor_address: AddressDTO;
+}
+
+export type SchoolDTO = {
+    id_highschool: number;
+    school_key: string;
+    school_type: string;
+    school_name: string;
+    id_state: number;
+    id_municipality: number;
+    average_grade: number;
+    has_debts: boolean;
+    scholarship_type: string;
+}
+
+export type specialitySelectedDTO = {
+    id_selected_speciality: number;
+    id_speciality: number;
+    herarchy: number;
 }

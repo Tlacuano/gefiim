@@ -9,6 +9,7 @@ import { Specialities } from "../specialitys/Specialities"
 import { InstitutionalInformation } from "../institutional_information/InstitutionalInformation"
 import { Users } from "../users/Users"
 import { Candidates } from "../candidates/Candidates"
+import { EditCandidate } from "../candidates/EditCandidate"
 
 export const LandingAdmin = () => {
     return (
@@ -25,6 +26,7 @@ export const LandingAdmin = () => {
                         <Route path="/informacion-institucional" element={<InstitutionalInformation />} />
                         <Route path="/candidatos" element={<Candidates />} />
                         <Route path="/administradores" element={<Users />} />
+                        <Route path="/editar-candidato" element={<EditCandidate />} />
                     </Routes>
                 </Col>
             </Row>

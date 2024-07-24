@@ -1,5 +1,6 @@
 export type ResponseAuthenticated = {
-    token: string;
+    token?: string;
     username: string;
     role: string;
+    document?: string;
 }

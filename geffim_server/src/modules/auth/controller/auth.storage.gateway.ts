@@ -5,7 +5,7 @@ import { queryDB } from "../../../utils/data_base/db_connection";
 export class AuthStorageGateway {
     async findUserOnCandidateTable(payload: RequestToAuth){
         try {
-            const response = await queryDB<{username : string, password : string}[]>(`select * from candidates where username = ?`, [payload.username]);
+            const response = await queryDB<{username : string, password : string, id_candidate: number}[]>(`select * from candidates where username = ?`, [payload.username]);
             return response[0];            
         } catch (error) {
             throw error;

@@ -14,7 +14,7 @@ export const RegisterCandidate = () => {
 
     // estados del componente
     const [logo, setLogo] = useState('')
-    const [currentStep, setCurrentStep] = useState(0)
+    const [currentStep, setCurrentStep] = useState(5)
 
     useEffect(() => {
         const institutionalInformation = JSON.parse(localStorage.getItem('institutionalInformation'))
@@ -626,7 +626,6 @@ export const RegisterCandidate = () => {
         }else{
             if(isNaN(form.average_grade)){
                 newError.average_grade = { error: true, message: 'Promedio inválido' }
-                console.log('entro')
                 check = true
             }
 
@@ -651,8 +650,6 @@ export const RegisterCandidate = () => {
         if (!check) {
             setInitialData({ ...initialData, municipalities: [] })
             setCurrentStep(4)
-
-            console.log(form)
         }
     }
     const validateStep4 = async () => {
@@ -1350,7 +1347,7 @@ export const RegisterCandidate = () => {
                         <Row className='mt-3'>
                             <h4>¡Atención!</h4>
                             <p>
-                            Su registro ha sido completado con éxito. A continuación, se le proporcionan su número de ficha y una contraseña, los cuales son esenciales para acceder a su información y realizar cualquier corrección necesaria. Por favor, asegúrese de guardar estos datos en un lugar seguro.
+                            Su registro ha sido completado con éxito. A continuación, se le proporcionan su número de ficha y una contraseña, los cuales son esenciales para poder volver  a descargar su ficha en caso de necesitarlo. Por favor, asegúrese de guardar estos datos en un lugar seguro.
                             </p>
                             <b>
                                 <p>Numero de ficha: {token.token_number}</p>

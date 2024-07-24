@@ -280,7 +280,7 @@ class CandidatesStorageGateway {
                                                             c.first_last_name,
                                                             c.second_last_name,
                                                             c.curp,
-                                                            c.birthdate,
+                                                            DATE_FORMAT(c.birthdate, '%Y-%m-%d') AS birthdate,
                                                             c.gender,
                                                             c.email,
                                                             m.id_state AS id_birth_state,
@@ -317,6 +317,190 @@ class CandidatesStorageGateway {
                                                             where
                                                                 a.id_address = ?`, [payload.id_address]);
                 return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getTutorById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select
+                                                            t.id_tutor,
+                                                            t.name,
+                                                            t.first_last_name,
+                                                            t.second_last_name,
+                                                            t.phone_number,
+                                                            t.secondary_phone_number,
+                                                            t.live_separated,
+                                                            t.id_address
+                                                        from
+                                                            tutors t
+                                                        where
+                                                            t.id_candidate = ?`, [payload.id_candidate]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getHighschoolInformationById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select
+                                                            hi.id_highschool,
+                                                            hi.school_key,
+                                                            hi.school_type,
+                                                            hi.school_name,
+                                                            m.id_state as id_state,
+                                                            hi.id_municipality,
+                                                            hi.average_grade,
+                                                            hi.has_debts,
+                                                            hi.scholarship_type
+                                                        from highschool_information hi
+                                                        join municipalities m on hi.id_municipality = m.id_municipality
+                                                        where hi.id_candidate = ?;`, [payload.id_candidate]);
+                return response[0];
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSpecialitiesSelectedById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select
+                                                                        ss.id_selected_speciality,
+                                                                        s.id_speciality,
+                                                                        ss.herarchy,
+                                                                        s.name
+                                                                    from selected_specialities ss
+                                                                    join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                    join specialities s on sbp.id_speciality = s.id_speciality
+                                                                    where ss.id_candidate = ?
+                                                                    order by ss.herarchy`, [payload.id_candidate]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    checkIfPeriodIsActiveByIdCandidate(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select DISTINCT
+                                                                            sp.status
+                                                                        from selected_specialities ss
+                                                                        join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                        join specialities s on sbp.id_speciality = s.id_speciality
+                                                                        join sale_periods sp on sbp.id_period = sp.id_period
+                                                                        where ss.id_candidate = ?`, [payload.id_candidate]);
+                return response[0].status;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getPeriodByIdCandidate(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select
+                                                                    sbp.id_period
+                                                                from selected_specialities ss
+                                                                join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                where ss.id_candidate = ?`, [payload.id_candidate]);
+                return response[0].id_period;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    // actualización de candidato
+    updateCandidate(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`UPDATE candidates SET name = ?, first_last_name = ?, second_last_name = ?, curp = ?, birthdate = ?, gender = ?, email = ?, id_birth_municipality = ?, phone_number = ?, secondary_phone_number = ?, username = ? WHERE id_candidate = ?`, [payload.name, payload.first_last_name, payload.second_last_name, payload.curp, payload.birthdate, payload.gender, payload.email, payload.id_birth_municipality, payload.phone_number, payload.secondary_phone_number, payload.username, payload.id_candidate]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateAddress(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`UPDATE addresses SET postal_code = ?, id_municipality = ?, neighborhood = ?, street_and_number = ? WHERE id_address = ?`, [payload.postal_code, payload.id_municipality, payload.neighborhood, payload.street_and_number, payload.id_address]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateTutor(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`UPDATE tutors SET name = ?, first_last_name = ?, second_last_name = ?, phone_number = ?, secondary_phone_number = ?, live_separated = ?, id_address = ? WHERE id_tutor = ?`, [payload.name, payload.first_last_name, payload.second_last_name, payload.phone_number, payload.secondary_phone_number, payload.live_separated, payload.id_address, payload.id_tutor]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateHighschoolInformation(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`UPDATE highschool_information SET school_key = ?, school_type = ?, school_name = ?, id_municipality = ?, average_grade = ?, has_debts = ?, scholarship_type = ? WHERE id_highschool = ?`, [payload.school_key, payload.school_type, payload.school_name, payload.id_municipality, payload.average_grade, payload.has_debts, payload.scholarship_type, payload.id_highschool]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    updateSpecialitiesSelected(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`UPDATE selected_specialities SET id_speciality_by_period = ? WHERE id_selected_speciality = ?`, [payload.id_speciality_by_period, payload.id_selected_speciality]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    getSpecialitySelectedByHerarchyAndIdCandidate(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`select
+                                                                        ss.id_selected_speciality,
+                                                                        s.id_speciality,
+                                                                        ss.herarchy
+                                                                    from selected_specialities ss
+                                                                    join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                    join specialities s on sbp.id_speciality = s.id_speciality
+                                                                    where ss.id_candidate = ?
+                                                                    and ss.herarchy = ?`, [payload.id_candidate, payload.herarchy]);
+                return response;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
+    deleteAddressById(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)(`DELETE FROM addresses WHERE id_address = ?`, [payload.id_address]);
+                return response;
             }
             catch (error) {
                 throw (error);

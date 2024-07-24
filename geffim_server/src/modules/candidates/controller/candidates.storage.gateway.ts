@@ -3,7 +3,7 @@ import { Candidate } from "../model/candidates";
 import { SalePeriod } from "../../../modules/sale_periods/model/sale_period";
 import { InstitutionalInformation } from "../../../modules/institutional_information/model/institutional_information";
 import { candidateToList } from "./dtos/request_to_generate_list.dto";
-import { AddressDTO, CandidateDTO } from "./dtos/response_candidate_information.dto";
+import { AddressDTO, CandidateDTO, SchoolDTO, specialitySelectedDTO, tutorDTO } from "./dtos/response_candidate_information.dto";
 
 
 export class CandidatesStorageGateway {
@@ -261,7 +261,7 @@ export class CandidatesStorageGateway {
                                                             c.first_last_name,
                                                             c.second_last_name,
                                                             c.curp,
-                                                            c.birthdate,
+                                                            DATE_FORMAT(c.birthdate, '%Y-%m-%d') AS birthdate,
                                                             c.gender,
                                                             c.email,
                                                             m.id_state AS id_birth_state,
@@ -304,6 +304,185 @@ export class CandidatesStorageGateway {
         }
     }
 
+    async getTutorById(payload: {id_candidate: number}) {
+        try {
+            const response = await queryDB<tutorDTO[]>(`select
+                                                            t.id_tutor,
+                                                            t.name,
+                                                            t.first_last_name,
+                                                            t.second_last_name,
+                                                            t.phone_number,
+                                                            t.secondary_phone_number,
+                                                            t.live_separated,
+                                                            t.id_address
+                                                        from
+                                                            tutors t
+                                                        where
+                                                            t.id_candidate = ?`,
+                [payload.id_candidate]);
+            return response[0];
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getHighschoolInformationById(payload: {id_candidate: number}) {
+        try {
+            const response = await queryDB<SchoolDTO[]>(`select
+                                                            hi.id_highschool,
+                                                            hi.school_key,
+                                                            hi.school_type,
+                                                            hi.school_name,
+                                                            m.id_state as id_state,
+                                                            hi.id_municipality,
+                                                            hi.average_grade,
+                                                            hi.has_debts,
+                                                            hi.scholarship_type
+                                                        from highschool_information hi
+                                                        join municipalities m on hi.id_municipality = m.id_municipality
+                                                        where hi.id_candidate = ?;`,
+                [payload.id_candidate]);
+            return response[0];
+        } catch (error) {
+            throw(error)
+        }
+    }
     
+    async getSpecialitiesSelectedById(payload: {id_candidate: number}) {
+        try {
+            const response = await queryDB<specialitySelectedDTO[]>(`select
+                                                                        ss.id_selected_speciality,
+                                                                        s.id_speciality,
+                                                                        ss.herarchy,
+                                                                        s.name
+                                                                    from selected_specialities ss
+                                                                    join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                    join specialities s on sbp.id_speciality = s.id_speciality
+                                                                    where ss.id_candidate = ?
+                                                                    order by ss.herarchy`,
+                [payload.id_candidate]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async checkIfPeriodIsActiveByIdCandidate(payload: {id_candidate: number}) {
+        try {
+            const response = await queryDB<{status: string}[]>(`select DISTINCT
+                                                                            sp.status
+                                                                        from selected_specialities ss
+                                                                        join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                        join specialities s on sbp.id_speciality = s.id_speciality
+                                                                        join sale_periods sp on sbp.id_period = sp.id_period
+                                                                        where ss.id_candidate = ?`,
+                [payload.id_candidate]);
+
+            return response[0].status;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getPeriodByIdCandidate(payload: {id_candidate: number}) {
+        try {
+            const response = await queryDB<{id_period: number}[]>(`select
+                                                                    sbp.id_period
+                                                                from selected_specialities ss
+                                                                join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                where ss.id_candidate = ?`,
+                [payload.id_candidate]);
+            return response[0].id_period;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    // actualización de candidato
+    async updateCandidate(payload: CandidateDTO) {
+        try {
+            const response = await queryDB(`UPDATE candidates SET name = ?, first_last_name = ?, second_last_name = ?, curp = ?, birthdate = ?, gender = ?, email = ?, id_birth_municipality = ?, phone_number = ?, secondary_phone_number = ?, username = ? WHERE id_candidate = ?`,
+                [payload.name, payload.first_last_name, payload.second_last_name, payload.curp, payload.birthdate, payload.gender, payload.email, payload.id_birth_municipality, payload.phone_number, payload.secondary_phone_number, payload.username, payload.id_candidate]);
+
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async updateAddress(payload: AddressDTO) {
+        try {
+            const response = await queryDB(`UPDATE addresses SET postal_code = ?, id_municipality = ?, neighborhood = ?, street_and_number = ? WHERE id_address = ?`,
+                [payload.postal_code, payload.id_municipality, payload.neighborhood, payload.street_and_number, payload.id_address]);
+
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async updateTutor(payload: tutorDTO) {
+        try {
+            const response = await queryDB(`UPDATE tutors SET name = ?, first_last_name = ?, second_last_name = ?, phone_number = ?, secondary_phone_number = ?, live_separated = ?, id_address = ? WHERE id_tutor = ?`,
+                [payload.name, payload.first_last_name, payload.second_last_name, payload.phone_number, payload.secondary_phone_number, payload.live_separated, payload.id_address, payload.id_tutor]);
+
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async updateHighschoolInformation(payload: SchoolDTO) {
+        try {
+            const response = await queryDB(`UPDATE highschool_information SET school_key = ?, school_type = ?, school_name = ?, id_municipality = ?, average_grade = ?, has_debts = ?, scholarship_type = ? WHERE id_highschool = ?`,
+                [payload.school_key, payload.school_type, payload.school_name, payload.id_municipality, payload.average_grade, payload.has_debts, payload.scholarship_type, payload.id_highschool]);
+
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+    
+    async updateSpecialitiesSelected(payload: {id_selected_speciality: number, id_speciality_by_period: number}) {
+        try {
+            const response = await queryDB(`UPDATE selected_specialities SET id_speciality_by_period = ? WHERE id_selected_speciality = ?`,
+                [payload.id_speciality_by_period, payload.id_selected_speciality]);
+
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getSpecialitySelectedByHerarchyAndIdCandidate(payload: {herarchy: number, id_candidate: number}) {
+        try {
+            const response = await queryDB<specialitySelectedDTO[]>(`select
+                                                                        ss.id_selected_speciality,
+                                                                        s.id_speciality,
+                                                                        ss.herarchy
+                                                                    from selected_specialities ss
+                                                                    join speciality_by_period sbp on ss.id_speciality_by_period = sbp.id_speciality_by_period
+                                                                    join specialities s on sbp.id_speciality = s.id_speciality
+                                                                    where ss.id_candidate = ?
+                                                                    and ss.herarchy = ?`,
+                [payload.id_candidate, payload.herarchy]);
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async deleteAddressById(payload: {id_address: number}) {
+        try {
+            const response = await queryDB(`DELETE FROM addresses WHERE id_address = ?`,
+                [payload.id_address]);
+
+            return response;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+
 
 }

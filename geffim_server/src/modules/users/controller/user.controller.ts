@@ -185,6 +185,14 @@ export class UserController {
 
             if(user.length === 0)
                 throw new Error('El usuario no existe');
+            
+            // traer el total de usuarios activos
+            const totalUsersActive = await StorageGateway.getCountUsersActive();
+
+            // no puede haber menos de dos usuarios activos
+            if(totalUsersActive === 1 && user[0].status)
+                throw new Error('No se puede desactivar el último usuario activo');
+
 
             // actualizar el usuario
             await StorageGateway.changeStatus(payload);

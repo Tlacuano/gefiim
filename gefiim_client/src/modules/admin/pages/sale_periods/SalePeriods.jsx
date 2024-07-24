@@ -8,6 +8,7 @@ import { EditSalePeriodModal } from "./components/EditSalePeriodModal";
 import { RegisterPeriodModal } from "./components/RegisterPeriodModal";
 
 import axios from "../../../../config/http-clientt.gateway";
+import { base64ToFile } from "../../../../utils/functions/base64ToFile";
 
 
 export const SalePeriods = () => {
@@ -38,6 +39,17 @@ export const SalePeriods = () => {
             ToastWarning(error.response.data.message);
         }
     };
+
+    const generateList = async (period) => {
+        try {
+            LoadAlert(true)
+            const response = await axios.doPost('/candidates/generate-list', { id_period: period.id_period })
+            LoadAlert(false)
+            base64ToFile(response.data, 'Lista de candidatos generada el ')
+        } catch (error) {
+            ToastWarning(error.response.data.message)
+        }
+    }
 
     useEffect(() => {
         getPeriods(pageObject.page, pageObject.limit);
@@ -101,6 +113,12 @@ export const SalePeriods = () => {
                                                             <ButtonIconComponent
                                                                 icon='pen'
                                                                 action={ () => editSalePeriod(period) }
+                                                                size='20'
+                                                                className='mx-2'
+                                                            />
+                                                            <ButtonIconComponent
+                                                                icon='download'
+                                                                action={ () => generateList(period) }
                                                                 size='20'
                                                                 className='mx-2'
                                                             />

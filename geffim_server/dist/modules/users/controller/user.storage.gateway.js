@@ -80,6 +80,18 @@ class UserStorageGateway {
             }
         });
     }
+    getCountUsersActive(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield (0, db_connection_1.queryDB)('SELECT COUNT(id_admin) as total FROM admins WHERE status = 1');
+                const { total } = response[0];
+                return total;
+            }
+            catch (error) {
+                throw (error);
+            }
+        });
+    }
     changeStatus(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

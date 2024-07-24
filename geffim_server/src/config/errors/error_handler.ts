@@ -105,10 +105,15 @@ const errors: { [x: string]: ResponseApi<undefined> } = {
     'El nombre de la especialidad ya existe' : { data: undefined, message: 'El nombre de la especialidad ya existe', status: 400, error: true },
     'El acronimo ya existe' : { data: undefined, message: 'El acronimo ya existe', status: 400, error: true },
     'El acronimo no puede tener mas de 7 caracteres' : { data: undefined, message: 'El acronimo no puede tener mas de 7 caracteres', status: 400, error: true },
-
-
-
-
+    
+    'El nombre de usuario no puede estar vacío' : { data: undefined, message: 'El nombre de usuario no puede estar vacío', status: 400, error: true },
+    'El nombre de usuario no puede tener más de 50 caracteres' : { data: undefined, message: 'El nombre de usuario no puede tener más de 50 caracteres', status: 400, error: true },
+    'El nombre de usuario no puede tener menos de 5 caracteres' : { data: undefined, message: 'El nombre de usuario no puede tener menos de 5 caracteres', status: 400, error: true },
+    'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número' : { data: undefined, message: 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número', status: 400, error: true },
+    'No se puede desactivar el último usuario activo' : { data: undefined, message: 'No se puede desactivar el último usuario activo', status: 400, error: true },
+    'La nueva contraseña no puede estar vacía' : { data: undefined, message: 'La nueva contraseña no puede estar vacía', status: 400, error: true },
+    'La contraseña actual no puede estar vacía' : { data: undefined, message: 'La contraseña actual no puede estar vacía', status: 400, error: true },
+    'La contraseña actual es incorrecta' : { data: undefined, message: 'La contraseña actual es incorrecta', status: 400, error: true },
 }
 
 export const validateError = (error: Error): ResponseApi<undefined> => {

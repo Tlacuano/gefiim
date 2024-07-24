@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { AuthContext } from "../../../context"
 import { LoadAlert, ToastWarning } from "../../../../../components/SweetAlertToast"
 import axios from '../../../../../config/http-clientt.gateway'
+import { base64ToFile } from "../../../../../utils/functions/base64ToFile"
 
 export const Login = ({ decreaseComponent }) => {
     const { login } = useContext(AuthContext)
@@ -56,9 +57,16 @@ export const Login = ({ decreaseComponent }) => {
             try {
                 LoadAlert(true)
                 const response = await axios.doPost('/auth/login', form)
-                const { username, token, role } = response.data
+                const { username, token, role, document } = response.data
 
-                login( username, token, role )
+                if(role === 'CANDIDATE'){
+                    base64ToFile(document, 'Ficha de inscripción')
+                    setForm({ username: '', password: '' })
+                }else{
+                    login( username, token, role )
+                }
+
+                
                 LoadAlert(false)
 
             } catch (error) {

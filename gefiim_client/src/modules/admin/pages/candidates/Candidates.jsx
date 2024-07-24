@@ -2,11 +2,14 @@ import { Card, Col, Pagination, Row } from "react-bootstrap";
 import { NavbarAdmin } from "../../components/NavbarAdmin"
 import { useEffect, useState } from "react";
 import { InputComponent } from "../../../../components";
-import { ToastWarning } from "../../../../components/SweetAlertToast";
+import { LoadAlert, ToastWarning } from "../../../../components/SweetAlertToast";
 import axios from "../../../../config/http-clientt.gateway";
 import { ButtonIconComponent } from "../../../../components/ButtonIconComponent";
+import { useNavigate } from "react-router-dom";
 
 export const Candidates = () => {
+    const navigate = useNavigate();
+
     const [candidates, setCandidates] = useState(null);
     const [pageObject, setPageObject] = useState({
         page: 1,
@@ -27,10 +30,17 @@ export const Candidates = () => {
 
     const editCandidate = async (candidate) => {
         try {
-            console.log(candidate);
-            // const response = await axios.doPut(`/speciality/update-speciality/${speciality.id}`, speciality);
-            // ToastSuccess(response.data.message);
-            // getSpecialities();
+            LoadAlert(true)
+            const response = await axios.doPost(`/candidates/get-candidate-to-edit`, { id_candidate: candidate.id_candidate });
+            LoadAlert(false)
+
+            if(response.data.status === 'active'){
+                localStorage.setItem('candidate', JSON.stringify(response.data));
+                navigate('/editar-candidato');
+            }else{
+                ToastWarning('El periodo de venta del candidato ha finalizado, ya no puede ser editado');
+            }
+
         } catch (error) {
             ToastWarning(error.response.data.message);
         }
@@ -87,7 +97,7 @@ export const Candidates = () => {
                                         <tbody>
                                             {
                                                 candidates.content.map((candidate) => (
-                                                    <tr key={candidate.id}>
+                                                    <tr key={candidate.id_candidate}>
                                                         <td>{candidate.username}</td>
                                                         <td>{candidate.name} {candidate.first_last_name} {candidate.second_last_name}</td>
                                                         <td>{candidate.curp}</td>

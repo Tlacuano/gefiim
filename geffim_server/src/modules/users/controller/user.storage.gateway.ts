@@ -65,6 +65,16 @@ export class UserStorageGateway {
         }
     }
 
+    async getCountUsersActive(payload: void) {
+        try {
+            const response = await queryDB<{ total: number }[]>('SELECT COUNT(id_admin) as total FROM admins WHERE status = 1');
+            const { total } = response[0];
+            return total;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
     async changeStatus(payload: { id_admin: number, status: boolean }) {
         try {
             const response = await queryDB('UPDATE admins SET status = ? WHERE id_admin = ?',

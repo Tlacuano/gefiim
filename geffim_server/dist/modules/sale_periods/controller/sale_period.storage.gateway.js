@@ -155,6 +155,7 @@ class SalePeriodStorageGateway {
                                                                                                                                 selected_specialities ss ON sbp.id_speciality_by_period = ss.id_speciality_by_period
                                                                                                                             WHERE
                                                                                                                                 s.status = 1
+                                                                                                                            AND sp.status = 'active'
                                                                                                                             GROUP BY
                                                                                                                                 s.id_speciality, s.name, sbp.tokens_allowed;`, []);
                 return response;
