@@ -23,6 +23,7 @@ const format_date_string_1 = require("../../../utils/security/format_date_string
 const create_token_1 = require("../functions/create_token");
 const create_list_1 = require("../functions/create_list");
 const response_messages_1 = require("../../../utils/messages/response_messages");
+const jwt_1 = require("../../../config/jwt");
 const CandidatesRouter = (0, express_1.Router)();
 class CandidatesController {
     registerCandidate(req, res) {
@@ -797,14 +798,14 @@ exports.CandidatesController = CandidatesController;
 CandidatesRouter.post('/register-candidate', new CandidatesController().registerCandidate);
 CandidatesRouter.post('/validate-curp-on-period', new CandidatesController().validateCurpOnPeriod);
 //admin
-CandidatesRouter.post('/get-candidate-by-period-and-user', new CandidatesController().getCandidateByPeriodAndUser);
-CandidatesRouter.post('/register-payment', new CandidatesController().registerPayment);
-CandidatesRouter.post('/generate-list', new CandidatesController().generateList);
-CandidatesRouter.post('/get-candidates-page', new CandidatesController().getCandidatesPage);
-CandidatesRouter.post('/get-candidate-to-edit', new CandidatesController().getCandidateToEdit);
-CandidatesRouter.post('/edit-candidate', new CandidatesController().editCandidate);
-CandidatesRouter.post('/edit-candidate-address', new CandidatesController().editCandidateAddress);
-CandidatesRouter.post('/edit-tutor', new CandidatesController().editTutor);
-CandidatesRouter.post('/edit-highschool-information', new CandidatesController().editHighschoolInformation);
-CandidatesRouter.post('/edit-specialities-selected', new CandidatesController().editSpecialitiesSelected);
+CandidatesRouter.post('/get-candidate-by-period-and-user', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().getCandidateByPeriodAndUser);
+CandidatesRouter.post('/register-payment', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().registerPayment);
+CandidatesRouter.post('/generate-list', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().generateList);
+CandidatesRouter.post('/get-candidates-page', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().getCandidatesPage);
+CandidatesRouter.post('/get-candidate-to-edit', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().getCandidateToEdit);
+CandidatesRouter.post('/edit-candidate', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().editCandidate);
+CandidatesRouter.post('/edit-candidate-address', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().editCandidateAddress);
+CandidatesRouter.post('/edit-tutor', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().editTutor);
+CandidatesRouter.post('/edit-highschool-information', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().editHighschoolInformation);
+CandidatesRouter.post('/edit-specialities-selected', (0, jwt_1.Authenticator)(['ADMIN']), new CandidatesController().editSpecialitiesSelected);
 exports.default = CandidatesRouter;

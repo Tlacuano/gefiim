@@ -34,5 +34,45 @@ class AuthStorageGateway {
             }
         });
     }
+    setVerificationCodeCandidate(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield (0, db_connection_1.queryDB)(`UPDATE candidates SET verification_code = ? WHERE username = ?`, [payload.code, payload.username]);
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    setVerificationCodeAdmin(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield (0, db_connection_1.queryDB)(`UPDATE admins SET verification_code = ? WHERE username = ?`, [payload.code, payload.username]);
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    updatePasswordCandidate(username, newPassword) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield (0, db_connection_1.queryDB)(`UPDATE candidates SET password = ? WHERE username = ?`, [newPassword, username]);
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    updatePasswordAdmin(username, newPassword) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield (0, db_connection_1.queryDB)(`UPDATE admins SET password = ? WHERE username = ?`, [newPassword, username]);
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
 }
 exports.AuthStorageGateway = AuthStorageGateway;

@@ -7,6 +7,7 @@ import { User } from "../model/user";
 import { compare, encode } from "../../../utils/security/bcrypt";
 import { MESSAGES } from "../../../utils/messages/response_messages";
 import { requestChangePasswordDto } from "./dto/request_change_password.dto";
+import { Authenticator } from "../../../config/jwt";
 
 const UserRouter = Router();
 
@@ -79,6 +80,9 @@ export class UserController {
                 throw new Error('La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número');
 
 
+            if (/^\d+$/.test(payload.username))
+                throw new Error('El nombre de usuario no puede ser solo números');
+
             payload.password = await encode(payload.password);
 
             // instanciar el gateway
@@ -133,6 +137,9 @@ export class UserController {
 
             if(!payload.id_admin)
                 throw new Error(MESSAGES.BAD_REQUEST.DEFAULT);
+
+            if (/^\d+$/.test(payload.username))
+                throw new Error('El nombre de usuario no puede ser solo números');
 
 
             // buscar el usuario
@@ -272,11 +279,11 @@ export class UserController {
 }
 
 // admin
-UserRouter.get('/get-page-user', new UserController().getPagedUsers);
-UserRouter.post('/register-user', new UserController().registerUser);
-UserRouter.post('/update-user', new UserController().updateUser);
-UserRouter.post('/change-status-user', new UserController().changeStatusUser);
-UserRouter.post('/change-password', new UserController().changePassowrd);
+UserRouter.get('/get-page-user', Authenticator(['ADMIN']), new UserController().getPagedUsers);
+UserRouter.post('/register-user', Authenticator(['ADMIN']), new UserController().registerUser);
+UserRouter.post('/update-user', Authenticator(['ADMIN']), new UserController().updateUser);
+UserRouter.post('/change-status-user', Authenticator(['ADMIN']), new UserController().changeStatusUser);
+UserRouter.post('/change-password', Authenticator(['ADMIN']), new UserController().changePassowrd);
 
 
 

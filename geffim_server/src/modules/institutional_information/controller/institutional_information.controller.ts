@@ -4,6 +4,7 @@ import { validateError } from "../../../config/errors/error_handler";
 import { InstitutionalInformationStorageGateway } from "./institutional_information.storage.gateway";
 import { ResponseApi } from "../../../kernel/types";
 import { InstitutionalInformation } from "../model/institutional_information";
+import { Authenticator } from "../../../config/jwt";
 
 const InstitutionalInformationRouter = Router();
 
@@ -116,6 +117,6 @@ export class InstitutionalInformationController {
 InstitutionalInformationRouter.get('/get-institutional-information', new InstitutionalInformationController().getInstitutionalInformation);
 
 // admin
-InstitutionalInformationRouter.post('/update-institutional-information', new InstitutionalInformationController().updateInstitutionalInformation);
+InstitutionalInformationRouter.post('/update-institutional-information', Authenticator(['ADMIN']), new InstitutionalInformationController().updateInstitutionalInformation);
 
 export default InstitutionalInformationRouter;

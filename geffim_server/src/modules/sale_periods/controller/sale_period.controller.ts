@@ -10,6 +10,7 @@ import { MESSAGES } from "../../../utils/messages/response_messages";
 import { SpecialityStorageGateway } from "../../../modules/specialities/controller/speciality.storage.gateway";
 import { formatDate } from "../../../utils/security/format_date_string";
 import { UpdateTokensAllowedDto } from "./dto/update_tokens_allowed.dto";
+import { Authenticator } from "../../../config/jwt";
 
 const SalePeriodRouter = Router();
 
@@ -471,12 +472,12 @@ export class SalePeriodController {
     }
 }
 
-SalePeriodRouter.get('/get-sale-period-page', new SalePeriodController().getSalePeriodsPage);
-SalePeriodRouter.post('/register-sale-period', new SalePeriodController().registerSalePeriod);
-SalePeriodRouter.post('/update-sale-period', new SalePeriodController().updateSalePeriod);
-SalePeriodRouter.post('/change-status-sale-period', new SalePeriodController().changeStatusSalePeriod);
-SalePeriodRouter.post('/get-specialities-by-sale-period', new SalePeriodController().getSpecialitiesBySalePeriod);
-SalePeriodRouter.post('/update-tokens-allowed', new SalePeriodController().updateTokensAllowed);
+SalePeriodRouter.get('/get-sale-period-page', Authenticator(['ADMIN']), new SalePeriodController().getSalePeriodsPage);
+SalePeriodRouter.post('/register-sale-period', Authenticator(['ADMIN']), new SalePeriodController().registerSalePeriod);
+SalePeriodRouter.post('/update-sale-period', Authenticator(['ADMIN']), new SalePeriodController().updateSalePeriod);
+SalePeriodRouter.post('/change-status-sale-period', Authenticator(['ADMIN']), new SalePeriodController().changeStatusSalePeriod);
+SalePeriodRouter.post('/get-specialities-by-sale-period', Authenticator(['ADMIN']), new SalePeriodController().getSpecialitiesBySalePeriod);
+SalePeriodRouter.post('/update-tokens-allowed', Authenticator(['ADMIN']), new SalePeriodController().updateTokensAllowed);
 
 //guest
 SalePeriodRouter.post('/auto-change-status-sale-period', new SalePeriodController().autoChangeStatusSalePeriod);

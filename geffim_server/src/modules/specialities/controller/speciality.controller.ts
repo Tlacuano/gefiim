@@ -9,6 +9,7 @@ import { Speciality } from '../model/speciality';
 import { text_with_spaces } from '../../../utils/regex/regex';
 import { MESSAGES } from '../../../utils/messages/response_messages';
 import { ResponseAllSpecialitiesDto } from './dto/response_all_specialities.dto';
+import { Authenticator } from '../../../config/jwt';
 
 const SpecialityRouter = Router();
 
@@ -236,11 +237,11 @@ export class SpecialityController {
     }
 }
 
-SpecialityRouter.post('/get-specialities-page', new SpecialityController().getSpecialitiesPage);
-SpecialityRouter.post('/register-speciality', new SpecialityController().registerSpeciality);
-SpecialityRouter.post('/update-speciality', new SpecialityController().updateSpeciality);
-SpecialityRouter.post('/change-status-speciality', new SpecialityController().changeStatusSpeciality);
-SpecialityRouter.get('/get-all-specialities', new SpecialityController().getAllSpecialities);
+SpecialityRouter.post('/get-specialities-page', Authenticator(['ADMIN']), new SpecialityController().getSpecialitiesPage);
+SpecialityRouter.post('/register-speciality', Authenticator(['ADMIN']), new SpecialityController().registerSpeciality);
+SpecialityRouter.post('/update-speciality', Authenticator(['ADMIN']), new SpecialityController().updateSpeciality);
+SpecialityRouter.post('/change-status-speciality', Authenticator(['ADMIN']), new SpecialityController().changeStatusSpeciality);
+SpecialityRouter.get('/get-all-specialities', Authenticator(['ADMIN']), new SpecialityController().getAllSpecialities);
 
 
 

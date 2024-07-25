@@ -6,9 +6,12 @@ import { AuthContext } from "../../../context"
 import { LoadAlert, ToastWarning } from "../../../../../components/SweetAlertToast"
 import axios from '../../../../../config/http-clientt.gateway'
 import { base64ToFile } from "../../../../../utils/functions/base64ToFile"
+import { ResetPassword } from "./ResetPassowrd"
 
 export const Login = ({ decreaseComponent }) => {
     const { login } = useContext(AuthContext)
+
+    const [showResetPassword, setShowResetPassword] = useState(false)
 
     const [form, setForm] = useState({
         username: '',
@@ -122,10 +125,12 @@ export const Login = ({ decreaseComponent }) => {
                 </Row>
                 <Row>
                     <Col className="text-center mt-4">
-                        <span className="selectable text-hover" style={{ fontSize: 17 }} >Recuperar contraseña</span>
+                        <span className="selectable text-hover" onClick={()=> setShowResetPassword(true)} style={{ fontSize: 17 }} >Recuperar contraseña</span>
                     </Col>
                 </Row>
             </Form>
+
+            <ResetPassword show={showResetPassword} handleClose={() => setShowResetPassword(false)} />
         </>
     )
 }

@@ -19,6 +19,7 @@ const error_handler_1 = require("../../../config/errors/error_handler");
 const sale_period_storage_gateway_1 = require("./sale_period.storage.gateway");
 const response_messages_1 = require("../../../utils/messages/response_messages");
 const speciality_storage_gateway_1 = require("../../../modules/specialities/controller/speciality.storage.gateway");
+const jwt_1 = require("../../../config/jwt");
 const SalePeriodRouter = (0, express_1.Router)();
 class SalePeriodController {
     getSalePeriodsPage(req, res) {
@@ -399,12 +400,12 @@ class SalePeriodController {
     }
 }
 exports.SalePeriodController = SalePeriodController;
-SalePeriodRouter.get('/get-sale-period-page', new SalePeriodController().getSalePeriodsPage);
-SalePeriodRouter.post('/register-sale-period', new SalePeriodController().registerSalePeriod);
-SalePeriodRouter.post('/update-sale-period', new SalePeriodController().updateSalePeriod);
-SalePeriodRouter.post('/change-status-sale-period', new SalePeriodController().changeStatusSalePeriod);
-SalePeriodRouter.post('/get-specialities-by-sale-period', new SalePeriodController().getSpecialitiesBySalePeriod);
-SalePeriodRouter.post('/update-tokens-allowed', new SalePeriodController().updateTokensAllowed);
+SalePeriodRouter.get('/get-sale-period-page', (0, jwt_1.Authenticator)(['ADMIN']), new SalePeriodController().getSalePeriodsPage);
+SalePeriodRouter.post('/register-sale-period', (0, jwt_1.Authenticator)(['ADMIN']), new SalePeriodController().registerSalePeriod);
+SalePeriodRouter.post('/update-sale-period', (0, jwt_1.Authenticator)(['ADMIN']), new SalePeriodController().updateSalePeriod);
+SalePeriodRouter.post('/change-status-sale-period', (0, jwt_1.Authenticator)(['ADMIN']), new SalePeriodController().changeStatusSalePeriod);
+SalePeriodRouter.post('/get-specialities-by-sale-period', (0, jwt_1.Authenticator)(['ADMIN']), new SalePeriodController().getSpecialitiesBySalePeriod);
+SalePeriodRouter.post('/update-tokens-allowed', (0, jwt_1.Authenticator)(['ADMIN']), new SalePeriodController().updateTokensAllowed);
 //guest
 SalePeriodRouter.post('/auto-change-status-sale-period', new SalePeriodController().autoChangeStatusSalePeriod);
 SalePeriodRouter.get('/get-current-period', new SalePeriodController().getCurrentPeriod);

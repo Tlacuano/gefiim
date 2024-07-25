@@ -6,6 +6,7 @@ import { ResponseApi } from "../../../kernel/types";
 import { stadistics } from "../model/stadistics";
 import logger from "../../../config/logs/logger";
 import { validateError } from "../../../config/errors/error_handler";
+import { Authenticator } from "../../../config/jwt";
 
 
 const StadisticsRouter = Router();
@@ -59,6 +60,6 @@ export class StadisticsController {
     }
 }
 
-StadisticsRouter.post('/get-stadistics', new StadisticsController().getStadistics);
+StadisticsRouter.post('/get-stadistics', Authenticator(['ADMIN']), new StadisticsController().getStadistics);
 
 export default StadisticsRouter;

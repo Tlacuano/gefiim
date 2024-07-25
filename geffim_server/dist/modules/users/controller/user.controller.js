@@ -19,6 +19,7 @@ const error_handler_1 = require("../../../config/errors/error_handler");
 const user_storage_gateway_1 = require("./user.storage.gateway");
 const bcrypt_1 = require("../../../utils/security/bcrypt");
 const response_messages_1 = require("../../../utils/messages/response_messages");
+const jwt_1 = require("../../../config/jwt");
 const UserRouter = (0, express_1.Router)();
 class UserController {
     getPagedUsers(req, res) {
@@ -79,6 +80,8 @@ class UserController {
                     throw new Error('El nombre de usuario no puede tener menos de 5 caracteres');
                 if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(payload.password))
                     throw new Error('La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número');
+                if (/^\d+$/.test(payload.username))
+                    throw new Error('El nombre de usuario no puede ser solo números');
                 payload.password = yield (0, bcrypt_1.encode)(payload.password);
                 // instanciar el gateway
                 const StorageGateway = new user_storage_gateway_1.UserStorageGateway();
@@ -124,6 +127,8 @@ class UserController {
                     throw new Error('El nombre de usuario no puede tener menos de 5 caracteres');
                 if (!payload.id_admin)
                     throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                if (/^\d+$/.test(payload.username))
+                    throw new Error('El nombre de usuario no puede ser solo números');
                 // buscar el usuario
                 const StorageGateway = new user_storage_gateway_1.UserStorageGateway();
                 const user = yield StorageGateway.getUserById(payload.id_admin);
@@ -234,9 +239,9 @@ class UserController {
 }
 exports.UserController = UserController;
 // admin
-UserRouter.get('/get-page-user', new UserController().getPagedUsers);
-UserRouter.post('/register-user', new UserController().registerUser);
-UserRouter.post('/update-user', new UserController().updateUser);
-UserRouter.post('/change-status-user', new UserController().changeStatusUser);
-UserRouter.post('/change-password', new UserController().changePassowrd);
+UserRouter.get('/get-page-user', (0, jwt_1.Authenticator)(['ADMIN']), new UserController().getPagedUsers);
+UserRouter.post('/register-user', (0, jwt_1.Authenticator)(['ADMIN']), new UserController().registerUser);
+UserRouter.post('/update-user', (0, jwt_1.Authenticator)(['ADMIN']), new UserController().updateUser);
+UserRouter.post('/change-status-user', (0, jwt_1.Authenticator)(['ADMIN']), new UserController().changeStatusUser);
+UserRouter.post('/change-password', (0, jwt_1.Authenticator)(['ADMIN']), new UserController().changePassowrd);
 exports.default = UserRouter;

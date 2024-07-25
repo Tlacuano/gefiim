@@ -15,6 +15,7 @@ import { registerCandidateRequestDto } from "./dtos/response_register_candidate.
 import { MESSAGES } from "../../../utils/messages/response_messages";
 import { RequestToGenerateListDto } from './dtos/request_to_generate_list.dto';
 import { AddressDTO, CandidateDTO, CandidateInformationDto, SchoolDTO, specialitySelectedDTO, tutorDTO } from './dtos/response_candidate_information.dto';
+import { Authenticator } from '../../../config/jwt';
 
 const CandidatesRouter = Router();
 
@@ -968,16 +969,16 @@ CandidatesRouter.post('/register-candidate', new CandidatesController().register
 CandidatesRouter.post('/validate-curp-on-period', new CandidatesController().validateCurpOnPeriod);
 
 //admin
-CandidatesRouter.post('/get-candidate-by-period-and-user', new CandidatesController().getCandidateByPeriodAndUser);
-CandidatesRouter.post('/register-payment', new CandidatesController().registerPayment);
-CandidatesRouter.post('/generate-list', new CandidatesController().generateList);
-CandidatesRouter.post('/get-candidates-page', new CandidatesController().getCandidatesPage);
-CandidatesRouter.post('/get-candidate-to-edit', new CandidatesController().getCandidateToEdit);
-CandidatesRouter.post('/edit-candidate', new CandidatesController().editCandidate);
-CandidatesRouter.post('/edit-candidate-address', new CandidatesController().editCandidateAddress);
-CandidatesRouter.post('/edit-tutor', new CandidatesController().editTutor);
-CandidatesRouter.post('/edit-highschool-information', new CandidatesController().editHighschoolInformation);
-CandidatesRouter.post('/edit-specialities-selected', new CandidatesController().editSpecialitiesSelected);
+CandidatesRouter.post('/get-candidate-by-period-and-user', Authenticator(['ADMIN']), new CandidatesController().getCandidateByPeriodAndUser);
+CandidatesRouter.post('/register-payment', Authenticator(['ADMIN']), new CandidatesController().registerPayment);
+CandidatesRouter.post('/generate-list', Authenticator(['ADMIN']), new CandidatesController().generateList);
+CandidatesRouter.post('/get-candidates-page', Authenticator(['ADMIN']), new CandidatesController().getCandidatesPage);
+CandidatesRouter.post('/get-candidate-to-edit', Authenticator(['ADMIN']), new CandidatesController().getCandidateToEdit);
+CandidatesRouter.post('/edit-candidate', Authenticator(['ADMIN']), new CandidatesController().editCandidate);
+CandidatesRouter.post('/edit-candidate-address', Authenticator(['ADMIN']), new CandidatesController().editCandidateAddress);
+CandidatesRouter.post('/edit-tutor', Authenticator(['ADMIN']), new CandidatesController().editTutor);
+CandidatesRouter.post('/edit-highschool-information', Authenticator(['ADMIN']), new CandidatesController().editHighschoolInformation);
+CandidatesRouter.post('/edit-specialities-selected', Authenticator(['ADMIN']), new CandidatesController().editSpecialitiesSelected);
 
 
 

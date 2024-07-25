@@ -17,6 +17,7 @@ const express_1 = require("express");
 const logger_1 = __importDefault(require("../../../config/logs/logger"));
 const error_handler_1 = require("../../../config/errors/error_handler");
 const institutional_information_storage_gateway_1 = require("./institutional_information.storage.gateway");
+const jwt_1 = require("../../../config/jwt");
 const InstitutionalInformationRouter = (0, express_1.Router)();
 class InstitutionalInformationController {
     getInstitutionalInformation(___, res) {
@@ -109,5 +110,5 @@ class InstitutionalInformationController {
 exports.InstitutionalInformationController = InstitutionalInformationController;
 InstitutionalInformationRouter.get('/get-institutional-information', new InstitutionalInformationController().getInstitutionalInformation);
 // admin
-InstitutionalInformationRouter.post('/update-institutional-information', new InstitutionalInformationController().updateInstitutionalInformation);
+InstitutionalInformationRouter.post('/update-institutional-information', (0, jwt_1.Authenticator)(['ADMIN']), new InstitutionalInformationController().updateInstitutionalInformation);
 exports.default = InstitutionalInformationRouter;

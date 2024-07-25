@@ -18,6 +18,7 @@ const response_messages_1 = require("../../../utils/messages/response_messages")
 const stadistics_storage_gateway_1 = require("./stadistics.storage.gateway");
 const logger_1 = __importDefault(require("../../../config/logs/logger"));
 const error_handler_1 = require("../../../config/errors/error_handler");
+const jwt_1 = require("../../../config/jwt");
 const StadisticsRouter = (0, express_1.Router)();
 class StadisticsController {
     getStadistics(req, res) {
@@ -63,5 +64,5 @@ class StadisticsController {
     }
 }
 exports.StadisticsController = StadisticsController;
-StadisticsRouter.post('/get-stadistics', new StadisticsController().getStadistics);
+StadisticsRouter.post('/get-stadistics', (0, jwt_1.Authenticator)(['ADMIN']), new StadisticsController().getStadistics);
 exports.default = StadisticsRouter;

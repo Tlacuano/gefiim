@@ -454,3 +454,13 @@
 {"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:25:55.465Z"}
 {"level":"error","timestamp":"2024-07-24T19:26:20.370Z"}
 {"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:26:20.371Z"}
+{"level":"error","timestamp":"2024-07-24T21:15:50.879Z"}
+{"level":"error","message":"authStorageGateway.setVerificationCodeAdmin is not a function","timestamp":"2024-07-24T21:15:50.880Z"}
+{"level":"error","timestamp":"2024-07-24T21:16:07.212Z"}
+{"level":"error","message":"(0 , nodemailer_1.sendEmail) is not a function","timestamp":"2024-07-24T21:16:07.213Z"}
+{"level":"error","timestamp":"2024-07-24T21:16:36.358Z"}
+{"level":"error","message":"Server Error","timestamp":"2024-07-24T21:16:36.358Z"}
+{"level":"error","timestamp":"2024-07-24T21:17:42.498Z"}
+{"level":"error","message":"Server Error","timestamp":"2024-07-24T21:17:42.499Z"}
+{"level":"error","timestamp":"2024-07-24T21:19:20.375Z"}
+{"level":"error","message":"Server Error","timestamp":"2024-07-24T21:19:20.376Z"}

@@ -5,11 +5,13 @@ import { RequestToAuth } from "../model/requestToAuth";
 import { AuthStorageGateway } from "./auth.storage.gateway";
 import { ResponseAuthenticated } from "../model/responseAuthenticated";
 import { generateToken } from "../../../config/jwt";
-import { compare } from "../../../utils/security/bcrypt";
+import { compare, encode } from "../../../utils/security/bcrypt";
 import { ResponseApi } from "../../../kernel/types";
 import { CandidatesStorageGateway } from "../../candidates/controller/candidates.storage.gateway";
 import { requestToGenarateTokenDTO } from "../../candidates/controller/dtos/request_to_generatte_token.dto";
 import { createToken } from "../../candidates/functions/create_token";
+import { randomCode } from "../../../utils/security/random";
+import { sendEmail } from "../../../utils/nodemailer/nodemailer";
 
 const AuthRouter = Router()
 
@@ -91,12 +93,144 @@ export class AuthController {
 
     // recover password
     async getUserbyUsername(req:Request, res:Response){
+        try {
+            const payload = req.body as RequestToAuth;
+
+            if(!payload.username)
+                throw new Error('El email no puede estar vacío');
+
+
+            const authStorageGateway = new AuthStorageGateway();
+
+
+            const candidate = await authStorageGateway.findUserOnCandidateTable(payload);
+            const admin = await authStorageGateway.findUserOnAdminTable(payload);
+
+            if(!candidate && !admin)
+                throw new Error('Usuario no encontrado');
+
+            const code = randomCode();
+
+            if(candidate){
+                // actualizar el codigo de verificacion
+                await authStorageGateway.setVerificationCodeCandidate({username: candidate.username, code});
+                await sendEmail(candidate.email, 'Recuperación de contraseña','Recuperación de contraseña', 'Su código de recuperación es:', code);
+            }
+
+            if(admin){
+                // actualizar el codigo de verificacion
+                await authStorageGateway.setVerificationCodeAdmin({username: admin.username, code});
+                await sendEmail(admin.email, 'Recuperación de contraseña','Recuperación de contraseña', 'Su código de recuperación es:', code);
+            }
+
+            
+            const body: ResponseApi<boolean> = {
+                data: true,
+                status: 200,
+                message: 'Verification code sent successfully',
+                error: false
+            };
+
+            res.status(200).json(body);
+
+        } catch (error) {
+            logger.error(error)
+
+            const errorBody = validateError(error as Error);
+            res.status(errorBody.status).json(errorBody);            
+        }
     }
 
     async checkVerificationCode(req:Request, res:Response){
+        try {
+            const payload = req.body as {username: string, code: string};
+
+            if(!payload.username)
+                throw new Error('El email no puede estar vacío');
+            if(!payload.code)
+                throw new Error('El código de verificación no puede estar vacío');
+
+
+            const authStorageGateway = new AuthStorageGateway();
+
+            const candidate = await authStorageGateway.findUserOnCandidateTable({ username: payload.username } as RequestToAuth);
+            const admin = await authStorageGateway.findUserOnAdminTable({ username: payload.username } as RequestToAuth);
+
+            if (!candidate && !admin)
+                throw new Error('Usuario no encontrado');
+
+            let verificationCode: string | null = null;
+            if (candidate) {
+                verificationCode = candidate.verification_code;
+            } else if (admin) {
+                verificationCode = admin.verification_code;
+            }
+
+            if (verificationCode !== payload.code) {
+                throw new Error('Código de verificación incorrecto');
+            }
+
+            const body: ResponseApi<boolean> = {
+                data: true,
+                status: 200,
+                message: 'Código de verificación válido',
+                error: false
+            };
+
+            res.status(200).json(body);
+
+        } catch (error) {
+            logger.error(error)
+
+            const errorBody = validateError(error as Error);
+            res.status(errorBody.status).json(errorBody);
+        }
     }
 
     async changePassword(req:Request, res:Response){
+        try {
+            const payload = req.body as { username: string, newPassword: string };
+    
+            if (!payload.username)
+                throw new Error('El nombre de usuario no puede estar vacío');
+            if (!payload.newPassword)
+                throw new Error('La nueva contraseña no puede estar vacía');
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(payload.newPassword))
+                throw new Error('La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número');
+    
+            const authStorageGateway = new AuthStorageGateway();
+    
+            // Verificar si el usuario es un candidato o un administrador
+            const candidate = await authStorageGateway.findUserOnCandidateTable({ username: payload.username } as RequestToAuth);
+            const admin = await authStorageGateway.findUserOnAdminTable({ username: payload.username } as RequestToAuth);
+    
+            if (!candidate && !admin)
+                throw new Error('Usuario no encontrado');
+    
+            // Cifrar la nueva contraseña
+            const hashedPassword = await encode(payload.newPassword);
+    
+            // Actualizar la contraseña dependiendo del tipo de usuario
+            if (candidate) {
+                await authStorageGateway.updatePasswordCandidate(payload.username, hashedPassword);
+            } else if (admin) {
+                await authStorageGateway.updatePasswordAdmin(payload.username, hashedPassword);
+            }
+    
+            const body: ResponseApi<boolean> = {
+                data: true,
+                status: 200,
+                message: 'Contraseña actualizada correctamente',
+                error: false
+            };
+    
+            res.status(200).json(body);
+        } catch (error) {
+            logger.error(error);
+    
+            const errorBody = validateError(error as Error);
+            res.status(errorBody.status).json(errorBody);
+        }
     }
 
 
@@ -202,5 +336,8 @@ export class AuthController {
 
 
 AuthRouter.post('/login', new AuthController().login);
+AuthRouter.post('/send-code', new AuthController().getUserbyUsername);
+AuthRouter.post('/check-code', new AuthController().checkVerificationCode);
+AuthRouter.post('/change-password', new AuthController().changePassword);
 
 export default AuthRouter;

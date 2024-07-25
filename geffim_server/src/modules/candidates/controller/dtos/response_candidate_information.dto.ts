@@ -61,5 +61,6 @@ export type SchoolDTO = {
 export type specialitySelectedDTO = {
     id_selected_speciality: number;
     id_speciality: number;
+    name: string;
     herarchy: number;
 }

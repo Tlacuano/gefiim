@@ -2096,3 +2096,47 @@
 {"level":"error","message":"Cannot read properties of undefined (reading 'id_municipality')","timestamp":"2024-07-24T19:26:20.371Z"}
 {"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T19:26:55.632Z"}
 {"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T19:28:58.274Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T20:54:28.374Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T20:54:48.612Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:14:47.366Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:15:05.269Z"}
+{"level":"error","timestamp":"2024-07-24T21:15:50.879Z"}
+{"level":"error","message":"authStorageGateway.setVerificationCodeAdmin is not a function","timestamp":"2024-07-24T21:15:50.880Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:16:05.035Z"}
+{"level":"error","timestamp":"2024-07-24T21:16:07.212Z"}
+{"level":"error","message":"(0 , nodemailer_1.sendEmail) is not a function","timestamp":"2024-07-24T21:16:07.213Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:16:34.307Z"}
+{"level":"error","timestamp":"2024-07-24T21:16:36.358Z"}
+{"level":"error","message":"Server Error","timestamp":"2024-07-24T21:16:36.358Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:17:37.406Z"}
+{"level":"error","timestamp":"2024-07-24T21:17:42.498Z"}
+{"level":"error","message":"Server Error","timestamp":"2024-07-24T21:17:42.499Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:18:59.912Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:19:09.136Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:19:16.739Z"}
+{"level":"error","timestamp":"2024-07-24T21:19:20.375Z"}
+{"level":"error","message":"Server Error","timestamp":"2024-07-24T21:19:20.376Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:19:38.879Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:19:48.786Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:19:51.351Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:21:08.170Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:21:14.908Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:21:51.742Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:23:29.320Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:23:51.085Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:24:18.517Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:45:31.162Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:45:36.743Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:46:18.479Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:46:30.437Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:49:48.588Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T21:49:57.238Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:05:58.513Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:06:19.169Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:06:41.799Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:07:01.759Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:07:55.048Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:10:39.975Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:11:48.870Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:12:13.947Z"}
+{"level":"info","message":"Server is running in http://localhost:3000","timestamp":"2024-07-24T22:13:02.898Z"}

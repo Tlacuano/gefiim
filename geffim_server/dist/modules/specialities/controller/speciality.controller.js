@@ -19,6 +19,7 @@ const error_handler_1 = require("../../../config/errors/error_handler");
 const speciality_storage_gateway_1 = require("./speciality.storage.gateway");
 const regex_1 = require("../../../utils/regex/regex");
 const response_messages_1 = require("../../../utils/messages/response_messages");
+const jwt_1 = require("../../../config/jwt");
 const SpecialityRouter = (0, express_1.Router)();
 class SpecialityController {
     constructor() {
@@ -200,9 +201,9 @@ class SpecialityController {
     }
 }
 exports.SpecialityController = SpecialityController;
-SpecialityRouter.post('/get-specialities-page', new SpecialityController().getSpecialitiesPage);
-SpecialityRouter.post('/register-speciality', new SpecialityController().registerSpeciality);
-SpecialityRouter.post('/update-speciality', new SpecialityController().updateSpeciality);
-SpecialityRouter.post('/change-status-speciality', new SpecialityController().changeStatusSpeciality);
-SpecialityRouter.get('/get-all-specialities', new SpecialityController().getAllSpecialities);
+SpecialityRouter.post('/get-specialities-page', (0, jwt_1.Authenticator)(['ADMIN']), new SpecialityController().getSpecialitiesPage);
+SpecialityRouter.post('/register-speciality', (0, jwt_1.Authenticator)(['ADMIN']), new SpecialityController().registerSpeciality);
+SpecialityRouter.post('/update-speciality', (0, jwt_1.Authenticator)(['ADMIN']), new SpecialityController().updateSpeciality);
+SpecialityRouter.post('/change-status-speciality', (0, jwt_1.Authenticator)(['ADMIN']), new SpecialityController().changeStatusSpeciality);
+SpecialityRouter.get('/get-all-specialities', (0, jwt_1.Authenticator)(['ADMIN']), new SpecialityController().getAllSpecialities);
 exports.default = SpecialityRouter;
