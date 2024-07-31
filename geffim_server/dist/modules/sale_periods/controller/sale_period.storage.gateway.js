@@ -128,6 +128,7 @@ class SalePeriodStorageGateway {
     }
     getCurrrentSalePeriod(payload) {
         return __awaiter(this, void 0, void 0, function* () {
+            payload.today.setHours(0, 0, 0, 0);
             try {
                 const response = yield (0, db_connection_1.queryDB)("SELECT * FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status = 'active'", [payload.today, payload.today]);
                 return response[0];

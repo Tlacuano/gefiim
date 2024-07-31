@@ -111,6 +111,7 @@ export class SalePeriodStorageGateway {
     }
 
     async getCurrrentSalePeriod(payload: { today: Date }) {
+        payload.today.setHours(0, 0, 0, 0);
         try {
             const response = await queryDB<SalePeriod[]>("SELECT * FROM sale_periods WHERE start_date <= ? AND end_date >= ? AND status = 'active'", 
                 [payload.today, payload.today]);

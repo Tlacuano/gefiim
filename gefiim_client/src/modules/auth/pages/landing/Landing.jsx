@@ -42,7 +42,7 @@ export const Landing = () => {
                 <Container style={{height:'100%'}}>
                     <Row>
                         <Col className="text-center">
-                            <img style={{ maxWidth: '70%', maxHeight:'40vh' }} src={`data:image/png;base64,${data.logo}`} alt="logo" className="logo p-5" />
+                            <img style={{ maxWidth: '70%', maxHeight:'35vh' }} src={`data:image/png;base64,${data.logo}`} alt="logo" className="logo p-5" />
                         </Col>
                     </Row>
                     {

@@ -14,7 +14,7 @@ export const RegisterCandidate = () => {
 
     // estados del componente
     const [logo, setLogo] = useState('')
-    const [currentStep, setCurrentStep] = useState(5)
+    const [currentStep, setCurrentStep] = useState(0)
 
     useEffect(() => {
         const institutionalInformation = JSON.parse(localStorage.getItem('institutionalInformation'))
@@ -498,7 +498,7 @@ export const RegisterCandidate = () => {
         }
 
         // validar segundo apellido del tutor
-        if(form.tutor_second_last_name === '' || form.tutor_second_last_name === null){
+        if(form.tutor_second_last_name !== '' && form.tutor_second_last_name !== null ){
             if(!/^([A-ZÁÉÍÓÚÄËÏÖÜ][a-záéíóúäëïöü]{2,}|(de|la|del))(\s([A-ZÁÉÍÓÚÄËÏÖÜ][a-záéíóúäëïöü]{2,}|(de|la|del)))*$/.test(form.tutor_second_last_name)){
                 newError.tutor_second_last_name = { error: true, message: 'Apellido inválido' }
                 check = true
@@ -734,7 +734,7 @@ export const RegisterCandidate = () => {
                     <h1>Registro de candidato</h1>
                 </Col>
                 <Col lg="2" sm="3" xs="3" >
-                    <img className='selectable' src={`data:image/png;base64,${logo}`} alt="logo" style={{ maxWidth: '90%' }} onClick={() => navigate("/")}  />
+                    <img className='selectable' src={`data:image/png;base64,${logo}`} alt="logo" style={{ maxHeight: '8vh' }} onClick={() => navigate("/")}  />
                 </Col>
             </Row>
             <hr/>
