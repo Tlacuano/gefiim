@@ -39,7 +39,7 @@ const generateList = (data) => __awaiter(void 0, void 0, void 0, function* () {
                                 {
                                     rowSpan: 2,
                                     image: data.logo,
-                                    width: 120,
+                                    fit: [90, 50],
                                     alignment: 'right'
                                 },
                             ],

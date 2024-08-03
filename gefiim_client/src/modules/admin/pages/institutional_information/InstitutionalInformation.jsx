@@ -116,7 +116,7 @@ export const InstitutionalInformation = () => {
             {
                 institutionalInformation === null ?
                 <div className="text-center">
-                    <h1>Cargando...</h1>
+                    <h5>Cargando...</h5>
                 </div>
                 :
                 <Row

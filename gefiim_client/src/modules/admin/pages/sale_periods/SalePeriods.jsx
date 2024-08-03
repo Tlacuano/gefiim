@@ -15,7 +15,7 @@ export const SalePeriods = () => {
     const [periods, setPeriods] = useState(null);
     const [pageObject, setPageObject] = useState({
         page: 1,
-        limit: 14
+        limit: 11
     });
     
     // Modals
@@ -73,15 +73,20 @@ export const SalePeriods = () => {
             {
                 periods === null ? (
                     <div className="text-center">
-                        <h1>Cargando...</h1>
+                        <h5>Cargando...</h5>
                     </div>
                 ) : (
-                    <Row>
-                        <Col className="text-end my-4" lg='12' md='12' sm='12' xs='12'>
+                    <Row
+                        style={{
+                            overflowY: 'auto',
+                            height: 'calc(100vh - 110px)',
+                        }}
+                    >
+                        <Col className="text-end my-3" lg='12' md='12' sm='12' xs='12'>
                             <ButtonComponent
                                 pl={40}
                                 pr={40}
-                                textSize={20}
+                                textSize={15}
                                 action={ () => setRegisterModal(true) }
                             >
                                 Registrar periodo

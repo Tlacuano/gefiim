@@ -117,8 +117,9 @@ class SalePeriodStorageGateway {
     }
     finalizeSalePeriod(payload) {
         return __awaiter(this, void 0, void 0, function* () {
+            payload.today.setHours(0, 0, 0, 0);
             try {
-                const response = yield (0, db_connection_1.queryDB)("UPDATE sale_periods SET status = 'finished' WHERE end_date < ? AND status = 'active'", [payload.today]);
+                const response = yield (0, db_connection_1.queryDB)("UPDATE sale_periods SET status = 'finalized' WHERE end_date < ? AND status = 'active'", [payload.today]);
                 return response;
             }
             catch (error) {

@@ -148,13 +148,11 @@ class SpecialityController {
                 // validar el cuerpo de la peticion
                 if (!payload.id_speciality)
                     throw new Error(response_messages_1.MESSAGES.BAD_REQUEST.DEFAULT);
+                payload.status = parseInt(payload.status);
                 // instanciar el gateway
                 const StorageGateway = new speciality_storage_gateway_1.SpecialityStorageGateway();
-                // traer la especialidad
-                const speciality = yield StorageGateway.getSpecialityById(payload.id_speciality);
-                speciality.status = !speciality.status;
                 // actualizar la especialidad
-                yield StorageGateway.updateSpecialityStatus(speciality);
+                yield StorageGateway.updateSpecialityStatus(payload);
                 // crear el cuerpo de la respuesta
                 const body = {
                     data: true,

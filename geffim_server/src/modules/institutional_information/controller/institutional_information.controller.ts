@@ -5,6 +5,7 @@ import { InstitutionalInformationStorageGateway } from "./institutional_informat
 import { ResponseApi } from "../../../kernel/types";
 import { InstitutionalInformation } from "../model/institutional_information";
 import { Authenticator } from "../../../config/jwt";
+import { SalePeriodStorageGateway } from "../../sale_periods/controller/sale_period.storage.gateway";
 
 const InstitutionalInformationRouter = Router();
 
@@ -20,6 +21,14 @@ export class InstitutionalInformationController {
             // Convertir el logo y la imagen principal a base64
             institutionalInformation.logo = Buffer.from(institutionalInformation.logo as Buffer).toString('base64');
             institutionalInformation.main_image = Buffer.from(institutionalInformation.main_image as Buffer).toString('base64');
+
+            // como esta peticion se hace siempre, se usara para actualizar los periodos de venta
+            const salePeriodStorageGateway = new SalePeriodStorageGateway()
+
+            const today = new Date();
+
+            await salePeriodStorageGateway.finalizeSalePeriod({ today: today });
+            await salePeriodStorageGateway.updateNewActiveSpeciality({ today: today });
 
             // Crear el cuerpo de la respuesta
             const body: ResponseApi<InstitutionalInformation> = {

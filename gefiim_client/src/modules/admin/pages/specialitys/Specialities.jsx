@@ -14,7 +14,7 @@ export const Specialities = () => {
     const [specialities, setSpecialities] = useState(null);
     const [pageObject, setPageObject] = useState({
         page: 1,
-        limit: 14
+        limit: 11
     });
     const [search, setSearch] = useState('');
 
@@ -66,23 +66,28 @@ export const Specialities = () => {
             {
                 specialities === null ?
                     <div className="text-center">
-                        <h1>Cargando...</h1>
+                        <h5>Cargando...</h5>
                     </div>
                     :
-                    <Row>
+                    <Row
+                        style={{
+                            overflowY: 'auto',
+                            height: 'calc(100vh - 110px)',
+                        }}
+                    >
                         <Col lg='4' md='4' sm='12' xs='12'>
                             <InputComponent
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
                         </Col>
-                        <Col className="text-end mb-4">
+                        <Col className="text-end mb-3">
                             <ButtonComponent
                                 className="mt-3"
                                 action={() => setRegisterModal(true)}
                                 pl={40}
                                 pr={40}
-                                textSize={20}
+                                textSize={15}
                             >
                                 Registrar especialidad
                             </ButtonComponent>

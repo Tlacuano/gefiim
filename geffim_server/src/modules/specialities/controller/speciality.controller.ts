@@ -172,16 +172,13 @@ export class SpecialityController {
             if(!payload.id_speciality)
                 throw new Error(MESSAGES.BAD_REQUEST.DEFAULT);
 
+            payload.status = parseInt(payload.status as any);
+
             // instanciar el gateway
             const StorageGateway = new SpecialityStorageGateway();
 
-            // traer la especialidad
-            const speciality = await StorageGateway.getSpecialityById(payload.id_speciality);
-
-            speciality.status = !speciality.status;
-
             // actualizar la especialidad
-            await StorageGateway.updateSpecialityStatus(speciality);
+            await StorageGateway.updateSpecialityStatus(payload);
 
             // crear el cuerpo de la respuesta
             const body : ResponseApi<boolean> = {

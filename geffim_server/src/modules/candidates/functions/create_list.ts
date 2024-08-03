@@ -29,7 +29,7 @@ export const generateList = async (data:RequestToGenerateListDto) => {
                                 {
                                     rowSpan: 2,
                                     image: data.logo,
-                                    width:120,
+                                    fit: [90, 50],
                                     alignment:'right'
                                     
                                 },

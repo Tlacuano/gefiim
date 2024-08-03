@@ -18,6 +18,7 @@ const logger_1 = __importDefault(require("../../../config/logs/logger"));
 const error_handler_1 = require("../../../config/errors/error_handler");
 const institutional_information_storage_gateway_1 = require("./institutional_information.storage.gateway");
 const jwt_1 = require("../../../config/jwt");
+const sale_period_storage_gateway_1 = require("../../sale_periods/controller/sale_period.storage.gateway");
 const InstitutionalInformationRouter = (0, express_1.Router)();
 class InstitutionalInformationController {
     getInstitutionalInformation(___, res) {
@@ -30,6 +31,11 @@ class InstitutionalInformationController {
                 // Convertir el logo y la imagen principal a base64
                 institutionalInformation.logo = Buffer.from(institutionalInformation.logo).toString('base64');
                 institutionalInformation.main_image = Buffer.from(institutionalInformation.main_image).toString('base64');
+                // como esta peticion se hace siempre, se usara para actualizar los periodos de venta
+                const salePeriodStorageGateway = new sale_period_storage_gateway_1.SalePeriodStorageGateway();
+                const today = new Date();
+                yield salePeriodStorageGateway.finalizeSalePeriod({ today: today });
+                yield salePeriodStorageGateway.updateNewActiveSpeciality({ today: today });
                 // Crear el cuerpo de la respuesta
                 const body = {
                     data: institutionalInformation,

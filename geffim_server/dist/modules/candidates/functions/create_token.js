@@ -26,25 +26,25 @@ const createToken = (data) => __awaiter(void 0, void 0, void 0, function* () {
                 // CABECERA
                 {
                     table: {
-                        widths: [200, '*',],
+                        widths: [200, '*'],
                         body: [
                             [
-                                { text: 'Registro de aspirante', style: 'title', border: [false, false, true], },
+                                { text: 'Registro de aspirante', style: 'title', border: [false, false, true] },
                                 {
                                     rowSpan: 2,
                                     image: data.logo,
-                                    width: 120,
+                                    fit: [90, 50],
                                     alignment: 'right'
-                                },
+                                }
                             ],
                             [
-                                { text: 'No. de Solicitud: ' + data.token, border: [false, false, true], margin: [0, 3, 0, 0], },
-                                '',
-                            ],
+                                { text: 'No. de Solicitud: ' + data.token, border: [false, false, true], margin: [0, 3, 0, 0] },
+                                ''
+                            ]
                         ]
                     },
                     layout: {
-                        defaultBorder: false,
+                        defaultBorder: false
                     }
                 },
                 //CARRERAS Y FOTO

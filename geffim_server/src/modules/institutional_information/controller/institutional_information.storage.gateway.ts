@@ -13,8 +13,8 @@ export class InstitutionalInformationStorageGateway {
 
     async updateInstitutionalInformation(payload: InstitutionalInformation) {
         try {
-            const response = await queryDB('UPDATE institutional_information SET primary_color = ?, secondary_color = ?, logo = ?, main_image = ? WHERE id = 1', 
-                [payload.primary_color, payload.secondary_color, payload.logo, payload.main_image]);
+            const response = await queryDB('UPDATE institutional_information SET primary_color = ?, secondary_color = ?, logo = ?, main_image = ?, name = ? WHERE id = 1', 
+                [payload.primary_color, payload.secondary_color, payload.logo, payload.main_image, payload.name]);
             
             return response;
         } catch (error) {

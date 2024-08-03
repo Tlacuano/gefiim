@@ -30,23 +30,23 @@ export const SidebarXL = () => {
                 </Nav.Item>
                 <hr/>
                 <Nav.Item>
-                    <FontAwesomeIcon icon='calendar' onClick={()=> navigate('/periodo-de-venta')} style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />
+                    <FontAwesomeIcon icon='calendar' onClick={()=> navigate('/periodo-de-venta')} style={{ fontSize:'23px'}} className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
                 <Nav.Item href="#">
-                    <FontAwesomeIcon icon='sitemap' onClick={()=> navigate('/especialidades')}  style={{ fontSize:'28px'}}  className="text-secondary-color my-3 selectable" />
+                    <FontAwesomeIcon icon='sitemap' onClick={()=> navigate('/especialidades')}  style={{ fontSize:'23px'}}  className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
                 <Nav.Item href="#">
-                    <FontAwesomeIcon icon='school' onClick={()=> navigate('/informacion-institucional')} style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />
+                    <FontAwesomeIcon icon='school' onClick={()=> navigate('/informacion-institucional')} style={{ fontSize:'23px'}} className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
                 <Nav.Item href="#">
-                    <FontAwesomeIcon icon='folder' onClick={() => navigate('/candidatos')} style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />
+                    <FontAwesomeIcon icon='folder' onClick={() => navigate('/candidatos')} style={{ fontSize:'23px'}} className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
                 <Nav.Item href="#">
-                    <FontAwesomeIcon icon='users' onClick={()=> navigate('/administradores')}  style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" />
+                    <FontAwesomeIcon icon='users' onClick={()=> navigate('/administradores')}  style={{ fontSize:'23px'}} className="text-secondary-color my-3 selectable" />
                 </Nav.Item>
 
                 <Nav.Item href="#" className="mt-auto">
-                    <FontAwesomeIcon icon='arrow-right-from-bracket' style={{ fontSize:'35px'}} className="text-secondary-color my-3 selectable" onClick={logout} />
+                    <FontAwesomeIcon icon='arrow-right-from-bracket' style={{ fontSize:'28px'}} className="text-secondary-color my-3 selectable" onClick={logout} />
                 </Nav.Item>
             </Nav>
 

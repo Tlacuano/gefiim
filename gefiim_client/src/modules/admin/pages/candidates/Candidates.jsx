@@ -13,7 +13,7 @@ export const Candidates = () => {
     const [candidates, setCandidates] = useState(null);
     const [pageObject, setPageObject] = useState({
         page: 1,
-        limit: 14
+        limit: 11
     });
     const [search, setSearch] = useState('');
 
@@ -69,11 +69,16 @@ export const Candidates = () => {
             {
                 candidates === null ?
                     <div className="text-center">
-                        <h1>Cargando...</h1>
+                        <h5>Cargando...</h5>
                     </div>
                 :
-                    <Row>
-                        <Col className="mb-3" lg='4' md='4' sm='12' xs='12'>
+                    <Row
+                        style={{
+                            overflowY: 'auto',
+                            height: 'calc(100vh - 105px)',
+                        }}
+                    >
+                        <Col className="mb-2" lg='4' md='4' sm='12' xs='12'>
                             <InputComponent
                                 label='Buscar por CURP o No. de ficha'
                                 value={search}

@@ -2,5 +2,5 @@ export type Speciality = {
     id_speciality: number;
     name: string;
     acronym: string;
-    status: boolean;
+    status: any;
 };

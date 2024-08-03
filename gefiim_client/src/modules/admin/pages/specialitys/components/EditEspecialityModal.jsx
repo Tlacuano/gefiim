@@ -4,6 +4,7 @@ import { ButtonComponent, InputComponent } from "../../../../../components";
 import { LoadAlert, SweetAlert, ToastSuccess, ToastWarning } from "../../../../../components/SweetAlertToast";
 
 import axios from '../../../../../config/http-clientt.gateway'
+import { SelectComponent } from "../../../../../components/SelectComponent";
 
 
 export const EditEspecialityModal = ({ show, handleClose, speciality }) => {
@@ -23,7 +24,8 @@ export const EditEspecialityModal = ({ show, handleClose, speciality }) => {
     const [newSpeciality, setNewSpeciality] = useState({
         id_speciality: '',
         name: '',
-        acronym: ''
+        acronym: '',
+        status: false
     });
 
     const validate = () => {
@@ -84,6 +86,34 @@ export const EditEspecialityModal = ({ show, handleClose, speciality }) => {
         }
     }
 
+    const changeStatus = async () => {
+        SweetAlert(
+            'question',
+            '¿Estás seguro?',
+            '¿Deseas cambiar el estado de la especialidad?',
+            'Aceptar',
+            async () => {
+                try {
+                    LoadAlert(true);
+                    const response = await axios.doPost(`/speciality/change-status-speciality`, newSpeciality);
+                    LoadAlert(false);
+
+                if (response.data) {
+                    ToastSuccess('Especialidad editada correctamente');
+
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500)
+                }
+                } catch (error) {
+                    LoadAlert(false);
+                    ToastWarning(error.response.data.message);
+                    
+                }
+            }
+        )
+    }
+
     useEffect(() => {
         if (speciality) {
             setNewSpeciality(speciality);
@@ -122,6 +152,31 @@ export const EditEspecialityModal = ({ show, handleClose, speciality }) => {
                             Editar especialidad
                         </ButtonComponent>
                     </Col>
+                    <Col  lg={12} md={12} sm={12} xs={12}>
+                        <hr/>
+                        <h5>
+                            Estado
+                        </h5>
+                    </Col>
+                    <Col className="mb-3" lg={12} md={12} sm={12} xs={12}>
+                        <SelectComponent
+                            value={newSpeciality.status}
+                            onChange={(e) => setNewSpeciality({ ...newSpeciality, status: e.target.value })}
+                            options={[
+                                { value: 1, label: 'Activo' },
+                                { value: 0, label: 'Inactivo' }
+                            ]}
+                        />
+                    </Col>
+                    <Col className="text-end mt-2" lg={12} md={12} sm={12} xs={12}>
+                    {newSpeciality.status}
+                        <ButtonComponent
+                            action={changeStatus}
+                        >
+                            Camiar estado
+                        </ButtonComponent>
+                    </Col>
+
                 </Row>
             </Modal.Body>
         </Modal>

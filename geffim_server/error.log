@@ -464,3 +464,197 @@
 {"level":"error","message":"Server Error","timestamp":"2024-07-24T21:17:42.499Z"}
 {"level":"error","timestamp":"2024-07-24T21:19:20.375Z"}
 {"level":"error","message":"Server Error","timestamp":"2024-07-24T21:19:20.376Z"}
+{"level":"error","timestamp":"2024-08-03T07:22:51.371Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:22:51.372Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:22:51.354' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:22:51.381Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:22:51.382Z"}
+{"level":"error","timestamp":"2024-08-03T07:22:51.382Z"}
+{"level":"error","timestamp":"2024-08-03T07:22:51.385Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:22:51.386Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:22:51.406' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:22:51.407Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:22:51.407Z"}
+{"level":"error","timestamp":"2024-08-03T07:22:51.408Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:22:51.428' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:22:51.429Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:22:51.429Z"}
+{"level":"error","timestamp":"2024-08-03T07:22:51.429Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:22:51.448' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:22:51.449Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:22:51.450Z"}
+{"level":"error","timestamp":"2024-08-03T07:22:51.450Z"}
+{"level":"error","timestamp":"2024-08-03T07:22:51.840Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:22:51.840Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:03.413Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:23:03.414Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:03.418' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:03.421Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:03.421Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:03.421Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:03.452Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:23:03.453Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:03.459' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:03.460Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:03.460Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:03.461Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:03.473' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:03.478Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:03.479Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:03.479Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:03.497' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:03.498Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:03.499Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:03.499Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:03.529Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:23:03.529Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:15.909Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:23:15.909Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:15.940' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:15.941Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:15.942Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:15.942Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:15.960Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:23:15.961Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:16.038Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:23:16.038Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:16.065' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:16.067Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:16.068Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:16.069Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:16.087' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:16.088Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:16.089Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:16.089Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:23:16.097' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:23:16.098Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:23:16.098Z"}
+{"level":"error","timestamp":"2024-08-03T07:23:16.099Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:26.975Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:26:26.975Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:26.980' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:26.982Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:26.983Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:26.983Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:26.998Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:26:26.999Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:27.004' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:27.005Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:27.006Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:27.006Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:27.027' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:27.028Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:27.029Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:27.029Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:27.058' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:27.059Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:27.059Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:27.059Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:27.089Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:26:27.090Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:46.986Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:26:46.987Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:46.991' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:46.992Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:46.992Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:46.992Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:47.012Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:26:47.013Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:47.028' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:47.029Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:47.031Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:47.032Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:47.060' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:47.060Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:47.061Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:47.061Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:26:47.074' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:26:47.075Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:26:47.076Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:47.076Z"}
+{"level":"error","timestamp":"2024-08-03T07:26:47.113Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:26:47.113Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:38.240Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:27:38.240Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:38.252Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:27:38.252Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:38.257' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:38.258Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:38.258Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:38.258Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:38.927Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:27:38.927Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:38.928Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:27:38.928Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:38.935' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:38.935Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:38.936Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:38.936Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:40.400Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:27:40.401Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:40.489' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:40.490Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:40.491Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:40.491Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:40.503Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:27:40.504Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:40.518' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:40.520Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:40.520Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:40.520Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:40.532' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:40.533Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:40.534Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:40.535Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:40.557' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:40.558Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:40.558Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:40.558Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:40.624Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:27:40.624Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:50.321Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:27:50.321Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:50.328Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:27:50.328Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:50.341' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:50.342Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:50.343Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:50.343Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:50.369' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:50.370Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:50.371Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:50.371Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:50.402' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:50.403Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:50.404Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:50.404Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:27:50.410' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:27:50.411Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:27:50.411Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:50.411Z"}
+{"level":"error","timestamp":"2024-08-03T07:27:50.498Z"}
+{"level":"error","message":"Error en la petición. Por favor, verifica los datos enviados.","timestamp":"2024-08-03T07:27:50.498Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:05.569Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:29:05.570Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:05.574' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:05.575Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:05.575Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:05.575Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:05.919Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:29:05.919Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:05.924' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:05.925Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:05.926Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:05.926Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:09.452Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:29:09.452Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:09.458Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:29:09.459Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:09.457' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:09.460Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:09.461Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:09.462Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:09.468' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:09.470Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:09.471Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:09.471Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:09.494' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:09.500Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:09.500Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:09.500Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:09.499' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:09.502Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:09.502Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:09.502Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:49.259Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:29:49.259Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:49.265' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:49.266Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:49.267Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:49.267Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:49.282Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:29:49.282Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:49.292' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:49.293Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:49.293Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:49.294Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:49.306' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:49.307Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:49.307Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:49.308Z"}
+{"code":"WARN_DATA_TRUNCATED","errno":1265,"level":"error","sql":"UPDATE sale_periods SET status = 'finished' WHERE end_date < '2024-08-03 01:29:49.338' AND status = 'active'","sqlMessage":"Data truncated for column 'status' at row 1","sqlState":"01000","timestamp":"2024-08-03T07:29:49.340Z"}
+{"level":"error","message":"Vaya, algo salió mal. Inténtalo de nuevo más tarde.","timestamp":"2024-08-03T07:29:49.341Z"}
+{"level":"error","timestamp":"2024-08-03T07:29:49.341Z"}
+{"level":"error","timestamp":"2024-08-03T07:32:29.096Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:32:29.097Z"}
+{"level":"error","timestamp":"2024-08-03T07:32:29.108Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:32:29.116Z"}
+{"level":"error","timestamp":"2024-08-03T07:37:58.207Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:37:58.208Z"}
+{"level":"error","timestamp":"2024-08-03T07:37:58.214Z"}
+{"level":"error","message":"No hay periodo de venta activo","timestamp":"2024-08-03T07:37:58.215Z"}
+{"level":"error","timestamp":"2024-08-03T09:58:21.637Z"}
+{"level":"error","message":"Usuario o contraseña incorrectos","timestamp":"2024-08-03T09:58:21.640Z"}
+{"level":"error","timestamp":"2024-08-03T09:58:58.336Z"}
+{"level":"error","message":"Usuario o contraseña incorrectos","timestamp":"2024-08-03T09:58:58.337Z"}

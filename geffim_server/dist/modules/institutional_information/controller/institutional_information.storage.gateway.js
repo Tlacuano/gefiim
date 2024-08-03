@@ -26,7 +26,7 @@ class InstitutionalInformationStorageGateway {
     updateInstitutionalInformation(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield (0, db_connection_1.queryDB)('UPDATE institutional_information SET primary_color = ?, secondary_color = ?, logo = ?, main_image = ? WHERE id = 1', [payload.primary_color, payload.secondary_color, payload.logo, payload.main_image]);
+                const response = yield (0, db_connection_1.queryDB)('UPDATE institutional_information SET primary_color = ?, secondary_color = ?, logo = ?, main_image = ?, name = ? WHERE id = 1', [payload.primary_color, payload.secondary_color, payload.logo, payload.main_image, payload.name]);
                 return response;
             }
             catch (error) {

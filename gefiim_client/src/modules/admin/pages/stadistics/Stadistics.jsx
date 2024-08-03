@@ -18,10 +18,16 @@ export const Stadistics = () => {
     const getCurrentPeriod = async () => {
         try {
             // traer el periodo actual
+            LoadAlert(true)
+            // esperar .5 segundos
+            await new Promise(resolve => setTimeout(resolve, 500))
+
             const response = await axios.doGet('/sale-period/get-current-period')
+            LoadAlert(false)
             // setear el periodo actual
             setData(response.data)
         } catch (error) {
+            LoadAlert(false)
             setData('No hay ningún periodo de venta activo')
             ToastWarning(error.response.data.message)
         }
@@ -38,6 +44,8 @@ export const Stadistics = () => {
 
     const generateList = async () => {
         try {
+
+
             LoadAlert(true)
             const response = await axios.doPost('/candidates/generate-list', { id_period: data.currentSalePeriod })
             LoadAlert(false)
@@ -53,7 +61,13 @@ export const Stadistics = () => {
 
     useEffect(() => {
         if (data !== '') {
-            getStadistics()
+            if(data.currentSalePeriod !== null && data.currentSalePeriod !== undefined) {
+                getStadistics()
+            }else{
+                ToastWarning('No hay ningún periodo de venta activo')
+                return
+            }
+            
         }
     }, [data])
 
@@ -70,9 +84,14 @@ export const Stadistics = () => {
                         <Loanding />
                         :
                         data !== '' && stadistics !== '' &&
-                        <Row>
+                        <Row
+                            style={{
+                                overflowY: 'auto',
+                                height: 'calc(100vh - 110px)',
+                            }}
+                        >
                             <Col lg='6' className="mb-3" >
-                                <Card style={{ height: '130px' }}>
+                                <Card style={{ maxHeight: '16vh' }}>
                                     <CardBody>
                                         <Row className="d-flex align-items-center justify-content-center h-100">
                                             <Col style={{
@@ -85,14 +104,22 @@ export const Stadistics = () => {
                                                 <Row className="h-100">
                                                     <Col >
                                                         <div className="text-center h-100 selectable" onClick={() => setShowModalPayment(!showModalPayment)}>
-                                                            <FontAwesomeIcon icon='dollar-sign' size='3x' />
-                                                            <p className="text-muted m-0 mt-2">Registrar pago</p>
+                                                        <FontAwesomeIcon icon='dollar-sign' className="d-none d-md-inline fa-2x fa-lg-3x fa-3x" />
+                                                        <FontAwesomeIcon icon='dollar-sign' className="d-inline d-md-none fa-2x fa-lg-3x fa-2x" />
+                                                            <p className="text-muted m-0 mt-2">
+                                                                <span className="d-none d-md-inline">Registrar pago</span>
+                                                                <span className="d-inline d-md-none">Pago</span>
+                                                            </p>
                                                         </div>
                                                     </Col>
                                                     <Col>
                                                         <div className="text-center h-100 selectable"  onClick={generateList}>
-                                                            <FontAwesomeIcon icon='download' size='3x' />
-                                                            <p className="text-muted m-0 mt-2">Generar lista</p>
+                                                            <FontAwesomeIcon icon='download' className="d-none d-md-inline fa-2x fa-lg-3x fa-3x" />
+                                                            <FontAwesomeIcon icon='download' className="d-inline d-md-none fa-2x fa-lg-3x fa-2x" />
+                                                            <p className="text-muted m-0 mt-2">
+                                                                <span className="d-none d-md-inline">Generar lista</span>
+                                                                <span className="d-inline d-md-none">Lista</span>
+                                                            </p>
                                                         </div>
                                                     </Col>
                                                 </Row>
@@ -102,7 +129,7 @@ export const Stadistics = () => {
                                 </Card>
                             </Col>
                             <Col lg='3' className="mb-3">
-                                <Card style={{ height: '130px' }}>
+                                <Card style={{ maxHeight: '16vh' }}>
                                     <CardBody>
                                         <Row className="d-flex align-items-center justify-content-center h-100">
                                             <Col className="text-center">
@@ -114,7 +141,7 @@ export const Stadistics = () => {
                                 </Card>
                             </Col>
                             <Col lg='3' className="mb-3">
-                                <Card style={{ height: '130px' }}>
+                                <Card style={{ maxHeight: '16vh' }}>
                                     <CardBody>
                                         <Row className="d-flex align-items-center justify-content-center h-100">
                                             <Col className="text-center">
@@ -130,7 +157,7 @@ export const Stadistics = () => {
                                     <Col>
                                         <Card>
                                             <CardBody>
-                                                <ResponsiveContainer width="100%" height={600}>
+                                                <ResponsiveContainer width="100%" height={500}>
                                                     <BarChart
                                                         data={stadistics.stadistics_by_speciality}
                                                         margin={{
@@ -153,7 +180,7 @@ export const Stadistics = () => {
                             <Col lg='3'>
                                 <Card>
                                     <CardBody>
-                                        <div style={{height:'600px', overflowY:'auto', overflowX:'hidden'}}>
+                                        <div style={{height:'500px', overflowY:'auto', overflowX:'hidden'}}>
                                             <h5 className="mb-4">Fichas pagadas / sin pagar</h5>
                                             {
                                                 stadistics.stadistics_by_speciality.map((speciality, index) => {

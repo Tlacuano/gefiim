@@ -101,8 +101,9 @@ export class SalePeriodStorageGateway {
     }
 
     async finalizeSalePeriod(payload: { today: Date }) {
+        payload.today.setHours(0, 0, 0, 0);
         try {
-            const response = await queryDB("UPDATE sale_periods SET status = 'finished' WHERE end_date < ? AND status = 'active'", 
+            const response = await queryDB("UPDATE sale_periods SET status = 'finalized' WHERE end_date < ? AND status = 'active'", 
                 [payload.today]);
             return response;
         } catch (error) {

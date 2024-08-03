@@ -15,7 +15,7 @@ export const Users = () => {
     const [users, setUsers] = useState(null);
     const [pageObject, setPageObject] = useState({
         page: 1,
-        limit: 14
+        limit: 11
     });
     const [registerModal, setRegisterModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -59,15 +59,20 @@ export const Users = () => {
             {
                 users === null ?
                     <div className="text-center">
-                        <h1>Cargando...</h1>
+                        <h5>Cargando...</h5>
                     </div>
                 :
-                    <Row>
+                    <Row
+                        style={{
+                            overflowY: 'auto',
+                            height: 'calc(100vh - 105px)',
+                        }}
+                    >
                         <Col className="text-end my-4" lg='12' md='12' sm='12' xs='12'>
                             <ButtonComponent
                                 pl={40}
                                 pr={40}
-                                textSize={20}
+                                textSize={15}
                                 action={ () => setRegisterModal(true) }
                             >
                                 Registrar administrador
